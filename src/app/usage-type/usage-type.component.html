@@ -1,0 +1,43 @@
+<div>
+
+  <!--
+  <h1>Welcome to Gene Ontology Activity Models (GO-CAMs)</h1>
+  -->
+
+
+  <div fxLayout="column" fxLayoutAlign="space-evenly center" style="height:600px">
+
+    <div style="font-size: 64px; font-weight:bold;" fxLayout="row" fxLayoutAlign="space-evenly center">
+      <span matTooltip="Gene" style="color:blue">G</span>
+      <span matTooltip="Ontology" style="color:red">O</span>
+      -
+      <span matTooltip="Causal" style="color:orange">C</span>
+      <span matTooltip="Activity" style="color:blue">A</span>
+      <span matTooltip="Model" style="color:green">M</span>
+    </div>
+
+    <div style="width: 100%">
+      <h2>Select a usage type:</h2>
+
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+        <!-- note: color = primary / accent / warn -->
+        <button mat-raised-button (click)="usage('Research')" style="margin:20px; width:150px; height:150px;">Research &nbsp;
+          <mat-icon>device_hub</mat-icon>
+        </button>
+
+        <button mat-raised-button (click)="usage('Curation')" style="margin:20px; width:150px; height:150px;">Curation &nbsp;
+          <mat-icon>create</mat-icon>
+        </button>
+
+        <button mat-raised-button (click)="usage('Development')" style="margin:20px; width:150px; height:150px;">Development &nbsp;
+          <mat-icon>settings</mat-icon>
+        </button>
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

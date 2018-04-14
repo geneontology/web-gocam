@@ -1,0 +1,59 @@
+<mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>attach_file</mat-icon>
+    </div>
+    <mat-card-title>Downloads</mat-card-title>
+    <mat-card-subtitle>Archive of GO-CAMs</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <!--
+    <p>
+      GO-CAM models are based on the semantic annotation and combination of biological facts. Each fact or statement corresponds to a standard GO Annotation, that is, an association between a Gene and a GO-Term.
+    </p>
+    <p>
+      Each biological fact can be written as a triplet (subject - predicate - object) and a GO-CAM model (a collection of triplets) can be stored in a <a href="https://www.w3.org/TR/turtle/" target="blank">TTL file</a>. Currently, the collection of all GO-CAMs (of all TTL files) are stored in the <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Triple Store</a> as a journal file.
+    </p>
+  -->
+    <p>
+      GO-CAMs are available in <a href="https://www.w3.org/TR/turtle/" target="blank">Turtle</a>, <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Journal</a>, <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a> and CausalTAB formats.
+    </p>
+
+  </mat-card-content>
+
+  <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
+    <!--
+    <span matTooltip="Download Models as a GAF Archive">
+      <button mat-button>GAF
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </span>
+
+    <span matTooltip="Download Models as a GAPD Archive">
+      <button mat-button>GAPD
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </span>
+  -->
+    <span matTooltip="Download Models as a TTL Archive" fxFlex=20%>
+      <button mat-button (click)="download(dtype.ttl)">TTL
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </span>
+    <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20%>
+      <button mat-button  (click)="download(dtype.jnl)">JNL
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </span>
+    <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20%>
+        <button mat-button (click)="download(dtype.ctab)">CTAB
+          <mat-icon>get_app</mat-icon>
+        </button>
+      </span>
+      <span matTooltip="Download Models as a SIF file" fxFlex=20%>
+          <button mat-button (click)="download(dtype.sif)">SIF
+            <mat-icon>get_app</mat-icon>
+          </button>
+        </span>
+      </mat-card-actions>
+</mat-card>

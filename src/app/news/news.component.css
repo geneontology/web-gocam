@@ -1,0 +1,27 @@
+h2 {
+    font-size: 14px;
+    margin: 4px;
+    padding: 0px;
+}
+
+.eye {
+    color:rgba(33, 33, 166, 0.8);    
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: up;
+}
+
+.date {
+    color:rgba(33, 33, 166, 0.8);    
+    font-size: 14px;
+}
+
+.title {
+    font-size: 14px;
+    font-style: italic;
+}
+
+div {
+    margin-bottom: 4px;
+}

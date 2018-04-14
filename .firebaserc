@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "mockup-landing-page": "noctua-dev",
+    "noctua-mockup": "noctua-dev3",
+    "default": "noctua-dev3",
+    "dev tests": "noctua-dev4",
+    "alpha": "noctua-dev3"
+  }
+}

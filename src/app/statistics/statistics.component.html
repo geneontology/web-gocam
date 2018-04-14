@@ -1,0 +1,122 @@
+<mat-card class="welcome-card mat-elevation-z5" fxLayout="column" fxLayoutAlign="space-between stretch">
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <!--
+      <mat-icon>trending_up</mat-icon>
+      -->
+      <mat-icon>equalizer</mat-icon>
+    </div>
+    <mat-card-title>Statistics</mat-card-title>
+    <mat-card-subtitle>Evolution of GO-CAMs</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+
+
+    <p>
+      GO-CAMs are produced by members of the
+      <a href="http://www.geneontology.org/page/go-consortium-contributors-list" target="blank">Gene Ontology Consortium</a> (GOC).
+      The GOC integrates resources from more than 35 research groups, from model organisms to protein databases.
+    </p>
+
+
+
+
+    <!-- Statistical Representations -->
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+      <!-- Distribution of Models -->
+      <div fxFlex="35%">
+        <h2 align=center style="font-size: 16px">Overall Groups Contribution</h2>
+        <canvas baseChart width="300" height="300" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      <!--
+       <div fxFlex="35%">
+        <h2 align=center style="font-size: 16px">Overall Groups Contribution</h2>
+        <ngx-charts-advanced-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        (select)="onSelect($event)">
+        </ngx-charts-advanced-pie-chart>
+      </div>
+       -->
+
+      <!-- Evolution of Models -->
+      <mat-tab-group fxFlex="50%">
+        <mat-tab label="Models">
+          <h2 align=center style="font-size: 16px; margin-top:10px;">Number of GO-CAM Models</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="300" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                  [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </mat-tab>
+
+        <mat-tab label="Ontology">
+          <h2 align=center style="font-size: 16px; margin-top:10px;">Number of Controlled Terms in Gene Ontology</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="300" [datasets]="barChartOntologyData" [labels]="barChartOntologyLabels" [options]="barChartOptions"
+                  [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </mat-tab>
+
+        <mat-tab label="Groups">
+          <h2 align=center style="font-size: 16px; margin-top:10px;">Group Contributions to the GO-CAM Models</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div style="display: block;">
+                <canvas baseChart width="400" height="300" [datasets]="barChartGroupData" [labels]="barChartLabels" [options]="barChartOptions"
+                  [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </mat-tab>
+
+      </mat-tab-group>
+
+
+    </div>
+
+
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button>Learn More</button>
+    <!-- mat-button vs mat-raised-button -->
+    <button mat-button [matMenuTriggerFor]="shareMenu">Share
+      <mat-icon>share</mat-icon>
+    </button>
+    <mat-menu #shareMenu="matMenu">
+        <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website (Statistics) !" description="I want to share with you the Statistics regarding the new Gene Ontology Causal Activity Models website"></share-button>
+        <share-button button="twitter" text="Tweet" [showText]="true" tags="GO" description="Check the Statistics regarding the new Gene Ontology Causal Activity Models website: "></share-button>
+        <share-button button="linkedin" text="Share" [showText]="true"  title="Check GO-CAM Website ! (Statistics)" description="Check the Statistics regarding the new Gene Ontology Causal Activity Models website: "></share-button>
+        <share-button button="facebook" text="Share" [showText]="true" description="Check Statistics regarding the new Gene Ontology Causal Activity Models website: "></share-button>
+      </mat-menu>
+  </mat-card-actions>
+</mat-card>
+
+
+<!--
+<ngx-charts-advanced-pie-chart
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="gradient"
+      (select)="onSelect($event)">
+</ngx-charts-advanced-pie-chart>
+-->
