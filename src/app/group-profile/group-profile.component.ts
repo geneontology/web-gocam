@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupService } from '../group.service';
+import { CamSparqlService } from '../cam-sparql.service';
 
 @Component({
   selector: 'app-group-profile',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sparqlHandler: CamSparqlService,
+    private groupService: GroupService) { }
 
   ngOnInit() {
+    this.groupService.loadGroupMetaData();
   }
 
 }

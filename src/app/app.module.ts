@@ -48,11 +48,14 @@ import { GroupProfileComponent } from './group-profile/group-profile.component';
 
 import { ShareButtonModule } from '@ngx-share/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { GroupService } from './group.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/', pathMatch: 'full' },
   { path: 'browse', component: BrowseModelsComponent },
+  { path: 'user/:id', component: UserProfileComponent },
+  { path: 'group/:id', component: GroupProfileComponent },
   { path: '**', component: AppComponent }
 ];
 
@@ -113,6 +116,7 @@ const appRoutes: Routes = [
   providers: [
     UrlHandlerService,
     UserService,
+    GroupService,
     CamSparqlService
   ],
   bootstrap: [AppComponent]

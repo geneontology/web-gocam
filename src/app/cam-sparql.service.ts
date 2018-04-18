@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CamSparqlService {
 
+  /*
   urlMostRecent = "http://rdf.geneontology.org/blazegraph/sparql?query=PREFIX%20metago%3A%20%3Chttp%3A%2F%2Fmodel.geneontology.org%2F%3E%0D%0A%0D%0APREFIX%20dc%3A%20%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%0D%0A%0D%0ASELECT%20%3Fid%20%3Ftitle%20%3Fdate%0D%0AWHERE%20%7B%0D%0A%20%20%0D%0A%23%20%20BIND%28%3Chttp%3A%2F%2Fmodel.geneontology.org%2F584b49fa00000326%3E%20as%20%3Fcam%29%0D%0A%20%20%0D%0A%20%20GRAPH%20%3Fcam%20%7B%0D%0A%20%20%20%20%3Fcam%20metago%3AgraphType%20metago%3AnoctuaCam%20%20.%0D%0A%20%20%20%20%0D%0A%20%20%20%20%3Fcam%20%3Chttp%3A%2F%2Fwww.geneontology.org%2Fformats%2FoboInOwl%23id%3E%20%3Fid%20.%0D%0A%20%20%20%20%3Fcam%20dc%3Atitle%20%3Ftitle%20.%0D%0A%20%20%20%20%3Fcam%20dc%3Adate%20%3Fdate%20.%0D%0A%20%20%7D%0D%0A%0D%0A%7D%0D%0AORDER%20BY%20DESC%28%3Fdate%29%0D%0ALIMIT%20";
 
   urlGS_MostRecent = "https://genosearch.org:9000/api/gocam/last/";
@@ -19,10 +20,10 @@ export class CamSparqlService {
   urlGS_UserNbModels = "https://genosearch.org:9000/api/gocam/contribution/nb/";
 
   urlGS_UserModelIDs = "https://genosearch.org:9000/api/gocam/contribution/";
+  */
 
-
-  baseUrl = "https://ipgc7a2b2e.execute-api.us-east-2.amazonaws.com/gocamv3/";
-
+//  baseUrl = "https://ipgc7a2b2e.execute-api.us-east-2.amazonaws.com/gocamv3/";
+  baseUrl = "https://api.gokb.net/gosparql/";
 
   constructor(private httpClient: HttpClient,
               private http: Http) { }
@@ -61,17 +62,15 @@ getAnnotatedModelList(start: number): Observable<object> {
 
 getUserMetaData(orcid: string): Observable<object> {
   var checkedOrcid = this.getORCID(orcid);
-  return this.http.get(this.urlGS_ListModel + checkedOrcid);
+//  return this.http.get(this.urlGS_ListModel + checkedOrcid);
+  return this.http.get(this.baseUrl + "users/" + orcid);
 }
 
-getUserNbModels(orcid: string): Observable<object> {
+getUserModels(orcid: string): Observable<object> {
   var checkedOrcid = this.getORCID(orcid);
-  return this.http.get(this.urlGS_UserNbModels + checkedOrcid);
-}
+//  return this.http.get(this.urlGS_UserModelIDs + checkedOrcid);
+  return this.http.get(this.baseUrl + "users/" + orcid + "/models");
 
-getUserModelIDs(orcid: string): Observable<object> {
-  var checkedOrcid = this.getORCID(orcid);
-  return this.http.get(this.urlGS_UserModelIDs + checkedOrcid);
 }
 
 

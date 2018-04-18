@@ -23,8 +23,8 @@
         "../node_modules/ionicons/scss/ionicons.scss"
       ],
       "scripts": [
-
-
+        "../node_modules/esprima/dist/esprima.js",
+        "../node_modules/js-yaml/dist/js-yaml.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
