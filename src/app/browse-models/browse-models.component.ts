@@ -18,16 +18,16 @@ export class BrowseModelsComponent implements OnInit {
 
   models = [];
 
-  constructor(private camSparql: CamSparqlService,
+  constructor(private sparqlService: CamSparqlService,
     private urlHandler: UrlHandlerService) { }
 
   ngOnInit() {
 
-    this.camSparql.getAnnotatedModelList(1).subscribe(data => {
+    this.sparqlService.getAnnotatedModelList(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
-      console.log("json:", json);
+//      console.log("json:", json);
 
       json.map(res => {
         this.models.push(res);
@@ -97,6 +97,10 @@ export class BrowseModelsComponent implements OnInit {
       firstNames += split[i].substring(0, 1) + ".";
     }
     return firstNames + split[split.length - 1];
+  }
+
+  extractOrcid(orcid: string): string {
+    return this.sparqlService.getORCID(orcid);
   }
 
 }

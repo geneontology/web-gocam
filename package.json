@@ -42,6 +42,7 @@
     "d3": "^4.13.0",
     "firebase": "^4.11.0",
     "ionicons": "^2.0.1",
+    "js-yaml": "^3.11.0",
     "mustache": "^2.3.0",
     "ng2-charts": "^1.6.0",
     "ng2-semantic-ui": "^0.9.7",

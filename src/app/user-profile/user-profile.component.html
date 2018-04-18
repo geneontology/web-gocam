@@ -1,3 +1,51 @@
-<p>
-  user-profile works!
-</p>
+<mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>person</mat-icon>
+    </div>
+    <mat-card-title>Profile: {{userMeta?.nickname}}</mat-card-title>
+    <mat-card-subtitle>Status: curator</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+
+    <hr> 
+    
+    <table>
+      <tr><td style="padding-right:100px;">Name</td><td><a href={{userMeta?.uri}} target="blank">{{userMeta?.nickname}}</a></td></tr>
+      <tr><td>Organization</td><td> <a href={{groupMeta?.id}} target="blank">{{groupMeta?.label}}</a></td></tr>
+
+      <tr *ngIf="userMeta?.groups">
+        <td>Groups</td>
+        <td>
+          <li *ngFor="let group of userMeta.groups">
+            <a href={{group}} target="blank">{{group}}</a>
+          </li>
+        </td>    
+      </tr>
+
+
+      <tr *ngIf="userMeta?.accounts?.github">
+          <td>GitHub</td>
+          <td>
+              <a href="https://github.com/{{userMeta?.accounts?.github}}" target="blank">{{userMeta?.accounts?.github}}</a>
+          </td>
+        </tr>
+        
+    </table>
+   
+
+    <hr>
+
+
+    <h2>Statistics</h2>
+    <p *ngIf="userModels">
+      {{userModels?.length}} GO-CAMs produced
+    </p>
+    <li *ngFor="let model of userModels">
+      {{model.date}} &nbsp;&nbsp; <a href="{{ urlHandler.getPathwayView(model.gocam) }}" target="blank">{{model.title}}</a>
+    </li>
+
+
+  </mat-card-content>
+</mat-card>
