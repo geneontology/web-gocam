@@ -9,11 +9,21 @@
   <mat-card-content>
 
 
-    <hr> 
-    
+    <hr>
+
     <table>
-      <tr><td style="padding-right:100px;">Name</td><td><a href={{userMeta?.uri}} target="blank">{{userMeta?.nickname}}</a></td></tr>
-      <tr><td>Organization</td><td> <a href={{groupMeta?.id}} target="blank">{{groupMeta?.label}}</a></td></tr>
+      <tr>
+        <td style="padding-right:100px;">Name</td>
+        <td>
+          <a href={{userMeta?.uri}} target="blank">{{userMeta?.nickname}}</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Organization</td>
+        <td>
+          <a href={{groupMeta?.id}} target="blank">{{groupMeta?.label}}</a>
+        </td>
+      </tr>
 
       <tr *ngIf="userMeta?.groups">
         <td>Groups</td>
@@ -21,19 +31,19 @@
           <li *ngFor="let group of userMeta.groups">
             <a href={{group}} target="blank">{{group}}</a>
           </li>
-        </td>    
+        </td>
       </tr>
 
 
       <tr *ngIf="userMeta?.accounts?.github">
-          <td>GitHub</td>
-          <td>
-              <a href="https://github.com/{{userMeta?.accounts?.github}}" target="blank">{{userMeta?.accounts?.github}}</a>
-          </td>
-        </tr>
-        
+        <td>GitHub</td>
+        <td>
+          <a href="https://github.com/{{userMeta?.accounts?.github}}" target="blank">{{userMeta?.accounts?.github}}</a>
+        </td>
+      </tr>
+
     </table>
-   
+
 
     <hr>
 
@@ -42,9 +52,12 @@
     <p *ngIf="userModels">
       {{userModels?.length}} GO-CAMs produced
     </p>
-    <li *ngFor="let model of userModels">
-      {{model.date}} &nbsp;&nbsp; <a href="{{ urlHandler.getPathwayView(model.gocam) }}" target="blank">{{model.title}}</a>
-    </li>
+    <ul>
+      <li *ngFor="let model of userModels">
+        {{model.date}} &nbsp;&nbsp;
+        <a href="{{ urlHandler.getPathwayView(model.gocam) }}" target="blank">{{model.title}}</a>
+      </li>
+    </ul>
 
 
   </mat-card-content>

@@ -55,9 +55,9 @@ getModelList(start: number): Observable<object> {
 return this.http.get(this.baseUrl + "models");
 }
 
-getAnnotatedModelList(start: number): Observable<object> {
+getModelListDetails(start: number): Observable<object> {
   //  return this.http.get(this.urlGS_ListModel + start);
-  return this.http.get(this.baseUrl + "models/annotatedlist");
+  return this.http.get(this.baseUrl + "models/details");
 }
 
 getUserMetaData(orcid: string): Observable<object> {

@@ -23,7 +23,7 @@ export class BrowseModelsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.sparqlService.getAnnotatedModelList(1).subscribe(data => {
+    this.sparqlService.getModelListDetails(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);

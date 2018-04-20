@@ -45,11 +45,15 @@ export class UrlHandlerService {
   }
 
 
+  getGraphView(goModelId: string) {
+    //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
+    return "http://noctua.berkeleybop.org/editor/graph/" + goModelId;
+  }
 
   getPathwayView(goModelId: string) {
     //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
-    //        return "http://noctua.berkeleybop.org/editor/graph/" + goModelId;
-    return "http://noctua.berkeleybop.org/workbench/pathwayview/?model_id=" + goModelId;
+    //return "http://noctua.berkeleybop.org/workbench/pathwayview/?model_id=" + goModelId;
+    return this.getGraphView(goModelId);
   }
 
 }
