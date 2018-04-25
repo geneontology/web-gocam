@@ -3,7 +3,7 @@
     <div mat-card-avatar>
       <mat-icon>person</mat-icon>
     </div>
-    <mat-card-title>Profile: {{userMeta?.nickname}}</mat-card-title>
+    <mat-card-title>Profile: {{userMeta?.name}}</mat-card-title>
     <mat-card-subtitle>Status: curator</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -12,33 +12,38 @@
     <hr>
 
     <table>
-      <tr>
-        <td style="padding-right:100px;">Name</td>
-        <td>
-          <a href={{userMeta?.uri}} target="blank">{{userMeta?.nickname}}</a>
-        </td>
-      </tr>
-      <tr>
-        <td>Organization</td>
-        <td>
-          <a href={{groupMeta?.id}} target="blank">{{groupMeta?.label}}</a>
-        </td>
-      </tr>
 
-      <tr *ngIf="userMeta?.groups">
-        <td>Groups</td>
+      <tr>
+        <td>Affiliation(s)</td>
         <td>
-          <li *ngFor="let group of userMeta.groups">
-            <a href={{group}} target="blank">{{group}}</a>
+          <li *ngFor="let affiliation of userMeta.affiliations; let i = index">
+            <a href={{userMeta.affiliationsIRI[i]}} target="_blank">{{affiliation}}</a>
           </li>
         </td>
       </tr>
 
 
+      <tr>
+        <td style="padding-right:100px;">ORCID</td>
+        <td>
+          <a href="http://orcid.org/{{orcid}}" target="_blank">{{userMeta?.name}}</a>
+        </td>
+      </tr>
+      <!--
+      <tr>
+        <td>Organization</td>
+        <td>
+          <a href={{groupMeta?.id}} target="_blank">{{userMeta?.organizations}}</a>
+        </td>
+      </tr>
+    -->
+
+
+
       <tr *ngIf="userMeta?.accounts?.github">
         <td>GitHub</td>
         <td>
-          <a href="https://github.com/{{userMeta?.accounts?.github}}" target="blank">{{userMeta?.accounts?.github}}</a>
+          <a href="https://github.com/{{userMeta?.accounts?.github}}" target="_blank">{{userMeta?.accounts?.github}}</a>
         </td>
       </tr>
 
@@ -48,14 +53,31 @@
     <hr>
 
 
-    <h2>Statistics</h2>
-    <p *ngIf="userModels">
-      {{userModels?.length}} GO-CAMs produced
-    </p>
+    <h3 *ngIf="userMeta && userMeta.gocams">
+      {{userMeta?.gocams?.length}} GO-CAMs produced
+    </h3>
     <ul>
-      <li *ngFor="let model of userModels">
-        {{model.date}} &nbsp;&nbsp;
-        <a href="{{ urlHandler.getPathwayView(model.gocam) }}" target="blank">{{model.title}}</a>
+      <li *ngFor="let model of userMeta?.gocams; let i = index">
+        {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
+        <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
+      </li>
+    </ul>
+
+    <h3 *ngIf="userMeta && userMeta.bpIDs">
+      {{userMeta?.bpIDs?.length}} Biological Process Annotated
+    </h3>
+    <ul>
+      <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
+        <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
+      </li>
+    </ul>
+
+    <h3 *ngIf="userMeta && userMeta.gpIDs">
+      {{userMeta?.gpIDs?.length}} Gene Products Annotated
+    </h3>
+    <ul>
+      <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
+        <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
       </li>
     </ul>
 

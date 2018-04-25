@@ -23,10 +23,13 @@ export class CamSparqlService {
   */
 
 //  baseUrl = "https://ipgc7a2b2e.execute-api.us-east-2.amazonaws.com/gocamv3/";
-  baseUrl = "https://api.gokb.net/gosparql/";
+//  baseUrl = "https://api.gokb.net/gosparql/";
+//  baseUrl = "https://e2dd1wml95.execute-api.us-east-1.amazonaws.com/gocam/";
+  baseUrl = "https://api2.gokb.net/gosparql/";
 
   constructor(private httpClient: HttpClient,
-              private http: Http) { }
+              private http: Http) { 
+  }
 
 
   /*
@@ -73,6 +76,18 @@ getUserModels(orcid: string): Observable<object> {
 
 }
 
+getModelsBPs(gocams: string[]): Observable<object> {
+  var gocamString = gocams.reduce(concat);
+  console.log("query: " + this.baseUrl + "models/bps?gocams=" + gocamString );
+  return this.http.get(this.baseUrl + "models/bps?gocams=" + gocamString);
+}
+
+getModelsGOs(gocams: string[]): Observable<object> {
+  var gocamString = gocams.reduce(concat);
+  console.log("query: " + this.baseUrl + "models/gos?gocams=" + gocamString );
+  return this.http.get(this.baseUrl + "models/gos?gocams=" + gocamString);
+}
+
 
 getORCID(orcid: string) {
   var checkedOrcid = orcid;
@@ -86,5 +101,9 @@ getORCID(orcid: string) {
 //    return this.sparql.template(inyml, vars);
       return "toto";
   }
+  
+}
 
+function concat(a, b) {
+  return a + "," + b;
 }

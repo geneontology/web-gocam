@@ -29,15 +29,42 @@
           </mat-cell>
         </ng-container>
 
+        <!--
         <ng-container matColumnDef="species">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Species </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Species</mat-header-cell>
           <mat-cell *matCellDef="let row">
-              <mat-chip-list>
-                  <mat-chip>One fish</mat-chip>
-                  <mat-chip>Two fish</mat-chip>
+            <mat-chip-list>
                   <mat-chip color="primary" selected="true">Primary fish</mat-chip>
                   <mat-chip color="accent" selected="true">Accent fish</mat-chip>
-                </mat-chip-list>
+            </mat-chip-list>
+          </mat-cell>
+        </ng-container>
+        -->        
+
+
+        <ng-container matColumnDef="bps">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
+              <mat-chip color="primary" selected="true" *ngFor="let bp of bps.get(row.gocam);" (click)="navigate(bp.id)">
+                <span matTooltip="{{ bp.definition }}">
+                  {{ bp.name }}
+                </span>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mfs">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
+              <mat-chip color="accent" selected="true" *ngFor="let mf of mfs.get(row.gocam);" (click)="navigate(mf.id)">
+                <span matTooltip="{{ mf.definition }}">
+                  {{ mf.name }}
+                </span>
+              </mat-chip>
+            </mat-chip-list>
           </mat-cell>
         </ng-container>
 
@@ -51,8 +78,19 @@
           </mat-cell>
         </ng-container>
 
+
+        <ng-container matColumnDef="groups">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Group(s)</mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
+            <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
+              <a href="/group/{{name}}" target="blank" *ngIf="row.groupids[i]">{{name}}</a>
+              <span *ngIf="!row.groupids[i]">{{name}}</span>
+            </span>
+          </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;">
         </mat-row>
       </mat-table>
 
@@ -61,4 +99,3 @@
 
   </mat-card-content>
 </mat-card>
-

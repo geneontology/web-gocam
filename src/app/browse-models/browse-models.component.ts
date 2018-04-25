@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { CamSparqlService } from '../cam-sparql.service';
 import { UrlHandlerService } from '../url-handler.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-models',
@@ -10,53 +11,86 @@ import { UrlHandlerService } from '../url-handler.service';
 })
 export class BrowseModelsComponent implements OnInit {
 
-  displayedColumns = ['date', 'title', 'species', 'contributors'];
+  // can dynamically change the columns displayed
+  displayedColumns = ['date', 'title', 'bps', 'mfs', 'contributors', 'groups'];
   dataSource: MatTableDataSource<ModelData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   models = [];
+  gos = new Map();
+  bps = new Map();
+  ccs = new Map();
+  mfs = new Map();
 
   constructor(private sparqlService: CamSparqlService,
-    private urlHandler: UrlHandlerService) { }
+              private urlHandler: UrlHandlerService,
+              private router: Router,) { }
 
   ngOnInit() {
 
-    this.sparqlService.getModelListDetails(1).subscribe(data => {
+    // loading the models
+    this.sparqlService.getModelList(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
-//      console.log("json:", json);
 
       json.map(res => {
         this.models.push(res);
       });
+
+      // when models are loaded, loading additional information, like BPs
+      var gocams = this.extractModels(json);
+//      console.log("gocams: ", gocams);
+      gocams.length = 50;
+      var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
+        var json = JSON.parse(JSON.stringify(data));
+        json = json._body;
+        json = JSON.parse(json);
+        for(var i = 0; i < json.length; i++) {
+          this.gos.set(json[i].gocam, json[i]);
+        }
+//        console.log("loaded: ", this.gos);
+        this.createGOClasses(this.bps, this.mfs);
+      })
+
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
-    /*
-    json.map(res => {
-      let tmp = {
-        "gomodel" : res.id.value,
-        "date": res.date.value,
-        "title": res.title.value.trim(),
-        "orcid": res.orcid.value.includes("GOC:")?undefined:res.orcid.value.trim(),
-        "name": res.name? this.simplifyName(res.name.value.trim()):res.orcid.value.trim()
-      }
-      this.models.push(tmp);
-      this.dataSource = new MatTableDataSource(this.models);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-        });
-    });
-    */
-
   }
 
 
+  createGOClasses(bps, mfs) {
+    this.gos.forEach(function(value, key) {
+      var bp = [];
+      var mf = [];
+      for(var i = 0; i < value.goids.length; i++) {
+        if(value.goclasses[i] == BIOLOGICAL_PROCESS) {
+          bp.push({ 
+            id: value.goids[i],
+            name: value.gonames[i],
+            definition: value.definitions[i]
+          });
+
+        } else if(value.goclasses[i] == MOLECULAR_FUNCTION) {
+          mf.push({ 
+            id: value.goids[i],
+            name: value.gonames[i],
+            definition: value.definitions[i]
+          });
+
+        }
+      }
+      if(bp.length > 0) {
+        bps.set(value.gocam, bp);        
+      }
+      if(mf.length > 0) {
+        mfs.set(value.gocam, mf);        
+      }
+    });
+  }
 
   /**
    * Set the paginator and sort after the view init since this component will
@@ -103,6 +137,25 @@ export class BrowseModelsComponent implements OnInit {
     return this.sparqlService.getORCID(orcid);
   }
 
+  extractModels(models) {
+    return models.map(elt => this.extractModel(elt));
+  }
+
+  extractModel(model) {
+      if(model.gocam.indexOf("gomodel:") != -1) {
+        return model.gocam.substring(model.gocam.lastIndexOf(":") + 1);
+      } else {
+        return model.gocam.indexOf("/") != -1 ? model.gocam.substring(model.gocam.lastIndexOf("/") +1) : model.gocam
+      }
+  }
+
+
+  navigate(page) {
+//    this.router.navigate([page]);
+//    window.location.href = page;
+    window.open(page, "_blank");
+  }
+
 }
 
 
@@ -112,4 +165,10 @@ export interface ModelData {
   title: string;
   orcids: string[];
   names: string[];
+  groupids: string[];
+  groupnames: string[];
 }
+
+var CELLULAR_COMPONENT = "http://purl.obolibrary.org/obo/GO_0005575";
+var MOLECULAR_FUNCTION = "http://purl.obolibrary.org/obo/GO_0003674";
+var BIOLOGICAL_PROCESS = "http://purl.obolibrary.org/obo/GO_0008150";
