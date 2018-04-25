@@ -95,4 +95,11 @@ export class NewsComponent implements OnInit {
     this.pause = false;
   }
 
+  maxChars = 80;
+  shorten(text: string) {
+    if(text.length < this.maxChars)
+      return text;
+    return text.substring(0, this.maxChars) + " (...)";
+  }
+
 }

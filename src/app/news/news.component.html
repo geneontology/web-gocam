@@ -9,7 +9,7 @@
   <!--  style="height:100px" -->
   <mat-card-content style="min-height: 100px">
 
-    <div *ngIf="news.length > 0" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)">
+    <div *ngIf="news.length > 0" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
         <a href="{{ urlHandler.getPathwayView(news[newsPos].gocam) }}" target="blank">
           <span [suiTransition]="transitionController" *ngIf="news.length > 0">
             <mat-icon class="eye">visibility</mat-icon>
@@ -20,7 +20,7 @@
       </div>
 
 
-    <div *ngIf="(newsPos+1) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)">
+    <div *ngIf="(newsPos+1) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
         <a href="{{ urlHandler.getPathwayView(news[newsPos + 1].gocam) }}" target="blank">
           <span [suiTransition]="transitionController" *ngIf="news.length > 0">
             <mat-icon class="eye">visibility</mat-icon>
@@ -30,7 +30,7 @@
         </a>
       </div>
 
-    <div *ngIf="(newsPos+2) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)">
+    <div *ngIf="(newsPos+2) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
       <a href="{{ urlHandler.getPathwayView(news[newsPos + 2].gocam) }}" target="blank">
         <span [suiTransition]="transitionController" *ngIf="news.length > 0">
           <mat-icon class="eye">visibility</mat-icon>
