@@ -24,6 +24,9 @@ export class BrowseModelsComponent implements OnInit {
   ccs = new Map();
   mfs = new Map();
 
+  pos_left = "before";
+  pos_right = "after";
+
   constructor(private sparqlService: CamSparqlService,
               private urlHandler: UrlHandlerService,
               private router: Router,) { }

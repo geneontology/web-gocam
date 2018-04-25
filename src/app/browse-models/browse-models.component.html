@@ -39,18 +39,18 @@
             </mat-chip-list>
           </mat-cell>
         </ng-container>
-        -->        
+        -->
 
 
         <ng-container matColumnDef="bps">
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
-              <mat-chip color="primary" selected="true" *ngFor="let bp of bps.get(row.gocam);" (click)="navigate(bp.id)">
-                <span matTooltip="{{ bp.definition }}">
+              <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left">
+                <mat-chip color="primary" selected="true" (click)="navigate(bp.id)" style="margin:10px">
                   {{ bp.name }}
-                </span>
-              </mat-chip>
+                </mat-chip>
+              </span>
             </mat-chip-list>
           </mat-cell>
         </ng-container>
@@ -59,11 +59,11 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
-              <mat-chip color="accent" selected="true" *ngFor="let mf of mfs.get(row.gocam);" (click)="navigate(mf.id)">
-                <span matTooltip="{{ mf.definition }}">
+              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right">
+                <mat-chip color="accent" selected="true" (click)="navigate(mf.id)" style="margin:10px">
                   {{ mf.name }}
-                </span>
-              </mat-chip>
+                </mat-chip>
+              </span>
             </mat-chip-list>
           </mat-cell>
         </ng-container>
@@ -99,3 +99,5 @@
 
   </mat-card-content>
 </mat-card>
+
+
