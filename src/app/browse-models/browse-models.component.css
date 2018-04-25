@@ -34,7 +34,7 @@
 
 
 .mat-column-date {
-  max-width: 90px;
+  max-width: 95px;
 }
 
 .mat-column-contributor {
@@ -51,3 +51,31 @@
   box-shadow: 0px 5px 5px grey;
 }
 
+.mat-row {
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid rgba(211, 211, 211, 0.50);
+  border-radius: 10px;
+}
+
+.mat-row:hover {
+  padding: 5px;
+  font-size: 14px;
+  background-color: rgba(220, 220, 220, 0.385);
+  box-shadow: 0px 5px 5px grey;    
+}
+
+.mat-cell {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.mat-table {
+  padding: 10px;
+}
+/*
+.mat-header-row {
+  cursor: pointer;
+  background-color: grey;
+}
+*/

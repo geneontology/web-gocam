@@ -170,6 +170,10 @@ export interface ModelData {
   names: string[];
   groupids: string[];
   groupnames: string[];
+//  bpids: string[];
+//  bpnames: string[];
+//  mfids: string[];
+//  mfnames: string[];
 }
 
 var CELLULAR_COMPONENT = "http://purl.obolibrary.org/obo/GO_0005575";

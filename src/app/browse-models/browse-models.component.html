@@ -71,10 +71,10 @@
         <ng-container matColumnDef="contributors">
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Contributor(s)</mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
-            <span *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
-              <a href="/user/{{extractOrcid(row.orcids[i])}}" target="blank" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
+            <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
+              <a href="user/{{extractOrcid(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
               <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
-            </span>
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -83,7 +83,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Group(s)</mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
             <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
-              <a href="/group/{{name}}" target="blank" *ngIf="row.groupids[i]">{{name}}</a>
+              <a href="group/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
               <span *ngIf="!row.groupids[i]">{{name}}</span>
             </span>
           </mat-cell>

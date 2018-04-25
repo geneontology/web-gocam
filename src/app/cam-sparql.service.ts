@@ -69,6 +69,10 @@ getUserMetaData(orcid: string): Observable<object> {
   return this.http.get(this.baseUrl + "users/" + orcid);
 }
 
+getGroupMetaData(id: string): Observable<object> {
+  return this.http.get(this.baseUrl + "groups/" + id);
+}
+
 getUserModels(orcid: string): Observable<object> {
   var checkedOrcid = this.getORCID(orcid);
 //  return this.http.get(this.urlGS_UserModelIDs + checkedOrcid);
