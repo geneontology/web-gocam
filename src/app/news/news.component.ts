@@ -45,10 +45,14 @@ export class NewsComponent implements OnInit {
 
     this.sub = Observable.interval(this.timeToSwitch)
       .subscribe((val) => {
+        if(!this.pause) {
         this.animate("vertical flip");
         this.cycleNews();
+        }
       });
   }
+
+  pause: boolean = false;
 
   public animate(transitionName: string = "scale") {
     this.transitionController.animate(
@@ -66,11 +70,12 @@ export class NewsComponent implements OnInit {
 
 
   eyeOver(event) {
-    console.log(event);
+//    console.log(event);
     var elt = event.srcElement;
     var parent = elt.parentElement.parentElement;
     elt.style['font-size'] = '20px';
     parent.style['background-color'] = 'lightblue';
+    this.pause = true;
   }
 
 
@@ -82,6 +87,19 @@ export class NewsComponent implements OnInit {
   }
 
 
+  newsOver() {
+    this.pause = true;    
+  }
 
+  newsLeft() {
+    this.pause = false;
+  }
+
+  maxChars = 80;
+  shorten(text: string) {
+    if(text.length < this.maxChars)
+      return text;
+    return text.substring(0, this.maxChars) + " (...)";
+  }
 
 }

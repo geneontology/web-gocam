@@ -29,6 +29,18 @@ export class UserProfileComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.orcid = params['id'];
+      this.sparqlService.getUserMetaData(this.orcid).subscribe(data => {
+        var json = JSON.parse(JSON.stringify(data));
+        json = json._body;
+        this.userMeta = JSON.parse(json);
+        console.log(this.userMeta);
+      });
+    });
+
+
+    /*
     this.userService.loadUserMetaData().subscribe(data => {
 
       this.route.params.subscribe(params => {
@@ -54,7 +66,7 @@ export class UserProfileComponent implements OnInit {
       });
 
     })
-
+    */
   }
 
 
