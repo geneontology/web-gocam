@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'app';
 
   usages: string[];
+  
 
   constructor(private _userService: UserService) {
     this.usages =  [

@@ -88,7 +88,7 @@ getModelsBPs(gocams: string[]): Observable<object> {
 
 getModelsGOs(gocams: string[]): Observable<object> {
   var gocamString = gocams.reduce(concat);
-  console.log("query: " + this.baseUrl + "models/gos?gocams=" + gocamString );
+//  console.log("query: " + this.baseUrl + "models/gos?gocams=" + gocamString );
   return this.http.get(this.baseUrl + "models/gos?gocams=" + gocamString);
 }
 

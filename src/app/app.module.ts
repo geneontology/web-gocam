@@ -16,6 +16,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ChartsModule } from 'ng2-charts';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -108,6 +110,8 @@ const appRoutes: Routes = [
     ChartsModule,
     MatTableModule,
     MatPaginatorModule,
+    MatExpansionModule,
+    MatSidenavModule,
 
     SuiModule,
     NgxChartsModule

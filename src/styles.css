@@ -46,9 +46,21 @@ ul {
     line-height: 1.9;
 }
 
+/*
 body {
     background-color: rgb(255, 255, 255);
 }
+*/
+
+/*
+body{
+    background-image: url(http://bit.ly/2gPLxZ4); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+   }
+   */
+
 
 .header-style {
     background-color: rgba(250, 250, 250, 1);

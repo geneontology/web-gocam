@@ -13,7 +13,8 @@ import { UrlHandlerService } from '../url-handler.service';
 export class UserProfileComponent implements OnInit {
 
   found: boolean = true;
-
+  step = 0;
+  
   orcid: string;
   userMeta;
   groupMeta;

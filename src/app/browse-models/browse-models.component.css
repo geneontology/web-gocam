@@ -52,6 +52,7 @@
 }
 
 .mat-row {
+  margin: 5px;
   padding: 5px;
   font-size: 14px;
   border: 1px solid rgba(211, 211, 211, 0.50);
@@ -62,7 +63,7 @@
   padding: 5px;
   font-size: 14px;
   background-color: rgba(220, 220, 220, 0.385);
-  box-shadow: 0px 5px 5px grey;    
+  box-shadow: 0px 3px 3px grey;    
 }
 
 .mat-cell {
@@ -79,3 +80,27 @@
   background-color: grey;
 }
 */
+
+
+/*
+div{
+  background: inherit;
+  width: 250px;
+  height: 350px;
+  position: absolute;
+  overflow: hidden;  
+ }
+ div:before{
+  content: ‘’;
+  width: 300px;
+  height: 400px;
+  background: inherit; 
+  position: absolute;
+  left: -25px;  
+  right: 0;
+  top: -25px;   
+  bottom: 0;
+  box-shadow: inset 0 0 0 200px rgba(255,255,255,0.3);
+  filter: blur(10px);
+ }
+ */

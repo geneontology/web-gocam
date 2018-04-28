@@ -52,35 +52,113 @@
 
 
     <hr>
+    <br>
 
 
-    <h3 *ngIf="userMeta && userMeta.gocams">
-      {{userMeta?.gocams?.length}} GO-CAMs produced
-    </h3>
-    <ul>
-      <li *ngFor="let model of userMeta?.gocams; let i = index">
-        {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
-        <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
-      </li>
-    </ul>
+    <mat-accordion *ngIf="userMeta && userMeta.gocams" class="my-headers-align">
+      <mat-expansion-panel [expanded]="step === 0" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            GO-CAMs
+          </mat-panel-title>
+          <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
+            {{userMeta?.gocams?.length}} produced
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-    <h3 *ngIf="userMeta && userMeta.bpIDs">
-      {{userMeta?.bpIDs?.length}} Biological Process Annotated
-    </h3>
-    <ul>
-      <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
-        <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
-      </li>
-    </ul>
+        <ul>
+          <li *ngFor="let model of userMeta?.gocams; let i = index">
+            {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
+            <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
+          </li>
+        </ul>
 
-    <h3 *ngIf="userMeta && userMeta.gpIDs">
-      {{userMeta?.gpIDs?.length}} Gene Products Annotated
-    </h3>
-    <ul>
-      <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
-        <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
-      </li>
-    </ul>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <br>
+
+    <mat-accordion *ngIf="userMeta && userMeta.bpIDs" class="my-headers-align">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Biological Processes
+          </mat-panel-title>
+          <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
+            {{userMeta?.bpIDs?.length}} annotated
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <ul>
+          <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
+            <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
+          </li>
+        </ul>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <br>
+
+    <mat-accordion *ngIf="userMeta && userMeta.gpIDs" class="my-headers-align">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Gene Products
+          </mat-panel-title>
+          <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
+            {{userMeta?.gpIDs?.length}} annotated
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <ul>
+          <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
+            <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
+          </li>
+        </ul>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+
+    <!--
+    <div class="small-card">
+      <h3 *ngIf="userMeta && userMeta.gocams">
+        {{userMeta?.gocams?.length}} GO-CAMs produced
+      </h3>
+      <hr>
+      <ul>
+        <li *ngFor="let model of userMeta?.gocams; let i = index">
+          {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
+          <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="small-card">
+      <h3 *ngIf="userMeta && userMeta.bpIDs">
+        {{userMeta?.bpIDs?.length}} Biological Process Annotated
+      </h3>
+      <hr>
+      <ul>
+        <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
+          <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="small-card">
+      <h3 *ngIf="userMeta && userMeta.gpIDs">
+        {{userMeta?.gpIDs?.length}} Gene Products Annotated
+      </h3>
+      <hr>
+      <ul>
+        <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
+          <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
+        </li>
+      </ul>
+    </div>
+  -->
 
 
   </mat-card-content>

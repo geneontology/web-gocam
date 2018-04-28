@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { CamSparqlService } from '../cam-sparql.service';
 import { UrlHandlerService } from '../url-handler.service';
 import { Router } from '@angular/router';
@@ -27,6 +27,8 @@ export class BrowseModelsComponent implements OnInit {
   pos_left = "before";
   pos_right = "after";
 
+  timeToShow = 500;
+
   constructor(private sparqlService: CamSparqlService,
               private urlHandler: UrlHandlerService,
               private router: Router,) { }
@@ -46,7 +48,7 @@ export class BrowseModelsComponent implements OnInit {
       // when models are loaded, loading additional information, like BPs
       var gocams = this.extractModels(json);
 //      console.log("gocams: ", gocams);
-      gocams.length = 50;
+      gocams.length = 10;
       var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
@@ -54,7 +56,6 @@ export class BrowseModelsComponent implements OnInit {
         for(var i = 0; i < json.length; i++) {
           this.gos.set(json[i].gocam, json[i]);
         }
-//        console.log("loaded: ", this.gos);
         this.createGOClasses(this.bps, this.mfs);
       })
 
@@ -157,6 +158,43 @@ export class BrowseModelsComponent implements OnInit {
 //    this.router.navigate([page]);
 //    window.location.href = page;
     window.open(page, "_blank");
+  }
+
+  /* important for streaming data to the table, based on the current index */
+  changeTablePage(event: PageEvent) {
+//    console.log("changing page: " , event);
+    var gocams = this.extractModels(this.getModels(event));
+    var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
+      var json = JSON.parse(JSON.stringify(data));
+      json = json._body;
+      json = JSON.parse(json);
+//      this.correctGOTerms(json);
+      for(var i = 0; i < json.length; i++) {
+        if(!this.gos.has(json[i].gocam)) {
+          this.gos.set(json[i].gocam, json[i]);
+//          console.log("thanks to the streaming on change page, adding: ", json[i].gocam, "\t", json[i]);
+        }
+      }
+      this.createGOClasses(this.bps, this.mfs);
+    })
+  }
+
+  correctGOTerms(json) {
+    console.log(json);
+    var bpMap = new Map();
+
+    var results = [];
+    json.map(elt => {
+      if(!bpMap.has(elt.goids)) {
+        bpMap.set(elt.goids, elt);
+      }
+    });
+    console.log(bpMap);
+    return results;
+  }
+
+  getModels(event: PageEvent) {
+    return this.models.slice(event.pageIndex * event.pageSize, (event.pageIndex + 1) * event.pageSize);
   }
 
 }

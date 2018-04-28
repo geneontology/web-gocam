@@ -46,7 +46,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
-              <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left">
+              <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="timeToShow">
                 <mat-chip color="primary" selected="true" (click)="navigate(bp.id)" style="margin:10px">
                   {{ bp.name }}
                 </mat-chip>
@@ -59,7 +59,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
           <mat-cell *matCellDef="let row">
             <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
-              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right">
+              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="timeToShow">
                 <mat-chip color="accent" selected="true" (click)="navigate(mf.id)" style="margin:10px">
                   {{ mf.name }}
                 </mat-chip>
@@ -94,7 +94,7 @@
         </mat-row>
       </mat-table>
 
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]" (page)="changeTablePage($event)"></mat-paginator>
     </div>
 
   </mat-card-content>

@@ -1,0 +1,14 @@
+.small-card {
+    padding: 5px;
+    margin: 5px;
+    font-size: 14px;
+    border: 1px solid rgba(211, 211, 211, 0.50);
+    border-radius: 10px;    
+}
+
+.my-headers-align .mat-expansion-panel-header-title, 
+.my-headers-align .mat-expansion-panel-header-description {
+    padding: 5px;
+    margin: 5px;
+    flex-basis: 0;
+}
