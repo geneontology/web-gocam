@@ -3,6 +3,7 @@ import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/m
 import { CamSparqlService } from '../cam-sparql.service';
 import { UrlHandlerService } from '../url-handler.service';
 import { Router } from '@angular/router';
+import { PreferencesService } from '../preferences.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -27,14 +28,12 @@ export class BrowseModelsComponent implements OnInit {
   pos_left = "before";
   pos_right = "after";
 
-  timeToShow = 500;
-
   constructor(private sparqlService: CamSparqlService,
               private urlHandler: UrlHandlerService,
-              private router: Router,) { }
+              private router: Router,
+              public _prefs: PreferencesService) { }
 
   ngOnInit() {
-
     // loading the models
     this.sparqlService.getModelList(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));

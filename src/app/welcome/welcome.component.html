@@ -1,10 +1,12 @@
-<mat-card class="welcome-card mat-elevation-z10" fxLayout="column" fxLayoutAlign="space-between stretch">
+<mat-card class="mat-elevation-z10" fxLayout="column" fxLayoutAlign="space-between stretch">
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
     <mat-card-title>Causal Activity Models (CAMs)</mat-card-title>
-    <mat-card-subtitle>March 2018</mat-card-subtitle>
+    <mat-card-subtitle>April 2018</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+
+    <h2>GO-CAMs: linking standard GO Annotations</h2>
 
     <p>
       GO-Causal Activity Models (GO-CAMs) are a generalization of “standard”
@@ -16,8 +18,9 @@
     </p>
 
     <p align="center">
-      <mat-tab-group>
-      
+      <mat-tab-group style="padding:10px; min-height:575px;" [selectedIndex]="selectedIndex" (mouseover)="pause = true"
+        (mouseleave)="pause = false">
+
         <mat-tab label="GO-CAM Principle">
           <img src="./assets/GO-CAM Principle.png" class="small-border" style="width:100%">
         </mat-tab>
@@ -29,18 +32,17 @@
         <mat-tab label="DLK-1 Example">
           <img src="./assets/NoctuaExample.png" class="small-border" style="width:100%">
         </mat-tab>
-        
-    </mat-tab-group>    
-      
+
+      </mat-tab-group>
+
     </p>
 
-    
-      <b>GO-CAMs can be used in several ways</b>:
+    <h2>GO-CAMs: multiple uses</h2>
     <ul>
       <li>“reduced” to standard GO annotations (these are included in the
         <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a>).</li>
-      <li>As networks representing the causal interactions between the activities of different gene products (we provide
-          Cytoscape <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).</li>
+      <li>As networks representing the causal interactions between the activities of different gene products (we provide Cytoscape
+        <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).</li>
       <li>As full GO-CAM graphs that can be
         <a href="https://www.w3.org/TeamSubmission/turtle/" target="blank">downloaded (as ttl)</a> and queried via
         <a href="http://rdf.geneontology.org/blazegraph/#query" target="blank">SPARQL</a>.</li>
@@ -48,14 +50,17 @@
         <a [routerLink]="['/browse']">browsed and visualized</a>.</li>
     </ul>
 
-    <!--
-    <app-news></app-news>
-    -->
-
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-button (click)="learnMore('NM')">Learn More</button>
+  <mat-card-actions style="margin:5px">
+    <a [routerLink]="['/browse']">
+      <button mat-raised-button color=primary>Browse Models
+        <mat-icon color=white>search</mat-icon>
+      </button>
+    </a>
+    <button mat-button (click)="learnMore('NM')">Learn More
+      <mat-icon>school</mat-icon>
+    </button>
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">Share
       <mat-icon>share</mat-icon>
@@ -63,13 +68,11 @@
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>
       <share-button button="twitter" text="Tweet" [showText]="true" tags="GO" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>
-      <share-button button="linkedin" text="Share" [showText]="true"  title="Check GO-CAM Website !" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>
+      <share-button button="linkedin" text="Share" [showText]="true" title="Check GO-CAM Website !" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>
       <share-button button="facebook" text="Share" [showText]="true" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>
     </mat-menu>
+
+
   </mat-card-actions>
+
 </mat-card>
-
-
-
-
-

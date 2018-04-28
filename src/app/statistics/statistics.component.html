@@ -49,7 +49,7 @@
       <!-- Evolution of Models -->
       <mat-tab-group fxFlex="50%">
         <mat-tab label="Models">
-          <h2 align=center style="font-size: 16px; margin-top:10px;">Number of GO-CAM Models</h2>
+          <h2 align=center style="font-size: 16px; margin-top:10px;">Number of GO-CAMs</h2>
           <div class="row">
             <div class="col-md-6">
               <div style="display: block;">
@@ -95,8 +95,10 @@
 
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-button>Learn More</button>
+  <mat-card-actions style="margin:5px">
+    <button mat-button>Learn More
+      <mat-icon>school</mat-icon>
+    </button>
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">Share
       <mat-icon>share</mat-icon>

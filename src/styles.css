@@ -46,11 +46,12 @@ ul {
     line-height: 1.9;
 }
 
-/*
+
+
 body {
     background-color: rgb(255, 255, 255);
 }
-*/
+
 
 /*
 body{
@@ -59,7 +60,7 @@ body{
     background-attachment: fixed;
     background-size: cover;
    }
-   */
+*/
 
 
 .header-style {
@@ -135,6 +136,9 @@ footer {
     box-shadow: 3px 3px 3px grey;    
 }
 
+h2 {
+    font-size: 20px;
+}
 
 /*
 mat-card-header {
@@ -185,3 +189,4 @@ in html:
 .responsive-text {
     font-size: 1vw;
 }
+

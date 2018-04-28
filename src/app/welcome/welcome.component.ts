@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlHandlerService } from '../url-handler.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -9,10 +10,29 @@ import { UrlHandlerService } from '../url-handler.service';
 })
 export class WelcomeComponent implements OnInit {
 
+  sub: any;
+  timeToSwitch: number = 6000;
+  pause: boolean = false;
+
+  selectedIndex = 0;
+
   constructor(private urlHandler: UrlHandlerService) { }
 
   ngOnInit() {
+    this.sub = Observable.interval(this.timeToSwitch)
+      .subscribe((val) => {
+        if(!this.pause) {
+          this.cycle();
+        }
+      });
+  }
 
+  cycle() {
+    if(this.selectedIndex < 2) {
+      this.selectedIndex++;
+    } else {
+      this.selectedIndex = 0;
+    }
   }
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService, UsageType } from './user.service';
+import { PreferencesService } from './preferences.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,12 @@ export class AppComponent {
   title = 'app';
 
   usages: string[];
-  
+  opened;
+  secondaryNav;
 
-  constructor(private _userService: UserService) {
+  constructor(private _userService: UserService,
+              public _prefs: PreferencesService) {
+
     this.usages =  [
       UsageType.research,
       UsageType.curation,
@@ -27,6 +31,10 @@ export class AppComponent {
 
   usage(): string {
     return this._userService.getUsage();
+  }
+
+  isSideNavShown() {
+    return this._prefs.isSideNavShown();
   }
 
 }

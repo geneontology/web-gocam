@@ -3,33 +3,39 @@
 
   <mat-card-header>
     <mat-card-title>{{models.length}} available GO-CAMs</mat-card-title>
-    <mat-card-subtitle>March 2018</mat-card-subtitle>
+    <mat-card-subtitle>April 2018</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <div class="example-header">
+
+    <!-- FILTER SECTION -->
+    <div style="margin:20px">
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
 
-    <div class="example-container">
+    <!-- TABLE SECTION -->
+    <mat-table [dataSource]="dataSource" matSort>
 
-      <mat-table [dataSource]="dataSource" matSort>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;"></mat-row>
 
-        <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-date">Date</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
-        </ng-container>
+      <!-- DATE SECTON -->
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-date">Date</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Title </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">{{row.title}}</a>
-          </mat-cell>
-        </ng-container>
+      <!-- TITLE SECTION -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Title </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">{{row.title}}</a>
+        </mat-cell>
+      </ng-container>
 
-        <!--
+      <!--
         <ng-container matColumnDef="species">
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Species</mat-header-cell>
           <mat-cell *matCellDef="let row">
@@ -41,63 +47,60 @@
         </ng-container>
         -->
 
-
-        <ng-container matColumnDef="bps">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
-              <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="timeToShow">
-                <mat-chip color="primary" selected="true" (click)="navigate(bp.id)" style="margin:10px">
-                  {{ bp.name }}
-                </mat-chip>
-              </span>
-            </mat-chip-list>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="mfs">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
-              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="timeToShow">
-                <mat-chip color="accent" selected="true" (click)="navigate(mf.id)" style="margin:10px">
-                  {{ mf.name }}
-                </mat-chip>
-              </span>
-            </mat-chip-list>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="contributors">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Contributor(s)</mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
-            <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
-              <a href="user/{{extractOrcid(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
-              <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
-            </div>
-          </mat-cell>
-        </ng-container>
-
-
-        <ng-container matColumnDef="groups">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Group(s)</mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
-            <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
-              <a href="group/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
-              <span *ngIf="!row.groupids[i]">{{name}}</span>
+      <!-- BIOLOGICAL PROCESSES COLUMN -->
+      <ng-container matColumnDef="bps">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
+            <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="_prefs.toolTipDelay">
+              <mat-chip class="bp" selected="true" (click)="navigate(bp.id)" style="margin:10px">
+                {{ bp.name }}
+              </mat-chip>
             </span>
-          </mat-cell>
-        </ng-container>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;">
-        </mat-row>
-      </mat-table>
+      <!-- MOLECULAR FUNCTIONS COLUMN -->
+      <ng-container matColumnDef="mfs">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
+            <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="_prefs.toolTipDelay">
+              <mat-chip class="mf" selected="true" (click)="navigate(mf.id)" style="margin:10px">
+                {{ mf.name }}
+              </mat-chip>
+            </span>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
 
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]" (page)="changeTablePage($event)"></mat-paginator>
-    </div>
+      <!-- CONTRIBUTOR COLUMN -->
+      <ng-container matColumnDef="contributors">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Contributor(s)</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
+          <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
+            <a href="user/{{extractOrcid(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
+            <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- GROUP COLUMN -->
+      <ng-container matColumnDef="groups">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Group(s)</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
+          <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
+            <a href="group/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
+            <span *ngIf="!row.groupids[i]">{{name}}</span>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" (page)="changeTablePage($event)"></mat-paginator>
+
 
   </mat-card-content>
 </mat-card>
-
-

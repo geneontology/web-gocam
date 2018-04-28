@@ -51,6 +51,8 @@ import { GroupProfileComponent } from './group-profile/group-profile.component';
 import { ShareButtonModule } from '@ngx-share/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { GroupService } from './group.service';
+import { PreferencesService } from './preferences.service';
+import { ExpertComponent } from './expert/expert.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -58,6 +60,7 @@ const appRoutes: Routes = [
   { path: 'browse', component: BrowseModelsComponent },
   { path: 'user/:id', component: UserProfileComponent },
   { path: 'group/:id', component: GroupProfileComponent },
+  { path: 'expert/:id', component: ExpertComponent },
   { path: '**', component: AppComponent }
 ];
 
@@ -80,7 +83,8 @@ const appRoutes: Routes = [
     BrowseModelsComponent,
     HomeComponent,
     UserProfileComponent,
-    GroupProfileComponent
+    GroupProfileComponent,
+    ExpertComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +125,8 @@ const appRoutes: Routes = [
     UrlHandlerService,
     UserService,
     GroupService,
-    CamSparqlService
+    CamSparqlService,
+    PreferencesService
   ],
   bootstrap: [AppComponent]
 })

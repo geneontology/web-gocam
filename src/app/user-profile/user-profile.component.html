@@ -14,7 +14,7 @@
 
     <table>
 
-      <tr>
+      <tr *ngIf="userMeta?.affiliations">
         <td>Affiliation(s)</td>
         <td>
           <li *ngFor="let affiliation of userMeta.affiliations; let i = index">

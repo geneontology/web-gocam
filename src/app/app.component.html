@@ -4,43 +4,40 @@
 </header>
 
 <!-- main section -->
-<div fxLayout="column" fxLayoutAlign="space-around stretch" class="margin-20" style="margin-top:75px">
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="margin-20" style="margin-top:75px;">
 
-  <div *ngIf="!isUsageDefined()">
-    <app-usage-type></app-usage-type>
-  </div>
+    <mat-sidenav-container style="min-height:1100px; background-color:white">
 
-  <div *ngIf="isUsageDefined()">
+      <mat-sidenav #sidenav mode="side" [(opened)]="_prefs.sideNavShown" position="end" style="max-width: 450px;">
 
-    <div fxLayout="row" fxLayoutAlign="start stretch">
+        <div style="margin-left:10px;margin-right:10px;">
+          <br>
+          <!-- download section -->
+          <app-downloads></app-downloads>
 
-      <!-- MAIN CONTENT SECTION -->
-      <div fxFlex="67%">
+          <!-- tools & api section -->
+          <app-api style="margin: 20px;"></app-api>
+
+          <!-- documentation section -->
+          <app-documentations style="margin: 20px;"></app-documentations>
+
+          <!-- news section -->
+          <app-news style="margin-bottom: 20px;"></app-news>
+        </div>
+
+      </mat-sidenav>
+
+      <!--
+      <mat-sidenav-content style="background-color: rgba(33, 33, 166, 0.8); padding:0px; margin:0px; min-width:400px">
+      -->
+      <mat-sidenav-content color=primary style="padding:0px; margin:0px; min-width:400px">
           <router-outlet></router-outlet>
-      </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 
-      <!-- RIGHT-SIDE COLUMN -->
-      <div fxFlex="33%" style="padding:15px">
+</div>
 
-         <!-- download section -->
-        <app-downloads></app-downloads>
-
-        <!-- tools & api section -->
-        <app-api style="margin: 20px;"></app-api>
-
-        <!-- documentation section -->
-        <app-documentations style="margin: 20px;"></app-documentations>
-        
-        <!-- news section -->
-        <app-news style="margin-bottom: 20px;"></app-news>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- footer section -->
-  <footer>
-    <app-footer-disclaimer></app-footer-disclaimer>
-  </footer>
+<!-- footer section -->
+<footer>
+  <app-footer-disclaimer></app-footer-disclaimer>
+</footer>
