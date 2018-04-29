@@ -29,28 +29,16 @@
 
       <!-- TITLE SECTION -->
       <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Title </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Title</mat-header-cell>
         <mat-cell *matCellDef="let row">
           <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">{{row.title}}</a>
         </mat-cell>
       </ng-container>
 
-      <!--
-        <ng-container matColumnDef="species">
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">Species</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <mat-chip-list>
-                  <mat-chip color="primary" selected="true">Primary fish</mat-chip>
-                  <mat-chip color="accent" selected="true">Accent fish</mat-chip>
-            </mat-chip-list>
-          </mat-cell>
-        </ng-container>
-        -->
-
       <!-- BIOLOGICAL PROCESSES COLUMN -->
       <ng-container matColumnDef="bps">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">BPs</mat-header-cell>
-        <mat-cell *matCellDef="let row">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">B.Processes</mat-header-cell>
+          <mat-cell *matCellDef="let row">
           <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
             <span matTooltip="{{ bp.definition }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="_prefs.toolTipDelay">
               <mat-chip class="bp" selected="true" (click)="navigate(bp.id)" style="margin:10px">
@@ -63,7 +51,7 @@
 
       <!-- MOLECULAR FUNCTIONS COLUMN -->
       <ng-container matColumnDef="mfs">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title-center">MFs</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title">M.Functions</mat-header-cell>
         <mat-cell *matCellDef="let row">
           <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
             <span matTooltip="{{ mf.definition }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="_prefs.toolTipDelay">
@@ -77,8 +65,8 @@
 
       <!-- CONTRIBUTOR COLUMN -->
       <ng-container matColumnDef="contributors">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Contributor(s)</mat-header-cell>
-        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-align">Contributor(s)</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align">
           <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
             <a href="user/{{extractOrcid(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
             <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
@@ -88,8 +76,8 @@
 
       <!-- GROUP COLUMN -->
       <ng-container matColumnDef="groups">
-        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-contributor">Group(s)</mat-header-cell>
-        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-contributor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-align">Group(s)</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align">
           <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
             <a href="group/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
             <span *ngIf="!row.groupids[i]">{{name}}</span>

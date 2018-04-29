@@ -30,27 +30,25 @@
 /* 'Helvetica', 'sans-serif' */
 *{
     font-family: 'sans-serif';
+    font-size: calc(10px + 0.5vw);  
     line-height: 1.2;
 }
-
-p {
-    font-size: 16px;    
-}
-
-table {
-    font-size: 16px;    
-}
-
-ul {
-    font-size: 16px;
-    line-height: 1.9;
-}
-
 
 
 body {
     background-color: rgb(255, 255, 255);
 }
+
+
+table {
+    font-size: calc(10px + 0.5vw);  
+}
+
+ul li {
+    font-size: calc(10px + 0.5vw);
+    line-height: 1.9;
+}
+
 
 
 /*
@@ -86,7 +84,7 @@ footer {
     margin: 20px;
     margin-top: 40px;
     opacity: .8;
-    font-size: 15px;
+    font-size: calc(10px + 0.5vw);
 }
 /*
 footer {
@@ -137,33 +135,21 @@ footer {
 }
 
 h2 {
-    font-size: 20px;
+    font-size: calc(14px + 0.5vw);
 }
 
-/*
-mat-card-header {
-    font-size: 60px;
-} 
-*/
-
-/*
-mat-card-header {
-    background-color:rgba(241, 241, 241, 0.50);
-    border: 1px solid rgba(111, 111, 111, 0.50);
-    border-radius: 30px;
-    margin: 0px;
-    padding: 5px;
+div span p {
+    font-size: calc(8px + 0.5vw);
 }
-*/
 
 .mat-card-header .mat-card-title {
-    font-size: 22px;
+    font-size: calc(12px + 0.5vw);
     font-weight: bold;
     color:rgba(33, 33, 166, 0.8);
 }
 
 .mat-card-header .mat-card-avatar .mat-icon {
-    font-size: 28px;    
+    font-size: calc(16px + 0.5vw);  
 }
 
 .mat-button .mat-icon {
@@ -178,15 +164,5 @@ mat-card-header {
     font-size: 400%;
     font-family: algerian, courier;
     line-height: 80%;
-}
-
-/*
-in html:
-<span class="dropCap">G</span>O
-*/
-
-
-.responsive-text {
-    font-size: 1vw;
 }
 

@@ -1,3 +1,6 @@
+span {
+    font-size: calc(8px + 1vw);
+}
 button:hover {
     box-shadow: 0px 5px 5px grey;
-  }
+}
