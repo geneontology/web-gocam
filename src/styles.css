@@ -166,3 +166,45 @@ div span p {
     line-height: 80%;
 }
 
+
+
+
+
+
+
+.resp_button {
+    font-size: calc(2px + 0.8vw);
+}
+
+.mat-card-actions span {
+    font-size: calc(4px + 0.8vw);
+}
+.mat-card-actions span .mat-icon{
+    font-size: calc(4px + 0.8vw);
+    margin-left:calc(1px + 0.5vw);
+}
+
+.mat-card-title {
+    font-size: calc(5px + 0.8vw);        
+}
+
+.mat-card-subtitle {
+    font-size: calc(4px + 0.8vw);        
+}
+
+.mat-card p {
+    font-size: calc(4px + 0.8vw);    
+}
+
+a {
+    font-size: calc(4px + 0.8vw);    
+}
+
+.mat-card-content ul li {
+    font-size: calc(4px + 0.8vw);    
+}
+
+.mat-card-content div a span {
+    font-size: calc(4px + 0.8vw);    
+}
+

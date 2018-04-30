@@ -18,7 +18,7 @@
     </p>
 
     <p align="center">
-      <mat-tab-group style="padding:10px; min-height:575px;" [selectedIndex]="selectedIndex" (mouseover)="pause = true"
+      <mat-tab-group style="padding:10px; min-height:calc(200px + 0.5vw)" [selectedIndex]="selectedIndex" (mouseover)="pause = true"
         (mouseleave)="pause = false">
 
         <mat-tab label="GO-CAM Principle">
@@ -54,16 +54,16 @@
 
   <mat-card-actions style="margin:5px">
     <a [routerLink]="['/browse']">
-      <button mat-raised-button color=primary>Browse Models
-        <mat-icon color=white>search</mat-icon>
+      <button mat-raised-button color=primary>
+        <span>Browse Models<mat-icon color=white>search</mat-icon></span>
       </button>
     </a>
-    <button mat-button (click)="learnMore('NM')">Learn More
-      <mat-icon>school</mat-icon>
+    <button mat-button (click)="learnMore('NM')">
+      <span>Learn More<mat-icon>school</mat-icon></span>
     </button>
     <!-- mat-button vs mat-raised-button -->
-    <button mat-button [matMenuTriggerFor]="shareMenu">Share
-      <mat-icon>share</mat-icon>
+    <button mat-button [matMenuTriggerFor]="shareMenu">
+      <span>Share<mat-icon>share</mat-icon></span>
     </button>
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>

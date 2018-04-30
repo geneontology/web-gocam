@@ -16,31 +16,42 @@
     </p>
   -->
     <p>
-      GO-CAMs are available in <a href="https://www.w3.org/TR/turtle/" target="blank">Turtle</a>, <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Journal</a>, <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a> and CausalTAB formats.
+      GO-CAMs are available in
+      <a href="https://www.w3.org/TR/turtle/" target="blank">Turtle</a>,
+      <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Journal</a>,
+      <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a> and CausalTAB formats.
     </p>
 
   </mat-card-content>
 
   <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
     <span matTooltip="Download Models as a TTL Archive" fxFlex=20%>
-      <button mat-button (click)="download(dtype.ttl)" class="resp_button">TTL
-        <mat-icon class="resp_button">get_app</mat-icon>
+      <button mat-button (click)="download(dtype.ttl)">
+        <span>TTL
+          <mat-icon>get_app</mat-icon>
+        </span>
       </button>
     </span>
     <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20%>
-      <button mat-button  (click)="download(dtype.jnl)" class="resp_button">JNL
-        <mat-icon class="resp_button">get_app</mat-icon>
+      <button mat-button (click)="download(dtype.jnl)">
+        <span>JNL
+          <mat-icon>get_app</mat-icon>
+        </span>
       </button>
     </span>
     <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20%>
-        <button mat-button (click)="download(dtype.ctab)" class="resp_button">CTAB
-          <mat-icon class="resp_button">get_app</mat-icon>
-        </button>
-      </span>
-      <span matTooltip="Download Models as a SIF file" fxFlex=20%>
-          <button mat-button (click)="download(dtype.sif)" class="resp_button">SIF
-            <mat-icon class="resp_button">get_app</mat-icon>
-          </button>
+      <button mat-button (click)="download(dtype.ctab)">
+        <span>CTAB
+          <mat-icon>get_app</mat-icon>
         </span>
-      </mat-card-actions>
+      </button>
+    </span>
+    <span matTooltip="Download Models as a SIF file" fxFlex=20%>
+      <button mat-button (click)="download(dtype.sif)">
+        <span>SIF
+          <mat-icon>get_app</mat-icon>
+        </span>
+      </button>
+    </span>
+  </mat-card-actions>
 </mat-card>

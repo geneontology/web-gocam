@@ -1,3 +1,29 @@
+/*
 .resp_button {
-    font-size: calc(6px + 0.8vw);
+    font-size: calc(2px + 0.8vw);
 }
+
+.mat-card-actions span {
+    font-size: calc(2px + 0.8vw);
+}
+.mat-card-actions span .mat-icon{
+    font-size: calc(2px + 0.8vw);
+}
+
+.mat-card-title {
+    font-size: calc(4px + 0.8vw);        
+}
+
+.mat-card-subtitle {
+    font-size: calc(3px + 0.8vw);        
+}
+
+.mat-card p {
+    font-size: calc(2px + 0.8vw);    
+}
+
+a {
+    font-size: calc(2px + 0.8vw);    
+}
+
+*/

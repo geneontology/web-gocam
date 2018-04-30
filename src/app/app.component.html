@@ -6,30 +6,37 @@
 <!-- main section -->
 <div fxLayout="column" fxLayoutAlign="space-around stretch" class="margin-20" style="margin-top:75px;">
 
-    <mat-sidenav-container>
+  <mat-sidenav-container style="min-height:1000px;background-color:white">
 
-      <mat-sidenav #sidenav mode="side" [(opened)]="_prefs.sideNavShown" position="end" style="margin:20px;max-width:400px;">
+    <!-- MAIN CONTENT SECTION -->
+    <mat-sidenav-content>
 
-        <div style="margin-left:10px;margin-right:10px;">
-          <!-- download section -->
-          <app-downloads></app-downloads>
+      <router-outlet></router-outlet>
 
-          <!-- tools & api section -->
-          <app-api style="margin: 20px;"></app-api>
+    </mat-sidenav-content>
 
-          <!-- documentation section -->
-          <app-documentations style="margin: 20px;"></app-documentations>
 
-          <!-- news section -->
-          <app-news style="margin-bottom: 20px;"></app-news>
-        </div>
+    <!-- SIDE NAV SECTION -->
+    <mat-sidenav #sidenav mode="side" [(opened)]="_prefs.sideNavShown" position="end" style="max-width:400px;">
 
-      </mat-sidenav>
+      <div style="margin-left:10px;margin-right:10px;">
+        <br>
+        <!-- download section -->
+        <app-downloads></app-downloads>
 
-      <mat-sidenav-content>
-          <router-outlet></router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+        <!-- tools & api section -->
+        <app-api style="margin: 20px;"></app-api>
+
+        <!-- documentation section -->
+        <app-documentations style="margin: 20px;"></app-documentations>
+
+        <!-- news section -->
+        <app-news style="margin-bottom: 20px;"></app-news>
+      </div>
+
+    </mat-sidenav>
+
+  </mat-sidenav-container>
 
 </div>
 

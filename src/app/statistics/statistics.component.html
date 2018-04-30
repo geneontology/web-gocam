@@ -96,12 +96,12 @@
   </mat-card-content>
 
   <mat-card-actions style="margin:5px">
-    <button mat-button>Learn More
-      <mat-icon>school</mat-icon>
+    <button mat-button>
+      <span>Learn More<mat-icon>school</mat-icon></span>
     </button>
     <!-- mat-button vs mat-raised-button -->
-    <button mat-button [matMenuTriggerFor]="shareMenu">Share
-      <mat-icon>share</mat-icon>
+    <button mat-button [matMenuTriggerFor]="shareMenu">
+      <span>Share<mat-icon>share</mat-icon></span>
     </button>
     <mat-menu #shareMenu="matMenu">
         <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website (Statistics) !" description="I want to share with you the Statistics regarding the new Gene Ontology Causal Activity Models website"></share-button>
