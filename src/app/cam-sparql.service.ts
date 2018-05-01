@@ -25,7 +25,8 @@ export class CamSparqlService {
 //  baseUrl = "https://ipgc7a2b2e.execute-api.us-east-2.amazonaws.com/gocamv3/";
 //  baseUrl = "https://api.gokb.net/gosparql/";
 //  baseUrl = "https://e2dd1wml95.execute-api.us-east-1.amazonaws.com/gocam/";
-  baseUrl = "https://api2.gokb.net/gosparql/";
+//  baseUrl = "https://api2.gokb.net/gosparql/";
+  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
 
   constructor(private httpClient: HttpClient,
               private http: Http) { 

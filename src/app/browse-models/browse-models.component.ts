@@ -52,6 +52,7 @@ export class BrowseModelsComponent implements OnInit {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         json = JSON.parse(json);
+        console.log("GO: ", json);
         for(var i = 0; i < json.length; i++) {
           this.gos.set(json[i].gocam, json[i]);
         }
