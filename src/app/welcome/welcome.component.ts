@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { UrlHandlerService } from '../url-handler.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -21,14 +21,14 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.sub = Observable.interval(this.timeToSwitch)
       .subscribe((val) => {
-        if(!this.pause) {
+        if (!this.pause && this.isScrolledIntoView()) {
           this.cycle();
         }
       });
   }
 
   cycle() {
-    if(this.selectedIndex < 2) {
+    if (this.selectedIndex < 2) {
       this.selectedIndex++;
     } else {
       this.selectedIndex = 0;
@@ -47,6 +47,27 @@ export class WelcomeComponent implements OnInit {
   }
 
 
+  isScrolledIntoView() {
+    var el = document.getElementById("carousel");
+    var rect = el.getBoundingClientRect();
+    var elemTop = rect.top;
+    var elemBottom = rect.bottom;
 
+    // Only completely visible elements return true:
+    var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+    // Partially visible elements return true:
+    //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+    console.log("is visible: " + isVisible);
+    return isVisible;
+  }
+
+
+  /*
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(e) {
+//    console.log(e);
+    this.pause = this.isScrolledIntoView();
+  }
+  */
 
 }

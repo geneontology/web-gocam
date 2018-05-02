@@ -16,9 +16,9 @@
       <a href="http://noctua.berkeleybop.org" target="blank">Noctua</a> modeling tool.
     </p>
 
-    <p align="center">
+    <p align="center" id="carousel">
       <mat-tab-group style="padding:10px; min-height:calc(200px + 0.5vw)" [selectedIndex]="selectedIndex" (mouseover)="pause = true"
-        (mouseleave)="pause = false">
+        (mouseleave)="pause = false" ng-focus="">
 
         <mat-tab label="GO-CAM Principle">
           <img src="./assets/GO-CAM Principle.png" class="small-border" style="width:100%">
