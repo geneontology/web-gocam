@@ -93,6 +93,10 @@ getModelsGOs(gocams: string[]): Observable<object> {
   return this.http.get(this.baseUrl + "models/gos?gocams=" + gocamString);
 }
 
+getAllModelsGOs(): Observable<object> {
+  return this.http.get(this.baseUrl + "models/go");
+}
+
 
 getORCID(orcid: string) {
   var checkedOrcid = orcid;

@@ -13,6 +13,8 @@ import { FormatService } from '../format.service';
 })
 export class BrowseModelsComponent implements OnInit {
 
+  pageSizes = [10, 25, 100];
+
   // can dynamically change the columns displayed
   displayedColumns = ['date', 'title', 'bps', 'mfs', 'contributors', 'groups'];
   dataSource: MatTableDataSource<ModelData>;
@@ -30,10 +32,10 @@ export class BrowseModelsComponent implements OnInit {
   pos_right = "after";
 
   constructor(private sparqlService: CamSparqlService,
-              private urlHandler: UrlHandlerService,
-              private router: Router,
-              public _prefs: PreferencesService,
-              private format: FormatService) { }
+    private urlHandler: UrlHandlerService,
+    private router: Router,
+    public _prefs: PreferencesService,
+    private format: FormatService) { }
 
   ngOnInit() {
     // loading the models
@@ -46,20 +48,32 @@ export class BrowseModelsComponent implements OnInit {
         this.models.push(res);
       });
 
-      // when models are loaded, loading additional information, like BPs
       var gocams = this.extractModels(json);
-//      console.log("gocams: ", gocams);
-      gocams.length = 10;
-      var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
+      gocams.length = this.pageSizes[0];
+      this.sparqlService.getModelsGOs(gocams).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         json = JSON.parse(json);
-        console.log("GO: ", json);
-        for(var i = 0; i < json.length; i++) {
-          this.gos.set(json[i].gocam, json[i]);
-        }
-        this.createGOClasses(this.bps, this.mfs);
-      })
+        var tabelt;
+        json.forEach(element => {
+          tabelt = this.models.find(item => { return item.gocam == element.gocam });
+          tabelt.bp = this.extractBPs(element);
+          tabelt.mf = this.extractMFs(element);
+          /*
+          tabelt.searchfield = "";
+          if(tabelt.bp.length > 0) {
+            tabelt.bp.forEach(elt => {
+              tabelt.searchfield += elt.name + " ";
+            });
+          }
+          if(tabelt.mf.length > 0) {
+            tabelt.mf.forEach(elt => {
+              tabelt.searchfield += elt.name + " ";
+            });
+          }
+          */
+        });
+      });
 
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
@@ -68,44 +82,64 @@ export class BrowseModelsComponent implements OnInit {
   }
 
 
-  createGOClasses(bps, mfs) {
-    this.gos.forEach(function(value, key) {
-      var bp = [];
-      var mf = [];
-      for(var i = 0; i < value.goids.length; i++) {
-        if(value.goclasses[i] == BIOLOGICAL_PROCESS) {
-          bp.push({ 
-            id: value.goids[i],
-            name: value.gonames[i],
-            definition: value.definitions[i]
-          });
 
-        } else if(value.goclasses[i] == MOLECULAR_FUNCTION) {
-          mf.push({ 
-            id: value.goids[i],
-            name: value.gonames[i],
-            definition: value.definitions[i]
-          });
-
-        }
-      }
-      if(bp.length > 0) {
-        bps.set(value.gocam, bp);        
-      }
-      if(mf.length > 0) {
-        mfs.set(value.gocam, mf);        
-      }
-    });
-  }
-
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
+  /* complete the filling of the table */
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.sparqlService.getAllModelsGOs().subscribe(data => {
+      var json = JSON.parse(JSON.stringify(data));
+      json = json._body;
+      json = JSON.parse(json);
+      var tabelt;
+      json.forEach(element => {
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        tabelt.bp = this.extractBPs(element);
+        tabelt.mf = this.extractMFs(element);
+        tabelt.searchfield = "";
+        if(tabelt.bp.length > 0) {
+          tabelt.bp.forEach(elt => {
+            tabelt.searchfield += elt.name + " ";
+          });
+        }
+        if(tabelt.mf.length > 0) {
+          tabelt.mf.forEach(elt => {
+            tabelt.searchfield += elt.name + " ";
+          });
+        }
+      });
+    });
+
   }
+
+
+
+  extractBPs(gocam) {
+    var bps = [];
+    for (var i = 0; i < gocam.goclasses.length; i++) {
+      if (gocam.goclasses[i] == BIOLOGICAL_PROCESS) {
+        bps.push({
+          id: gocam.goids[i],
+          name: gocam.gonames[i],
+          definition: gocam.definitions[i]
+        });
+      }
+    }
+    return bps;
+  }
+
+  extractMFs(gocam) {
+    var mfs = [];
+    for (var i = 0; i < gocam.goclasses.length; i++) {
+      if (gocam.goclasses[i] == MOLECULAR_FUNCTION) {
+        mfs.push({
+          id: gocam.goids[i],
+          name: gocam.gonames[i],
+          definition: gocam.definitions[i]
+        });
+      }
+    }
+    return mfs;
+  }
+
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -116,7 +150,7 @@ export class BrowseModelsComponent implements OnInit {
 
   simplifyNames(names: string[]) {
     var snames = [];
-    for(var i = 0; i < names.length; i++) {
+    for (var i = 0; i < names.length; i++) {
       snames[i] = this.simplifyName(names[i]);
     }
     return snames;
@@ -124,8 +158,8 @@ export class BrowseModelsComponent implements OnInit {
 
   // Format the name of the user
   simplifyName(name: string) {
-    if(name.indexOf(" ") == -1)
-    return name;
+    if (name.indexOf(" ") == -1)
+      return name;
     // simple regex to divide name based on space or dash (differentiate last name dash and first name dash)
     var split = name.split(/\s|-(?=[a-zA-Zéèàïü]+\s)/);
     if (split.length == 1) {
@@ -148,37 +182,39 @@ export class BrowseModelsComponent implements OnInit {
   }
 
   extractModel(model) {
-      if(model.gocam.indexOf("gomodel:") != -1) {
-        return model.gocam.substring(model.gocam.lastIndexOf(":") + 1);
-      } else {
-        return model.gocam.indexOf("/") != -1 ? model.gocam.substring(model.gocam.lastIndexOf("/") +1) : model.gocam
-      }
+    if (model.gocam.indexOf("gomodel:") != -1) {
+      return model.gocam.substring(model.gocam.lastIndexOf(":") + 1);
+    } else {
+      return model.gocam.indexOf("/") != -1 ? model.gocam.substring(model.gocam.lastIndexOf("/") + 1) : model.gocam
+    }
   }
 
 
   navigate(page) {
-//    this.router.navigate([page]);
-//    window.location.href = page;
+    //    this.router.navigate([page]);
+    //    window.location.href = page;
     window.open(page, "_blank");
   }
 
   /* important for streaming data to the table, based on the current index */
   changeTablePage(event: PageEvent) {
-//    console.log("changing page: " , event);
+    /*
+    //    console.log("changing page: " , event);
     var gocams = this.extractModels(this.getModels(event));
     var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
-//      this.correctGOTerms(json);
-      for(var i = 0; i < json.length; i++) {
-        if(!this.gos.has(json[i].gocam)) {
+      //      this.correctGOTerms(json);
+      for (var i = 0; i < json.length; i++) {
+        if (!this.gos.has(json[i].gocam)) {
           this.gos.set(json[i].gocam, json[i]);
-//          console.log("thanks to the streaming on change page, adding: ", json[i].gocam, "\t", json[i]);
+          //          console.log("thanks to the streaming on change page, adding: ", json[i].gocam, "\t", json[i]);
         }
       }
       this.createGOClasses(this.bps, this.mfs);
     })
+    */
   }
 
   correctGOTerms(json) {
@@ -187,7 +223,7 @@ export class BrowseModelsComponent implements OnInit {
 
     var results = [];
     json.map(elt => {
-      if(!bpMap.has(elt.goids)) {
+      if (!bpMap.has(elt.goids)) {
         bpMap.set(elt.goids, elt);
       }
     });
@@ -206,7 +242,7 @@ export class BrowseModelsComponent implements OnInit {
     var def = bp.definition;
     return id + ": " + def;
     */
-   return bp.definition;
+    return bp.definition;
   }
 
   mfToolTip(mf) {
@@ -224,10 +260,21 @@ export interface ModelData {
   names: string[];
   groupids: string[];
   groupnames: string[];
-//  bpids: string[];
-//  bpnames: string[];
-//  mfids: string[];
-//  mfnames: string[];
+  bp: [{
+    id: string,
+    name: string,
+    definition: string
+  }],
+  mf: [{
+    id: string,
+    name: string,
+    definition: string
+  }],
+  searchfield: string
+  //  bpids: string[];
+  //  bpnames: string[];
+  //  mfids: string[];
+  //  mfnames: string[];
 }
 
 var CELLULAR_COMPONENT = "http://purl.obolibrary.org/obo/GO_0005575";

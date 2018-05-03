@@ -13,4 +13,8 @@ export class FormatService {
     return url.substring(url.lastIndexOf("/") + 1);
   }
 
+  concat(a, b) {
+    return a + " " + b;
+  }
+
 }
