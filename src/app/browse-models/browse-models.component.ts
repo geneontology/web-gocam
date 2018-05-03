@@ -4,6 +4,7 @@ import { CamSparqlService } from '../cam-sparql.service';
 import { UrlHandlerService } from '../url-handler.service';
 import { Router } from '@angular/router';
 import { PreferencesService } from '../preferences.service';
+import { FormatService } from '../format.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -31,7 +32,8 @@ export class BrowseModelsComponent implements OnInit {
   constructor(private sparqlService: CamSparqlService,
               private urlHandler: UrlHandlerService,
               private router: Router,
-              public _prefs: PreferencesService) { }
+              public _prefs: PreferencesService,
+              private format: FormatService) { }
 
   ngOnInit() {
     // loading the models
@@ -195,6 +197,20 @@ export class BrowseModelsComponent implements OnInit {
 
   getModels(event: PageEvent) {
     return this.models.slice(event.pageIndex * event.pageSize, (event.pageIndex + 1) * event.pageSize);
+  }
+
+
+  bpToolTip(bp) {
+    /*
+    var id = this.format.extractURLID(bp.id);
+    var def = bp.definition;
+    return id + ": " + def;
+    */
+   return bp.definition;
+  }
+
+  mfToolTip(mf) {
+    return mf.definition;
   }
 
 }

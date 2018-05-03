@@ -53,6 +53,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { GroupService } from './group.service';
 import { PreferencesService } from './preferences.service';
 import { ExpertComponent } from './expert/expert.component';
+import { FormatService } from './format.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -126,7 +127,8 @@ const appRoutes: Routes = [
     UserService,
     GroupService,
     CamSparqlService,
-    PreferencesService
+    PreferencesService,
+    FormatService
   ],
   bootstrap: [AppComponent]
 })
