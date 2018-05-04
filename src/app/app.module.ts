@@ -71,7 +71,6 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
 
     CoreModule,
     SharedMaterialModule,
@@ -83,7 +82,8 @@ const appRoutes: Routes = [
     SuiModule,
     ChartsModule,
 
-    ShareButtonModule.forRoot()
+    ShareButtonModule.forRoot(),
+    RouterModule.forRoot(appRoutes), // advised to put the router at the end of imports
   ],
 
   providers: [],
