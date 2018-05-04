@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CamSparqlService } from '../cam-sparql.service';
-import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
-import { GroupService } from '../group.service';
-import { UrlHandlerService } from '../url-handler.service';
+
+import { UserService } from '../user.service';
+import { UrlHandlerService } from '../../shared/url-handler.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -22,16 +21,15 @@ export class UserProfileComponent implements OnInit {
   userModels;
   userBPs;
 
-  constructor(private sparqlService: CamSparqlService,
+  constructor(
     private urlHandler: UrlHandlerService,
     private userService: UserService,
-    private groupService: GroupService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.orcid = params['id'];
-      this.sparqlService.getUserMetaData(this.orcid).subscribe(data => {
+      this.userService.getUserMetaData(this.orcid).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         this.userMeta = JSON.parse(json);

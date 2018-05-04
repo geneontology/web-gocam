@@ -41,7 +41,7 @@
         <mat-cell *matCellDef="let row">
           <!--
           <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
-            <span matTooltip="{{ bpToolTip(bp) }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="_prefs.toolTipDelay">
+            <span matTooltip="{{ bpToolTip(bp) }}" *ngFor="let bp of bps.get(row.gocam);" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="prefs.toolTipDelay">
               <mat-chip class="bp" selected="true" (click)="navigate(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
                 {{ bp.name }}
               </mat-chip>
@@ -49,7 +49,7 @@
           </mat-chip-list>
           -->
           <mat-chip-list *ngIf="row.bp" class="mat-chip-list-stacked">
-            <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="_prefs.toolTipDelay">
+            <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" [matTooltipPosition]="pos_left" [matTooltipShowDelay]="prefs.toolTipDelay">
               <mat-chip class="bp" selected="true" (click)="navigate(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
                 {{ bp.name }}
               </mat-chip>
@@ -65,7 +65,7 @@
 
           <!--
           <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
-            <span matTooltip="{{ mfToolTip(mf) }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="_prefs.toolTipDelay">
+            <span matTooltip="{{ mfToolTip(mf) }}" *ngFor="let mf of mfs.get(row.gocam);" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
               <mat-chip class="mf" selected="true" (click)="navigate(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
                 {{ mf.name }}
               </mat-chip>
@@ -73,7 +73,7 @@
           </mat-chip-list>
           -->
           <mat-chip-list *ngIf="row.mf" class="mat-chip-list-stacked">
-            <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="_prefs.toolTipDelay">
+            <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
               <mat-chip class="mf" selected="true" (click)="navigate(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
                 {{ mf.name }}
               </mat-chip>

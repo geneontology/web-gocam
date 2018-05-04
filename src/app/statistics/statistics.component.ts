@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CamSparqlService } from '../cam-sparql.service';
+import { CamSparqlService } from '../shared/cam-sparql.service';
 
 @Component({
   selector: 'app-statistics',

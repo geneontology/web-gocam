@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UrlHandlerService } from '../url-handler.service';
 import { Router }                 from '@angular/router';
+import { UrlHandlerService } from '../shared/url-handler.service';
 
 export enum DownloadType {
   ttl = "TTL",

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
-import { CamSparqlService } from '../cam-sparql.service';
-import { UrlHandlerService } from '../url-handler.service';
-import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UrlHandlerService } from '../../shared/url-handler.service';
 
 @Component({
   selector: 'app-group-profile',
@@ -15,10 +13,8 @@ export class GroupProfileComponent implements OnInit {
   group;
   groupMeta;
 
-  constructor(private sparqlService: CamSparqlService,
+  constructor(private groupService: GroupService,
               private urlHandler: UrlHandlerService,
-              private userService: UserService,
-              private groupService: GroupService,
               private route: ActivatedRoute,
               private router: Router) { }
 

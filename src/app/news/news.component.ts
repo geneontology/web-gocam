@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { map } from 'rxjs/operators';
 
-import { CamSparqlService } from '../cam-sparql.service';
-import { UrlHandlerService } from '../url-handler.service';
+import { UrlHandlerService } from '../shared/url-handler.service';
+import { CamSparqlService } from '../shared/cam-sparql.service';
 
 @Component({
   selector: 'app-news',

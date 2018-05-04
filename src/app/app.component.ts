@@ -1,6 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UserService, UsageType } from './user.service';
-import { PreferencesService } from './preferences.service';
+import { PreferencesService } from './shared/preferences.service';
 
 @Component({
   selector: 'app-root',
@@ -14,27 +13,11 @@ export class AppComponent implements OnInit{
   opened;
   secondaryNav;
 
-  constructor(private userService: UserService,
-              public prefs: PreferencesService) {
-
-    this.usages =  [
-      UsageType.research,
-      UsageType.curation,
-      UsageType.development
-    ];
+  constructor(public prefs: PreferencesService) {
     this.autoSideNavState(window.innerWidth);
   }
 
   ngOnInit(): void {
-  }
-
-  isUsageDefined(): boolean {
-    return true;
-//    return this._userService.isUsageDefined();
-  }
-
-  usage(): string {
-    return this.userService.getUsage();
   }
 
   isSideNavShown() {

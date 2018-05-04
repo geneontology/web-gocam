@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PreferencesService } from '../preferences.service';
+import { PreferencesService } from '../shared/preferences.service';
 
 @Component({
   selector: 'app-navigation',
@@ -29,7 +29,7 @@ export class NavigationComponent implements OnInit {
     }
   ];
 
-  constructor(public _prefs: PreferencesService) { }
+  constructor(public prefs: PreferencesService) { }
 
   ngOnInit() {
   }

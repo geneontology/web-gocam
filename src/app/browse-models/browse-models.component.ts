@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
-import { CamSparqlService } from '../cam-sparql.service';
-import { UrlHandlerService } from '../url-handler.service';
 import { Router } from '@angular/router';
-import { PreferencesService } from '../preferences.service';
-import { FormatService } from '../format.service';
+import { UrlHandlerService } from '../shared/url-handler.service';
+import { PreferencesService } from '../shared/preferences.service';
+import { FormatService } from '../shared/format.service';
+import { CamSparqlService } from '../shared/cam-sparql.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -32,10 +32,10 @@ export class BrowseModelsComponent implements OnInit {
   pos_right = "after";
 
   constructor(private sparqlService: CamSparqlService,
-    private urlHandler: UrlHandlerService,
-    private router: Router,
-    public _prefs: PreferencesService,
-    private format: FormatService) { }
+              private urlHandler: UrlHandlerService,
+              private router: Router,
+              public prefs: PreferencesService,
+              private format: FormatService) { }
 
   ngOnInit() {
     // loading the models

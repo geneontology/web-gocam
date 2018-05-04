@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { UrlHandlerService } from './url-handler.service';
+
+import { UrlHandlerService } from '../shared/url-handler.service';
 
 import * as jsyaml from "js-yaml";
 
@@ -10,7 +11,7 @@ export class GroupService {
   groups;
 
   constructor(private http: Http,
-    private urlHandler: UrlHandlerService) { }
+              private urlHandler: UrlHandlerService) { }
 
 
   loadGroupMetaData() {
@@ -29,5 +30,4 @@ export class GroupService {
 //    console.log("result: ", this.groups.filter(group => group.shorthand === shorthand));
     return this.groups.filter(group => group.shorthand === shorthand)[0];
   }
-
 }

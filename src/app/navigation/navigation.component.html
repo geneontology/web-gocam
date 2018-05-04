@@ -65,14 +65,14 @@
 
 
         <!-- GIVE FEED BACKS -->
-        <span matTooltip="Give Your Feedback" [matTooltipShowDelay]="_prefs.toolTipDelay">
+        <span matTooltip="Give Your Feedback" [matTooltipShowDelay]="prefs.toolTipDelay">
           <button mat-mini-fab color="white" (click)="pageDimmed = true">
             <mat-icon color="primary">comment</mat-icon>
           </button>
         </span>
 
         <!-- BROWSE GO-CAMs -->
-        <span matTooltip="Browse GO-CAMs" [matTooltipShowDelay]="_prefs.toolTipDelay">
+        <span matTooltip="Browse GO-CAMs" [matTooltipShowDelay]="prefs.toolTipDelay">
           <a [routerLink]="['/browse']">
             <button mat-mini-fab color="white">
               <mat-icon color="primary">search</mat-icon>
@@ -81,7 +81,7 @@
         </span>
 
         <!-- HOME PAGE -->
-        <span matTooltip="Home Page" [matTooltipShowDelay]="_prefs.toolTipDelay">
+        <span matTooltip="Home Page" [matTooltipShowDelay]="prefs.toolTipDelay">
           <a [routerLink]="['/']">
             <button mat-mini-fab color="white">
               <mat-icon color="primary">home</mat-icon>
@@ -92,7 +92,7 @@
 
 
         <!-- USER ACCOUNT
-        <span matTooltip="User Account" [matTooltipShowDelay]="_prefs.toolTipDelay">
+        <span matTooltip="User Account" [matTooltipShowDelay]="prefs.toolTipDelay">
           <button mat-mini-fab color="white">
             <mat-icon color="primary">account_circle</mat-icon>
           </button>
@@ -100,8 +100,8 @@
          -->
 
         <!-- TOGGLE SIDE NAV -->
-        <span matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="_prefs.toolTipDelay">
-          <button mat-mini-fab color="white" (click)="_prefs.toggleSideNav()">
+        <span matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <button mat-mini-fab color="white" (click)="prefs.toggleSideNav()">
             <mat-icon color="primary">menu</mat-icon>
           </button>
         </span>
