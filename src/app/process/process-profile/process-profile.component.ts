@@ -11,6 +11,7 @@ export class ProcessProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
   }
 
 }

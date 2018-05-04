@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class FormatService {
+export class UtilsService {
 
   constructor() { }
 
+
+  extractORCID(orcid: string) {
+    var checkedOrcid = orcid;
+    if (orcid.includes("http://orcid.org/")) {
+      checkedOrcid = orcid.replace("http://orcid.org/", "");
+    }
+    return checkedOrcid;
+  }
 
   /* extract the id of a given url xxx/{id}. By default, if this is not a URL, return the parameter itself */
   extractURLID(url: string) {
@@ -12,9 +20,10 @@ export class FormatService {
       return url;
     return url.substring(url.lastIndexOf("/") + 1);
   }
+  
 
   concat(a, b) {
-    return a + " " + b;
+    return a + "," + b;
   }
 
 }

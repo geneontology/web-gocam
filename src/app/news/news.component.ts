@@ -7,7 +7,7 @@ import 'rxjs/add/observable/interval';
 import { map } from 'rxjs/operators';
 
 import { UrlHandlerService } from '../core/url-handler.service';
-import { CamSparqlService } from '../shared/cam-sparql.service';
+import { GoRESTService } from '../core/gorest.service';
 
 @Component({
   selector: 'app-news',
@@ -28,12 +28,12 @@ export class NewsComponent implements OnInit {
   news = [];
 
 
-  constructor(private camSparql: CamSparqlService,
+  constructor(private goREST: GoRESTService,
               private urlHandler: UrlHandlerService) { }
 
 
   ngOnInit() {
-    this.camSparql.getMostRecents(this.nbMostRecents + 3).subscribe(data => {
+    this.goREST.getMostRecents(this.nbMostRecents + 3).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);

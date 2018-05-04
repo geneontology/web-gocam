@@ -19,6 +19,7 @@ export class GroupProfileComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       this.group = params['id'];
       /*

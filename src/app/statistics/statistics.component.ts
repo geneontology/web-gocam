@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CamSparqlService } from '../shared/cam-sparql.service';
+import { GoRESTService } from '../core/gorest.service';
 
 @Component({
   selector: 'app-statistics',
@@ -75,7 +75,7 @@ export class StatisticsComponent implements OnInit {
     domain: ['gray', 'blue', 'yellow', '#AAAAAA']
   };
 
-  constructor(private camSparql: CamSparqlService) { 
+  constructor(private goREST: GoRESTService) { 
     
   }
 

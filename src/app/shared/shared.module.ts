@@ -10,8 +10,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SocialSharingComponent } from './social-sharing/social-sharing.component';
 
-import { FormatService } from './format.service';
-import { CamSparqlService } from './cam-sparql.service';
 
 
 @NgModule({
@@ -25,10 +23,7 @@ import { CamSparqlService } from './cam-sparql.service';
     SocialSharingComponent
   ],
 
-  providers: [
-    FormatService,
-    CamSparqlService
-  ],
+  providers: [],
 
   exports: [
     CommonModule,

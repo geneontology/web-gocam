@@ -21,13 +21,13 @@ export class UserProfileComponent implements OnInit {
   userModels;
   userBPs;
 
-  constructor(
-    private urlHandler: UrlHandlerService,
-    private userService: UserService,
-    private route: ActivatedRoute) { }
+  constructor(private urlHandler: UrlHandlerService,
+              private userService: UserService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+      window.scrollTo(0, 0);
+      this.route.params.subscribe(params => {
       this.orcid = params['id'];
       this.userService.getUserMetaData(this.orcid).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));

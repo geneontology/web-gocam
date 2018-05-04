@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { FormatService } from '../shared/format.service';
-import { CamSparqlService } from '../shared/cam-sparql.service';
 import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
+import { UtilsService } from '../core/utils.service';
+import { GoRESTService } from '../core/gorest.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -32,26 +32,26 @@ export class BrowseModelsComponent implements OnInit {
   pos_left = "before";
   pos_right = "after";
 
-  constructor(private sparqlService: CamSparqlService,
+  constructor(private goREST: GoRESTService,
               private urlHandler: UrlHandlerService,
               public prefs: PreferencesService,
-              private format: FormatService,
+              public utils: UtilsService,
               private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     // loading the models
-    this.sparqlService.getModelList(1).subscribe(data => {
+    this.goREST.getModelList(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
-
       json.map(res => {
         this.models.push(res);
       });
 
       var gocams = this.extractModels(json);
       gocams.length = this.pageSizes[0];
-      this.sparqlService.getModelsGOs(gocams).subscribe(data => {
+      this.goREST.getModelsGOs(gocams).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         json = JSON.parse(json);
@@ -74,7 +74,7 @@ export class BrowseModelsComponent implements OnInit {
 
   /* complete the filling of the table */
   ngAfterViewInit() {
-    this.sparqlService.getAllModelsGOs().subscribe(data => {
+    this.goREST.getAllModelsGOs().subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
@@ -162,9 +162,6 @@ export class BrowseModelsComponent implements OnInit {
     return firstNames + split[split.length - 1];
   }
 
-  extractOrcid(orcid: string): string {
-    return this.sparqlService.getORCID(orcid);
-  }
 
   extractModels(models) {
     return models.map(elt => this.extractModel(elt));
@@ -227,7 +224,7 @@ export class BrowseModelsComponent implements OnInit {
 
   bpToolTip(bp) {
     /*
-    var id = this.format.extractURLID(bp.id);
+    var id = this.utils.extractURLID(bp.id);
     var def = bp.definition;
     return id + ": " + def;
     */

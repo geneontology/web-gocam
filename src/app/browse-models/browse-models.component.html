@@ -87,7 +87,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-title mat-column-align">Contributor(s)</mat-header-cell>
         <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align">
           <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
-            <a routerLink="/users/{{extractOrcid(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
+            <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
             <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
           </div>
         </mat-cell>
