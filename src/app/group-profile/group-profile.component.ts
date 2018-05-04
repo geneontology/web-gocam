@@ -16,11 +16,11 @@ export class GroupProfileComponent implements OnInit {
   groupMeta;
 
   constructor(private sparqlService: CamSparqlService,
-    private urlHandler: UrlHandlerService,
-    private userService: UserService,
-    private groupService: GroupService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+              private urlHandler: UrlHandlerService,
+              private userService: UserService,
+              private groupService: GroupService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

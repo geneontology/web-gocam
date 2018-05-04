@@ -14,8 +14,8 @@ export class AppComponent implements OnInit{
   opened;
   secondaryNav;
 
-  constructor(private _userService: UserService,
-              public _prefs: PreferencesService) {
+  constructor(private userService: UserService,
+              public prefs: PreferencesService) {
 
     this.usages =  [
       UsageType.research,
@@ -34,11 +34,11 @@ export class AppComponent implements OnInit{
   }
 
   usage(): string {
-    return this._userService.getUsage();
+    return this.userService.getUsage();
   }
 
   isSideNavShown() {
-    return this._prefs.isSideNavShown();
+    return this.prefs.isSideNavShown();
   }
 
 
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit{
   autoSideNavState(width: number) {
 //    if(width < 1000)
 //    this._prefs.setSideNavState(false);
-    this._prefs.setSideNavState(width > 1000);
+    this.prefs.setSideNavState(width > 1000);
   }
     
 }

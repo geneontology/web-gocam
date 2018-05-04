@@ -18,8 +18,8 @@ export class DownloadsComponent implements OnInit {
 
   dtype = DownloadType;
 
-  constructor(private _urlHandler: UrlHandlerService,
-              private _router: Router) { }
+  constructor(private urlHandler: UrlHandlerService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -27,16 +27,16 @@ export class DownloadsComponent implements OnInit {
   download(type: DownloadType): void {
     switch(type) {
       case DownloadType.ttl: 
-      window.location.href=this._urlHandler.getDownloadURL_GOCAM_TTL();
+      window.location.href=this.urlHandler.getDownloadURL_GOCAM_TTL();
       break;
       case DownloadType.jnl:
-      window.location.href=this._urlHandler.getDownloadURL_GOCAM_JNL();
+      window.location.href=this.urlHandler.getDownloadURL_GOCAM_JNL();
       break;
       case DownloadType.ctab:
-      window.location.href=this._urlHandler.getDownloadURL_GOCAM_CTAB();
+      window.location.href=this.urlHandler.getDownloadURL_GOCAM_CTAB();
       break;
       case DownloadType.sif:
-      window.location.href=this._urlHandler.getDownloadURL_GOCAM_SIF();
+      window.location.href=this.urlHandler.getDownloadURL_GOCAM_SIF();
       break;
     }
   }

@@ -29,7 +29,7 @@ export class NewsComponent implements OnInit {
 
 
   constructor(private camSparql: CamSparqlService,
-    private urlHandler: UrlHandlerService) { }
+              private urlHandler: UrlHandlerService) { }
 
 
   ngOnInit() {

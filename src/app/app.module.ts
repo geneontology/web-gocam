@@ -52,21 +52,24 @@ import { ShareButtonModule } from '@ngx-share/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { GroupService } from './group.service';
 import { PreferencesService } from './preferences.service';
-import { ExpertComponent } from './expert/expert.component';
 import { FormatService } from './format.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProcessProfileComponent } from './process-profile/process-profile.component';
+
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'browse', component: BrowseModelsComponent },
-  { path: 'user/:id', component: UserProfileComponent },
-  { path: 'group/:id', component: GroupProfileComponent },
-  { path: 'expert/:id', component: ExpertComponent },
-  { path: '**', component: AppComponent }
+  { path: 'users/:id', component: UserProfileComponent },
+  { path: 'groups/:id', component: GroupProfileComponent },
+  { path: 'process/:id', component: ProcessProfileComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     NavigationComponent,
@@ -85,8 +88,10 @@ const appRoutes: Routes = [
     HomeComponent,
     UserProfileComponent,
     GroupProfileComponent,
-    ExpertComponent
+    ProcessProfileComponent,
+    PageNotFoundComponent
   ],
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -120,8 +125,8 @@ const appRoutes: Routes = [
 
     SuiModule,
     NgxChartsModule
-
   ],
+
   providers: [
     UrlHandlerService,
     UserService,
@@ -130,6 +135,7 @@ const appRoutes: Routes = [
     PreferencesService,
     FormatService
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

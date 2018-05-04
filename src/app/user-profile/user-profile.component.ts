@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CamSparqlService } from '../cam-sparql.service';
 import { UserService } from '../user.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GroupService } from '../group.service';
 import { UrlHandlerService } from '../url-handler.service';
 
@@ -26,8 +26,7 @@ export class UserProfileComponent implements OnInit {
     private urlHandler: UrlHandlerService,
     private userService: UserService,
     private groupService: GroupService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

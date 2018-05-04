@@ -49,6 +49,9 @@ export class WelcomeComponent implements OnInit {
 
   isScrolledIntoView() {
     var el = document.getElementById("carousel");
+    if(!el)
+    return false;
+    
     var rect = el.getBoundingClientRect();
     var elemTop = rect.top;
     var elemBottom = rect.bottom;
@@ -57,7 +60,6 @@ export class WelcomeComponent implements OnInit {
     var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
     // Partially visible elements return true:
     //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
-//    console.log("is visible: " + isVisible);
     return isVisible;
   }
 
