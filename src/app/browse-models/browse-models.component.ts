@@ -59,19 +59,7 @@ export class BrowseModelsComponent implements OnInit {
           tabelt = this.models.find(item => { return item.gocam == element.gocam });
           tabelt.bp = this.extractBPs(element);
           tabelt.mf = this.extractMFs(element);
-          /*
-          tabelt.searchfield = "";
-          if(tabelt.bp.length > 0) {
-            tabelt.bp.forEach(elt => {
-              tabelt.searchfield += elt.name + " ";
-            });
-          }
-          if(tabelt.mf.length > 0) {
-            tabelt.mf.forEach(elt => {
-              tabelt.searchfield += elt.name + " ";
-            });
-          }
-          */
+          // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
         });
       });
 
@@ -95,12 +83,12 @@ export class BrowseModelsComponent implements OnInit {
         tabelt.bp = this.extractBPs(element);
         tabelt.mf = this.extractMFs(element);
         tabelt.searchfield = "";
-        if(tabelt.bp.length > 0) {
+        if (tabelt.bp.length > 0) {
           tabelt.bp.forEach(elt => {
             tabelt.searchfield += elt.name + " ";
           });
         }
-        if(tabelt.mf.length > 0) {
+        if (tabelt.mf.length > 0) {
           tabelt.mf.forEach(elt => {
             tabelt.searchfield += elt.name + " ";
           });
@@ -123,7 +111,7 @@ export class BrowseModelsComponent implements OnInit {
         });
       }
     }
-    return bps;
+    return bps.sort(this.compare);
   }
 
   extractMFs(gocam) {
@@ -137,7 +125,7 @@ export class BrowseModelsComponent implements OnInit {
         });
       }
     }
-    return mfs;
+    return mfs.sort(this.compare);
   }
 
 
@@ -247,6 +235,14 @@ export class BrowseModelsComponent implements OnInit {
 
   mfToolTip(mf) {
     return mf.definition;
+  }
+
+
+  compare(a, b) {
+    if(a.id < b.id) {
+      return 1;
+    }
+    return -1;
   }
 
 }

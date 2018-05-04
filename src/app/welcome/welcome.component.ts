@@ -57,7 +57,7 @@ export class WelcomeComponent implements OnInit {
     var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
     // Partially visible elements return true:
     //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
-    console.log("is visible: " + isVisible);
+//    console.log("is visible: " + isVisible);
     return isVisible;
   }
 
