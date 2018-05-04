@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { UrlHandlerService } from '../shared/url-handler.service';
+import { UrlHandlerService } from '../core/url-handler.service';
 
 import * as jsyaml from "js-yaml";
 

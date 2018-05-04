@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { UrlHandlerService } from '../shared/url-handler.service';
+import { UrlHandlerService } from '../core/url-handler.service';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { PreferencesService } from './shared/preferences.service';
+import { PreferencesService } from './core/preferences.service';
 
 @Component({
   selector: 'app-root',

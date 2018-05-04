@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UrlHandlerService } from '../../shared/url-handler.service';
+import { UrlHandlerService } from '../../core/url-handler.service';
 
 @Component({
   selector: 'app-group-profile',

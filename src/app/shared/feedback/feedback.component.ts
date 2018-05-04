@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PreferencesService } from '../core/preferences.service';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class FeedbackComponent implements OnInit {
 
-  pageDimmed = false;
   fbs = [
     {
       value: "site",
@@ -27,7 +25,8 @@ export class NavigationComponent implements OnInit {
       viewValue: "GO-CAM: a precise model"
     }
   ];
-  constructor(public prefs: PreferencesService) { }
+
+  constructor() { }
 
   ngOnInit() {
   }

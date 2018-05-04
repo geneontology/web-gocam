@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
-import { UrlHandlerService } from '../shared/url-handler.service';
-import { PreferencesService } from '../shared/preferences.service';
+
 import { FormatService } from '../shared/format.service';
 import { CamSparqlService } from '../shared/cam-sparql.service';
+import { UrlHandlerService } from '../core/url-handler.service';
+import { PreferencesService } from '../core/preferences.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -33,9 +34,9 @@ export class BrowseModelsComponent implements OnInit {
 
   constructor(private sparqlService: CamSparqlService,
               private urlHandler: UrlHandlerService,
-              private router: Router,
               public prefs: PreferencesService,
-              private format: FormatService) { }
+              private format: FormatService,
+              private router: Router) { }
 
   ngOnInit() {
     // loading the models
@@ -181,7 +182,7 @@ export class BrowseModelsComponent implements OnInit {
   navigate(page) {
     //    this.router.navigate([page]);
     //    window.location.href = page;
-    window.open(page, "_blank");
+    window.open("https://www.ebi.ac.uk/ols/ontologies/go/terms?iri=" + page, "_blank");
   }
 
   /* important for streaming data to the table, based on the current index */

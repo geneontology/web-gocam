@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user.service';
-import { UrlHandlerService } from '../../shared/url-handler.service';
+import { UrlHandlerService } from '../../core/url-handler.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         this.userMeta = JSON.parse(json);
-        console.log(this.userMeta);
+//        console.log(this.userMeta);
       });
     });
 

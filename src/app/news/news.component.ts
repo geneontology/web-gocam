@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { map } from 'rxjs/operators';
 
-import { UrlHandlerService } from '../shared/url-handler.service';
+import { UrlHandlerService } from '../core/url-handler.service';
 import { CamSparqlService } from '../shared/cam-sparql.service';
 
 @Component({
