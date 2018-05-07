@@ -56,7 +56,7 @@
 
 
     <mat-accordion *ngIf="userMeta && userMeta.gocams" class="my-headers-align">
-      <mat-expansion-panel [expanded]="step === 0" >
+      <mat-expansion-panel [expanded]="step === 0">
         <mat-expansion-panel-header>
           <mat-panel-title>
             GO-CAMs
@@ -68,7 +68,7 @@
 
         <ul>
           <li *ngFor="let model of userMeta?.gocams; let i = index">
-            {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
+            <!--{{userMeta.gocamsDate[i]}} &nbsp;&nbsp;-->
             <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
           </li>
         </ul>
@@ -111,11 +111,20 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <mat-chip-list>
+          <mat-chip *ngFor="let bp of userMeta?.gpIDs; let i = index" color=white selected="true" (click)="navigate(userMeta.gpIDs[i])"
+            style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
+            {{userMeta.gpNames[i]}}
+          </mat-chip>
+        </mat-chip-list>
+
+        <!--
         <ul>
           <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
             <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
           </li>
         </ul>
+      -->
 
       </mat-expansion-panel>
     </mat-accordion>

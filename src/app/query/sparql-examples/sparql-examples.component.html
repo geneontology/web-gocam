@@ -1,0 +1,70 @@
+<br>
+
+<mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" style="margin-bottom:10px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>apps</mat-icon>
+    </div>
+    <mat-card-title>Examples of GO SPARQL Queries</mat-card-title>
+    <mat-card-subtitle>Tips: click one of these badges to test a common query</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="small-border">
+
+    <mat-chip-list>
+      <span matTooltip="{{ qu.help }}" *ngFor="let qu of queries;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <mat-chip selected="true" (click)="example(qu)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
+          {{ qu.name }}
+        </mat-chip>
+      </span>
+    </mat-chip-list>
+
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" style="margin-bottom:10px">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>edit</mat-icon>
+    </div>
+    <mat-card-title>Your SPARQL query</mat-card-title>
+    <mat-card-subtitle>http://rdf.geneontology.org/blazegraph/sparql</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="small-border">
+
+    <mat-form-field class="small-border" style="padding:5px; width:100%;">
+      <textarea matInput #message placeholder="SPARQL query" rows=15 required [(ngModel)]="query" style="font-size:calc(6px + 0.5vw);"></textarea>
+      <mat-hint align="end">{{message.value.length}}</mat-hint>
+    </mat-form-field>
+
+  </mat-card-content>
+
+
+  <mat-card-actions style="margin:5px">
+    <button mat-raised-button (click)="submitQuery()" color=primary [disabled]="query == undefined || query.length == 0">
+      <span>Submit Query
+        <mat-icon>send</mat-icon>
+      </span>
+    </button>
+  </mat-card-actions>
+
+</mat-card>
+
+
+<mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" *ngIf="jsResponse">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon>device_hub</mat-icon>
+    </div>
+    <mat-card-title>Response from GO SPARQL endpoint</mat-card-title>
+    <mat-card-subtitle>http://rdf.geneontology.org/blazegraph/sparql</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="small-border" style="padding:10px">
+
+    <ngx-json-viewer [json]="jsResponse" [expanded]=false></ngx-json-viewer>
+
+  </mat-card-content>
+</mat-card>

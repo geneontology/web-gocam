@@ -66,6 +66,11 @@ export class UserProfileComponent implements OnInit {
     })
     */
   }
+  navigate(page) {
+    //    this.router.navigate([page]);
+    //    window.location.href = page;
+    window.open(page, "_blank");
+  }
 
 
 }

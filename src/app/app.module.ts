@@ -16,7 +16,6 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { DownloadsComponent } from './downloads/downloads.component';
 import { ApiComponent } from './api/api.component';
 import { DocumentationsComponent } from './documentations/documentations.component';
-import { QueryExamplesComponent } from './query-examples/query-examples.component';
 import { UseCasesComponent } from './use-cases/use-cases.component';
 import { NewsComponent } from './news/news.component';
 import { BrowseModelsComponent } from './browse-models/browse-models.component';
@@ -33,6 +32,7 @@ import { SuiModule } from 'ng2-semantic-ui';
 import { ChartsModule } from 'ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
+import { QueryModule } from './query/query.module';
 
 
 
@@ -59,7 +59,6 @@ const appRoutes: Routes = [
     DocumentationsComponent,
     NewsComponent,
 
-    QueryExamplesComponent,
     UseCasesComponent,
 
     BrowseModelsComponent,
@@ -77,6 +76,7 @@ const appRoutes: Routes = [
     UserModule,
     GroupModule,
     ProcessModule,
+    QueryModule,
     
     FlexLayoutModule,
     SuiModule,

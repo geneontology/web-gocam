@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QueryExamplesComponent } from './query-examples.component';
+import { SparqlExamplesComponent } from './sparql-examples.component';
 
-describe('QueryExamplesComponent', () => {
-  let component: QueryExamplesComponent;
-  let fixture: ComponentFixture<QueryExamplesComponent>;
+describe('SparqlExamplesComponent', () => {
+  let component: SparqlExamplesComponent;
+  let fixture: ComponentFixture<SparqlExamplesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueryExamplesComponent ]
+      declarations: [ SparqlExamplesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QueryExamplesComponent);
+    fixture = TestBed.createComponent(SparqlExamplesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

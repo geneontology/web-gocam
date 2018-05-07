@@ -7,6 +7,7 @@ import { UrlHandlerService } from './url-handler.service';
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { GoRESTService } from './gorest.service';
 import { UtilsService } from './utils.service';
+import { GoSPARQLService } from './gosparql.service';
 
 @NgModule({
   
@@ -21,6 +22,7 @@ import { UtilsService } from './utils.service';
   
   providers: [
     GoRESTService,
+    GoSPARQLService,
     PreferencesService,
     UrlHandlerService,
     UtilsService

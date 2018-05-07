@@ -11,19 +11,23 @@
   <mat-card-content>
 
     <p>
-      GO-CAMs resources are accessible through the:        
+      GO-CAMs resources are accessible through the:
     </p>
     <ul>
-        <li>
-          <a href="http://noctua.berkeleybop.org/" target="blank">Noctua</a> curation platform 
-        </li>
-        <li>
-            <img src="../assets/rdf_w3c_icon.64.png" style="width:32px"> &nbsp;<a href="http://rdf.geneontology.org/blazegraph/#query" target="blank">SPARQL endpoint</a>
-        </li>
-        <li>
-            <img src="../assets/rest-api-icon-8.jpg" style="width:32px"> &nbsp;<a href="https://app.swaggerhub.com/apis/geneontology/gosparql/alpha" target="blank">REST endpoint</a>
-        </li>
-      </ul>
+      <li>
+        <a href="http://noctua.berkeleybop.org/" target="blank">Noctua</a> curation platform</li>
+      <li>
+        <img src="../assets/rdf_w3c_icon.64.png" style="width:32px"> &nbsp;
+        <a [routerLink]="['query/sparql-examples']">SPARQL endpoint</a>
+        <!--
+        <a href="http://rdf.geneontology.org/blazegraph/#query" target="blank">SPARQL endpoint</a>
+        -->
+      </li>
+      <li>
+        <img src="../assets/rest-api-icon-8.jpg" style="width:32px"> &nbsp;
+        <a href="https://app.swaggerhub.com/apis/geneontology/gosparql/alpha" target="blank">REST endpoint</a>
+      </li>
+    </ul>
 
   </mat-card-content>
 </mat-card>
