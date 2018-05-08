@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import * as jsyaml from "js-yaml";
+
+
 @Injectable()
 export class UtilsService {
 
@@ -24,6 +27,14 @@ export class UtilsService {
 
   concat(a, b) {
     return a + "," + b;
+  }
+
+  parseYAML(text: string) {
+    return jsyaml.load(text);
+  }
+
+  lastUpdate(): string {
+    return "May, 2018";
   }
 
 }

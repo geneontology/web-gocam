@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GoRESTService } from '../core/gorest.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { GoRESTService } from '../core/gorest.service';
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit, OnDestroy {
 
   single = [
     {
@@ -84,6 +84,9 @@ export class StatisticsComponent implements OnInit {
   }  
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
   }
 
   public barChartOptions:any = {

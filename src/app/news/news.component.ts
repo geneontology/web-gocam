@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { TransitionController, Transition, TransitionDirection } from "ng2-semantic-ui";
 import { Observable } from 'rxjs/Observable';
@@ -14,7 +14,7 @@ import { GoRESTService } from '../core/gorest.service';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.css']
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, OnDestroy {
 
   nbMostRecents: number = 9;
   timeToSwitch: number = 3500;
@@ -27,6 +27,7 @@ export class NewsComponent implements OnInit {
   newsPos = 0;
   news = [];
 
+  pause: boolean = false;
 
   constructor(private goREST: GoRESTService,
               private urlHandler: UrlHandlerService) { }
@@ -52,7 +53,12 @@ export class NewsComponent implements OnInit {
       });
   }
 
-  pause: boolean = false;
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.pause = true;
+  }
+
 
   public animate(transitionName: string = "scale") {
     this.transitionController.animate(

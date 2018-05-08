@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { UrlHandlerService } from '../core/url-handler.service';
+import { UtilsService } from '../core/utils.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { UrlHandlerService } from '../core/url-handler.service';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
 
   sub: any;
   timeToSwitch: number = 6000;
@@ -16,7 +17,8 @@ export class WelcomeComponent implements OnInit {
 
   selectedIndex = 0;
 
-  constructor(private urlHandler: UrlHandlerService) { }
+  constructor(private urlHandler: UrlHandlerService,
+              public utils: UtilsService) { }
 
   ngOnInit() {
     this.sub = Observable.interval(this.timeToSwitch)
@@ -25,6 +27,10 @@ export class WelcomeComponent implements OnInit {
           this.cycle();
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   cycle() {

@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import * as jsyaml from "js-yaml";
+//import * as jsyaml from "js-yaml";
 
 
 @Injectable()
@@ -17,7 +17,6 @@ export class GoSPARQLService {
 //    console.log("sending query: " + query);
 //    return this.http.get(this.baseUrl, query);
     return this.http.get(this.baseUrl + "?query=" + encodeURIComponent(query));
-
   }
 
 

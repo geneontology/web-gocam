@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user.service';
@@ -9,7 +9,7 @@ import { UrlHandlerService } from '../../core/url-handler.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   found: boolean = true;
   step = 0;
@@ -21,6 +21,8 @@ export class UserProfileComponent implements OnInit {
   userModels;
   userBPs;
 
+  sub: any;
+
   constructor(private urlHandler: UrlHandlerService,
               private userService: UserService,
               private route: ActivatedRoute) { }
@@ -29,7 +31,8 @@ export class UserProfileComponent implements OnInit {
       window.scrollTo(0, 0);
       this.route.params.subscribe(params => {
       this.orcid = params['id'];
-      this.userService.getUserMetaData(this.orcid).subscribe(data => {
+      this.sub = this.userService.getUserMetaData(this.orcid)
+      this.sub.subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         this.userMeta = JSON.parse(json);
@@ -66,11 +69,18 @@ export class UserProfileComponent implements OnInit {
     })
     */
   }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+
   navigate(page) {
     //    this.router.navigate([page]);
     //    window.location.href = page;
     window.open(page, "_blank");
   }
+
 
 
 }

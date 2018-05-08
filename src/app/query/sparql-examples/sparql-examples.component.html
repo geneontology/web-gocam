@@ -14,9 +14,16 @@
   <mat-card-content class="small-border">
 
     <mat-chip-list>
+      <!--
       <span matTooltip="{{ qu.help }}" *ngFor="let qu of queries;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
         <mat-chip selected="true" (click)="example(qu)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
           {{ qu.name }}
+        </mat-chip>
+      </span>
+    -->
+    <span matTooltip="{{ template.comment }}" *ngFor="let template of availableTemplates;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <mat-chip selected="true" (click)="example(template)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
+          {{ template.name }}
         </mat-chip>
       </span>
     </mat-chip-list>
@@ -36,13 +43,17 @@
 
   <mat-card-content class="small-border">
 
+    <div class="small-border" *ngIf="template" style="margin:10px; padding:10px">
+      <h2>Description:</h2>
+      {{ template.description }}
+    </div>
     <!--
     <mat-form-field class="small-border" style="padding:5px; width:100%;">
       <textarea matInput #message placeholder="SPARQL query" rows=15 required [(ngModel)]="query" style="font-size:calc(6px + 0.5vw);"></textarea>
       <mat-hint align="end">{{message.value.length}}</mat-hint>
     </mat-form-field>
     -->
-    <div id="yasqe" style="font-size: 8px"></div>
+    <div id="yasqe"></div>
 
   </mat-card-content>
 
@@ -69,7 +80,32 @@
 
   <mat-card-content class="small-border" style="padding:10px">
 
-    <ngx-json-viewer [json]="jsResponse" [expanded]=false></ngx-json-viewer>
+    <!--
+    <ngx-json-viewer [json]="jsResponse" [expanded]=true></ngx-json-viewer>
+    -->
+    <!--
+    <table style="width:100%">
+      <tr style="background-color: rgb(235, 235, 235)">
+      <th *ngFor="let head of jsHeader" >{{head}}</th>
+      </tr>
+      <tr *ngFor="let res of jsResponse" style="margin: 10px">
+        <td *ngFor="let head of jsHeader" style="font-size: calc(6px + 0.3vw)">{{res[head]}}</td>
+      </tr>
+    </table>
+  -->
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <mat-header-row *matHeaderRowDef="jsHeader" style="background-color: rgba(245, 245, 245, 0.788)"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: jsHeader;" style="padding:3px;"></mat-row>
+
+      <ng-container *ngFor="let head of jsHeader" matColumnDef="{{head}}">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{head.toUpperCase()}}</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row[head]}} </mat-cell>
+      </ng-container>
+
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)"></mat-paginator>
 
   </mat-card-content>
 </mat-card>

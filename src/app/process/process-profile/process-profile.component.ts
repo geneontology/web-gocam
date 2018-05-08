@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,12 +6,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './process-profile.component.html',
   styleUrls: ['./process-profile.component.css']
 })
-export class ProcessProfileComponent implements OnInit {
+export class ProcessProfileComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
+  }
+
+  ngOnDestroy() {
   }
 
 }

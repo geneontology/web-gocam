@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GroupService } from '../group.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UrlHandlerService } from '../../core/url-handler.service';
@@ -8,7 +8,7 @@ import { UrlHandlerService } from '../../core/url-handler.service';
   templateUrl: './group-profile.component.html',
   styleUrls: ['./group-profile.component.css']
 })
-export class GroupProfileComponent implements OnInit {
+export class GroupProfileComponent implements OnInit, OnDestroy {
 
   group;
   groupMeta;
@@ -32,5 +32,9 @@ export class GroupProfileComponent implements OnInit {
       */
     });
   }
+
+  ngOnDestroy(): void {
+//    this.sub.unsubscribe();
+  }  
 
 }

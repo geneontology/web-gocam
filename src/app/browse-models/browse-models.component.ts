@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { GoRESTService } from '../core/gorest.service';
   templateUrl: './browse-models.component.html',
   styleUrls: ['./browse-models.component.css']
 })
-export class BrowseModelsComponent implements OnInit {
+export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   pageSizes = [10, 25, 100];
 
@@ -32,6 +32,9 @@ export class BrowseModelsComponent implements OnInit {
   pos_left = "before";
   pos_right = "after";
 
+  gorestSub: any;
+  gotermsSub: any;
+
   constructor(private goREST: GoRESTService,
               private urlHandler: UrlHandlerService,
               public prefs: PreferencesService,
@@ -41,7 +44,8 @@ export class BrowseModelsComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     // loading the models
-    this.goREST.getModelList(1).subscribe(data => {
+    this.gorestSub = this.goREST.getModelList(1)
+    this.gorestSub.subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
@@ -51,7 +55,8 @@ export class BrowseModelsComponent implements OnInit {
 
       var gocams = this.extractModels(json);
       gocams.length = this.pageSizes[0];
-      this.goREST.getModelsGOs(gocams).subscribe(data => {
+      this.gotermsSub = this.goREST.getModelsGOs(gocams);
+      this.gotermsSub.subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         json = JSON.parse(json);
@@ -70,6 +75,10 @@ export class BrowseModelsComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.gorestSub.unsubscribe();
+    this.gotermsSub.unsubscribe();
+  }
 
 
   /* complete the filling of the table */
