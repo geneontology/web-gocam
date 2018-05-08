@@ -31,8 +31,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       window.scrollTo(0, 0);
       this.route.params.subscribe(params => {
       this.orcid = params['id'];
-      this.sub = this.userService.getUserMetaData(this.orcid)
-      this.sub.subscribe(data => {
+      this.sub = this.userService.getUserMetaData(this.orcid).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         this.userMeta = JSON.parse(json);

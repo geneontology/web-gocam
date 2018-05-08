@@ -153,6 +153,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
 
 
   sub: any;
+  sparqlrSub: any;
 
   yasqe;
 
@@ -168,7 +169,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     window.scrollTo(0, 0);
 
-    this.sparqlr.list().subscribe(resp => {
+    this.sparqlrSub = this.sparqlr.list().subscribe(resp => {
       var json = JSON.parse(JSON.stringify(resp));
       json = json._body;
       json = JSON.parse(json);
@@ -191,8 +192,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
     this.yasqe.options.sparql.callbacks.complete = this.yasqeResult;
     this.yasqe.setSize(null, 300);
 
-    this.sub = Observable.interval(1000)
-      .subscribe((val) => {
+    this.sub = Observable.interval(1000).subscribe((val) => {
         //        console.log("timer: ", globalVar);
         this.jsResponse = globalVar;
         this.jsHeader = globalVarHead;
@@ -204,6 +204,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.sparqlrSub.unsubscribe();
     this.query = undefined;
     this.jsResponse = undefined;
     this.template = undefined;

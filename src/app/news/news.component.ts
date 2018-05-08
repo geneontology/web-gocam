@@ -21,6 +21,7 @@ export class NewsComponent implements OnInit, OnDestroy {
   switchDuration: number = 1000;
 
   sub: any;
+  gorestSub: any;
 
   public transitionController = new TransitionController();
 
@@ -34,7 +35,7 @@ export class NewsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.goREST.getMostRecents(this.nbMostRecents + 3).subscribe(data => {
+    this.gorestSub = this.goREST.getMostRecents(this.nbMostRecents + 3).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
@@ -56,6 +57,7 @@ export class NewsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.gorestSub.unsubscribe();
     this.pause = true;
   }
 

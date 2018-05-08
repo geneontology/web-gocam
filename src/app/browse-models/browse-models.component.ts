@@ -44,8 +44,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     window.scrollTo(0, 0);
     // loading the models
-    this.gorestSub = this.goREST.getModelList(1)
-    this.gorestSub.subscribe(data => {
+    this.gorestSub = this.goREST.getModelList(1).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
@@ -55,8 +54,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
       var gocams = this.extractModels(json);
       gocams.length = this.pageSizes[0];
-      this.gotermsSub = this.goREST.getModelsGOs(gocams);
-      this.gotermsSub.subscribe(data => {
+      this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         json = JSON.parse(json);
