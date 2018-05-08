@@ -51,6 +51,8 @@
     "underscore": "^1.8.3",
     "xml2js": "^0.4.19",
     "yamljs": "^0.3.0",
+    "yasgui-yasqe": "^2.11.18",
+    "yasgui-yasr": "^2.12.18",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

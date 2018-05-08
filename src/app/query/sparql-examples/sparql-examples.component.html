@@ -1,5 +1,7 @@
 <br>
 
+
+
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" style="margin-bottom:10px">
   <mat-card-header>
     <div mat-card-avatar>
@@ -34,14 +36,17 @@
 
   <mat-card-content class="small-border">
 
+    <!--
     <mat-form-field class="small-border" style="padding:5px; width:100%;">
       <textarea matInput #message placeholder="SPARQL query" rows=15 required [(ngModel)]="query" style="font-size:calc(6px + 0.5vw);"></textarea>
       <mat-hint align="end">{{message.value.length}}</mat-hint>
     </mat-form-field>
+    -->
+    <div id="yasqe" style="font-size: 8px"></div>
 
   </mat-card-content>
 
-
+  <!--
   <mat-card-actions style="margin:5px">
     <button mat-raised-button (click)="submitQuery()" color=primary [disabled]="query == undefined || query.length == 0">
       <span>Submit Query
@@ -49,9 +54,9 @@
       </span>
     </button>
   </mat-card-actions>
+  -->
 
 </mat-card>
-
 
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" *ngIf="jsResponse">
   <mat-card-header>
@@ -68,3 +73,7 @@
 
   </mat-card-content>
 </mat-card>
+
+
+
+<div id="yasr" style="font-size: 8px"></div>

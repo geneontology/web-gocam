@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GoSPARQLService } from '../../core/gosparql.service';
 import { PreferencesService } from '../../core/preferences.service';
+import { Observable } from 'rxjs/Observable';
+
+import * as YASQE from 'yasgui-yasqe';
+
+
+var globalVar;
 
 @Component({
   selector: 'app-sparql-examples',
   templateUrl: './sparql-examples.component.html',
   styleUrls: ['./sparql-examples.component.css']
 })
-export class SparqlExamplesComponent implements OnInit {
+export class SparqlExamplesComponent implements OnInit, OnDestroy {
 
   query: string;
   jsResponse;  
@@ -92,14 +98,53 @@ export class SparqlExamplesComponent implements OnInit {
 
   ]
 
+  sub: any;
+
+  yasqe;
+
+  template;
+
   constructor(private sparql:GoSPARQLService,
-  public prefs: PreferencesService) { }
+              public prefs: PreferencesService) { }
 
   ngOnInit() {
+
+    /*
+    YASQE.defaults.sparql.showQueryButton = true;
+    YASQE.defaults.sparql.endpoint = "http://rdf.geneontology.org/blazegraph/sparql";
+    YASQE.defaults.sparql.callbacks.success =  function(data){console.log("success", data);};
+    */
+    
+    this.yasqe = YASQE(document.getElementById("yasqe"), {
+      sparql: {
+        showQueryButton: true,
+        endpoint: "http://rdf.geneontology.org/blazegraph/sparql"
+      }
+    });
+    
+    //link both together
+    this.yasqe.options.sparql.callbacks.complete = this.yasqeResult;
+    this.yasqe.setSize(null, 300);
+
+    this.sub = Observable.interval(1000)
+      .subscribe((val) => {
+//        console.log("timer: ", globalVar);
+        this.jsResponse = globalVar;
+      });    
+
+
   }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.query = undefined;
+    this.jsResponse = undefined;
+  }
+
 
   example(exampleObj) {
     this.query = exampleObj.query;
+    this.yasqe.setValue(exampleObj.query);
   }
 
   submitQuery() {
@@ -111,4 +156,15 @@ export class SparqlExamplesComponent implements OnInit {
       this.jsResponse = JSON.parse(this.jsResponse).results.bindings;
     });
   }
+
+  yasqeResult(data, state) {
+    if(state == "success") {
+      console.log("jsResponse: ", data.responseJSON);
+      globalVar = data.responseJSON.results.bindings;
+      console.log("jsResponse: ", this.jsResponse);
+    } else {
+      
+    }
+  }
+  
 }
