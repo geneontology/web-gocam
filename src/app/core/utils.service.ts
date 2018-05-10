@@ -37,4 +37,19 @@ export class UtilsService {
     return "May, 2018";
   }
 
+  genericSPARQLJSON(json) {
+      let tmp = "";
+      let tmpjs = [];
+      json.results.bindings.map(elt => {
+        tmp = "{";
+        Object.keys(elt).forEach(function (key) {
+          tmp += "\"" + key + "\":\"" + elt[key].value + "\",";
+        });
+        tmp = tmp.substring(0, tmp.length - 1);
+        tmp += "}";
+        tmpjs.push(JSON.parse(tmp));
+      });
+      return tmpjs;
+  }
+
 }

@@ -4,7 +4,7 @@
 }
 
 .mat-table {
-  padding: calc(4px + 0.5vw);  
+  padding: calc(4px + 0.4vw);  
   overflow: auto;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .mat-column-date {
-  max-width: calc(30px + 4vw);
+  max-width: calc(26px + 5vw);
 }
 
 .mat-column-align {
@@ -36,10 +36,16 @@
 }
 
 .mat-cell {
+  font-size: calc(6px + 0.5vw);    
   padding-left: calc(4px + 0.5vw);  
   padding-right: calc(4px + 0.5vw);  
 }
 
+/*
+.mat-chip {
+  text-shadow: 0 2.67px 1.8px #000000,0 -2px 1px rgb(0, 0, 0);  
+}
+*/
 
 .bp {
   background: linear-gradient(180deg, rgba(136, 33, 206, 0.3) 0, rgba(241,241,241,0.3) 100%);
@@ -55,8 +61,11 @@
 
 
 
-
 a {
+  font-size: calc(6px + 0.5vw);  
+}
+
+span {
   font-size: calc(6px + 0.5vw);  
 }
 

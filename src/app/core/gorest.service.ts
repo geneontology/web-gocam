@@ -20,8 +20,25 @@ export class GoRESTService {
     return this.http.get(this.baseUrl + "models/last/" + nb);
   }
 
-  getModelList(start: number): Observable<object> {
+  getModelList(): Observable<object> {
     return this.http.get(this.baseUrl + "models");
+  }
+
+  models = [];
+  getStaticModelList() {
+    this.getModelList().subscribe(data => {
+            var json = JSON.parse(JSON.stringify(data));
+            json = json._body;
+            json = JSON.parse(json);
+            json.map(res => {
+              this.models.push(res);
+            });
+            return this.models;
+          });        
+  }
+
+  getModelListRange(start: number, size: number): Observable<object> {
+    return this.http.get(this.baseUrl + "models?start=" + start + "&size=" + size);      
   }
 
   getModelListDetails(start: number): Observable<object> {

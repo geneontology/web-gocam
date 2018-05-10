@@ -21,12 +21,22 @@
         </mat-chip>
       </span>
     -->
-    <span matTooltip="{{ template.comment }}" *ngFor="let template of availableTemplates;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
+      <span matTooltip="{{ template.comment }}" *ngFor="let template of availableTemplates;" matTooltipPosition="below" [matTooltipShowDelay]="prefs.toolTipDelay">
         <mat-chip selected="true" (click)="example(template)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
           {{ template.name }}
         </mat-chip>
       </span>
     </mat-chip-list>
+
+    <div *ngIf="template && template.variables" class="small-border" style="padding:10px">
+      <h2>Parameter(s):</h2>
+      <mat-form-field>
+        <span matTooltip="{{ variable.comment }}" *ngFor="let variable of template.variables">
+          <input matInput placeholder="{{variable.name}}" value="">
+        </span>
+      </mat-form-field>
+      <button mat-raised-button (click)=create()>Create</button>
+    </div>
 
   </mat-card-content>
 </mat-card>
@@ -43,29 +53,13 @@
 
   <mat-card-content class="small-border">
 
-    <div class="small-border" *ngIf="template" style="margin:10px; padding:10px">
+    <div class="small-border" *ngIf="showQuery" style="margin:10px; padding:10px; background-color: rgba(245, 245, 245, 0.788)">
       <h2>Description:</h2>
       {{ template.description }}
     </div>
-    <!--
-    <mat-form-field class="small-border" style="padding:5px; width:100%;">
-      <textarea matInput #message placeholder="SPARQL query" rows=15 required [(ngModel)]="query" style="font-size:calc(6px + 0.5vw);"></textarea>
-      <mat-hint align="end">{{message.value.length}}</mat-hint>
-    </mat-form-field>
-    -->
     <div id="yasqe"></div>
 
   </mat-card-content>
-
-  <!--
-  <mat-card-actions style="margin:5px">
-    <button mat-raised-button (click)="submitQuery()" color=primary [disabled]="query == undefined || query.length == 0">
-      <span>Submit Query
-        <mat-icon>send</mat-icon>
-      </span>
-    </button>
-  </mat-card-actions>
-  -->
 
 </mat-card>
 
@@ -96,7 +90,7 @@
 
     <mat-table [dataSource]="dataSource" matSort>
 
-      <mat-header-row *matHeaderRowDef="jsHeader" style="background-color: rgba(245, 245, 245, 0.788)"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="jsHeader" style="background-color: rgba(245, 245, 245, 0.788)" class="small-border"></mat-header-row>
       <mat-row *matRowDef="let row; columns: jsHeader;" style="padding:3px;"></mat-row>
 
       <ng-container *ngFor="let head of jsHeader" matColumnDef="{{head}}">
@@ -105,7 +99,7 @@
       </ng-container>
 
     </mat-table>
-    <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="pageSizes"></mat-paginator>
 
   </mat-card-content>
 </mat-card>

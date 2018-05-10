@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UrlHandlerService } from '../core/url-handler.service';
+import { PreferencesService } from '../core/preferences.service';
 
 export enum DownloadType {
   ttl = "TTL",
@@ -19,6 +20,7 @@ export class DownloadsComponent implements OnInit {
   dtype = DownloadType;
 
   constructor(private urlHandler: UrlHandlerService,
+              public prefs: PreferencesService,
               private router: Router) { }
 
   ngOnInit() {

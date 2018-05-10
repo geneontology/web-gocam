@@ -47,6 +47,7 @@ table {
 ul li {
     font-size: calc(10px + 0.5vw);
     line-height: 1.9;
+    list-style-type: square;
 }
 
 
@@ -99,7 +100,7 @@ footer {
  }
  */
 
- .small-border {
+.small-border {
     border: 1px solid rgba(211, 211, 211, 0.50);
     border-radius: 10px;
 }
@@ -135,26 +136,14 @@ footer {
 }
 
 h2 {
-    font-size: calc(14px + 0.5vw);
+    font-size: calc(8px + .8vw);
 }
 
 div span p {
     font-size: calc(8px + 0.5vw);
 }
 
-.mat-card-header .mat-card-title {
-    font-size: calc(12px + 0.5vw);
-    font-weight: bold;
-    color:rgba(33, 33, 166, 0.8);
-}
 
-.mat-card-header .mat-card-avatar .mat-icon {
-    font-size: calc(16px + 0.5vw);  
-}
-
-.mat-button .mat-icon {
-    color:rgba(33, 33, 166, 0.8);    
-}
 
 
 
@@ -180,17 +169,25 @@ a {
     font-size: calc(6px + 0.6vw);    
 }
 
-
-
-
-
-.mat-card-title {
-    font-size: calc(6px + 0.8vw);        
+a:hover {
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
 }
 
-.mat-card-subtitle {
-    font-size: calc(6px + 0.6vw);        
+
+
+.mat-card-header .mat-card-title {
+    font-size: calc(12px + .8vw);
+    font-weight: bold;
+    color:rgba(96, 64, 176, 1);
+    /*
+text-shadow: 0 2.67px 1.8px #c4b59d,0 -2px 1px #fff;
+*/
 }
+
+.mat-card-header .mat-card-avatar .mat-icon {
+    font-size: calc(16px + 0.5vw);  
+}
+
 
 .mat-card p {
     font-size: calc(6px + 0.6vw);    
@@ -204,13 +201,21 @@ a {
     font-size: calc(6px + 0.6vw);    
 }
 
+
+
 /* button text */
 .mat-card-actions span {
-    font-size: calc(6px + 0.4vw);
+    font-size: calc(8px + 0.4vw);
 }
 .mat-card-actions span .mat-icon {
-    font-size: calc(6px + 0.4vw);
+    font-size: calc(8px + 0.6vw);
     margin-left:calc(1px + 0.5vw);
+    vertical-align: middle;
+}
+
+button:hover {
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.5) ;    
+    box-shadow: 3px 3px 3px grey !important; 
 }
 
 

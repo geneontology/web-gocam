@@ -14,7 +14,6 @@
 
     
 .title {
-    color: grey;
     font-style: italic;
     font-size: calc(2px + 0.8vw);    
 }
@@ -31,7 +30,10 @@ div {
 
 .news:hover {
     padding: 5px;
-    background-color: rgba(220, 220, 220, 0.385);
+    background-color:rgba(96, 64, 176, .2);
     box-shadow: 0px 3px 3px grey;    
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
     cursor: pointer;
 }
+
+

@@ -6,6 +6,8 @@ import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
 import { UtilsService } from '../core/utils.service';
 import { GoRESTService } from '../core/gorest.service';
+import { GoSPARQLService } from '../core/gosparql.service';
+import { CacheService } from '../core/cache.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -29,62 +31,99 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   ccs = new Map();
   mfs = new Map();
 
-  pos_left = "before";
-  pos_right = "after";
-
   gorestSub: any;
   gotermsSub: any;
 
   constructor(private goREST: GoRESTService,
-              private urlHandler: UrlHandlerService,
-              public prefs: PreferencesService,
-              public utils: UtilsService,
-              private router: Router) { }
+    private urlHandler: UrlHandlerService,
+    public prefs: PreferencesService,
+    public utils: UtilsService,
+    private gosparql: GoSPARQLService,
+    private cache: CacheService,
+    private router: Router) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    // loading the models
-    this.gorestSub = this.goREST.getModelList(1).subscribe(data => {
-      var json = JSON.parse(JSON.stringify(data));
-      json = json._body;
-      json = JSON.parse(json);
-      json.map(res => {
-        this.models.push(res);
-      });
+    let initialSize = this.pageSizes[0];
 
-      var gocams = this.extractModels(json);
-      gocams.length = this.pageSizes[0];
-      this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(data => {
-        var json = JSON.parse(JSON.stringify(data));
-        json = json._body;
-        json = JSON.parse(json);
-        var tabelt;
-        json.forEach(element => {
-          tabelt = this.models.find(item => { return item.gocam == element.gocam });
-          tabelt.bp = this.extractBPs(element);
-          tabelt.mf = this.extractMFs(element);
-          // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
-        });
+    if (this.cache.hasModelList()) {
+      console.log("**** USING CACHE");
+      var json = this.cache.getModelList();
+      json.forEach(elt => {
+        this.models.push(elt);
       });
-
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+
+    } else {
+
+      // loading the models
+      this.gorestSub = this.goREST.getModelList().subscribe(data => {
+        //    this.gorestSub = this.goREST.getModelListRange(0, initialSize).subscribe(data => {
+        var json = JSON.parse(JSON.stringify(data));
+        json = json._body;
+        json = JSON.parse(json);
+        this.cache.setModelList(json);
+        json.map(res => {
+          this.models.push(res);
+        });
+
+        var gocams = this.extractModels(json);
+        gocams.length = initialSize;
+        this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(data => {
+          var json = JSON.parse(JSON.stringify(data));
+          json = json._body;
+          json = JSON.parse(json);
+          var tabelt;
+          json.forEach(element => {
+            tabelt = this.models.find(item => { return item.gocam == element.gocam });
+            tabelt.bp = this.extractBPs(element);
+            tabelt.mf = this.extractMFs(element);
+            // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
+          });
+        });
+
+        this.dataSource = new MatTableDataSource(this.models);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    }
+
+
   }
 
   ngOnDestroy(): void {
-    this.gorestSub.unsubscribe();
-    this.gotermsSub.unsubscribe();
+    if(this.gorestSub)
+      this.gorestSub.unsubscribe();
+    if(this.gotermsSub)
+      this.gotermsSub.unsubscribe();
   }
 
 
   /* complete the filling of the table */
   ngAfterViewInit() {
+    //    this.loadGOFromSPARQL();
+    //    this.loadGOFromLambda();
+    if(this.cache.hasModelList()) {
+      this.dataSource = new MatTableDataSource(this.models);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
+
+    if(!this.cache.hasModelsGOs()) {
+      console.log("LOADING ALL GOs");
+      this.loadGOFromLambda();      
+    }    
+  }
+
+
+  loadGOFromLambda() {
     this.goREST.getAllModelsGOs().subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
+      this.cache.setModelsGOs(json);
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -103,7 +142,94 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
 
+  loadGOFromSPARQL() {
+    this.gosparql.getAllModelsGOs().subscribe(resp => {
+      var json = JSON.parse(JSON.stringify(resp));
+      json = json._body;
+      json = JSON.parse(json);
+
+      var jsmod = this.transformModelsGOs(json.results.bindings);
+      var tabelt;
+      jsmod.forEach(element => {
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        tabelt.bp = this.extractBPs(element);
+        tabelt.mf = this.extractMFs(element);
+        tabelt.searchfield = "";
+        if (tabelt.bp.length > 0) {
+          tabelt.bp.forEach(elt => {
+            tabelt.searchfield += elt.name + " ";
+          });
+        }
+        if (tabelt.mf.length > 0) {
+          tabelt.mf.forEach(elt => {
+            tabelt.searchfield += elt.name + " ";
+          });
+        }
+      });
+    })
+  }
+
+
+  transformModelsGOs(json) {
+    var gomapids = new Map();
+    var gomapclasses = new Map();
+    var gomapnames = new Map();
+    var gomapdefs = new Map();
+    var goids = [];
+    var goclasses = [];
+    var gonames = [];
+    var godefs = [];
+    json.forEach(element => {
+      if (gomapids.has(element.models.value)) {
+        goids = gomapids.get(element.models.value);
+      } else {
+        goids = [];
+        gomapids.set(element.models.value, goids);
+      }
+      goids.push(element.goid.value);
+
+      if (gomapclasses.has(element.models.value)) {
+        goclasses = gomapclasses.get(element.models.value);
+      } else {
+        goclasses = [];
+        gomapclasses.set(element.models.value, goclasses);
+      }
+      goclasses.push(element.GO_class.value);
+
+      if (gomapnames.has(element.models.value)) {
+        gonames = gomapnames.get(element.models.value);
+      } else {
+        gonames = [];
+        gomapnames.set(element.models.value, gonames);
+      }
+      gonames.push(element.goname.value);
+
+      if (gomapdefs.has(element.models.value)) {
+        godefs = gomapdefs.get(element.models.value);
+      } else {
+        godefs = [];
+        gomapdefs.set(element.models.value, godefs);
+      }
+      godefs.push(element.definition.value);
+    });
+
+    console.log("gomapids: ", gomapids);
+    var jsmodified = [];
+
+
+    gomapids.forEach((value: any, key: any, map: Map<any, any>) => {
+      jsmodified.push({
+        "gocam": key,
+        "goclasses": gomapclasses.get(key),
+        "goids": value,
+        "gonames": gomapnames.get(key),
+        "definitions": gomapdefs.get(key)
+      });
+    });
+
+    return jsmodified;
   }
 
 
@@ -194,19 +320,18 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     /*
     //    console.log("changing page: " , event);
     var gocams = this.extractModels(this.getModels(event));
-    var temp = this.sparqlService.getModelsGOs(gocams).subscribe(data => {
+    var temp = this.goREST.getModelsGOs(gocams).subscribe(data => {
       var json = JSON.parse(JSON.stringify(data));
       json = json._body;
       json = JSON.parse(json);
-      //      this.correctGOTerms(json);
-      for (var i = 0; i < json.length; i++) {
-        if (!this.gos.has(json[i].gocam)) {
-          this.gos.set(json[i].gocam, json[i]);
-          //          console.log("thanks to the streaming on change page, adding: ", json[i].gocam, "\t", json[i]);
-        }
-      }
-      this.createGOClasses(this.bps, this.mfs);
-    })
+      var tabelt;
+      json.forEach(element => {
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        tabelt.bp = this.extractBPs(element);
+        tabelt.mf = this.extractMFs(element);
+        // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
+      });
+    });
     */
   }
 
@@ -244,10 +369,15 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   compare(a, b) {
-    if(a.id < b.id) {
+    if (a.id < b.id) {
       return 1;
     }
     return -1;
+  }
+
+  filterFocus() {
+//    console.log("filter got focus");
+//    this.loadGO();
   }
 
 }

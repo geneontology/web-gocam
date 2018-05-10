@@ -1,11 +1,13 @@
 <mat-card class="mat-elevation-z10" fxLayout="column" fxLayoutAlign="space-between stretch">
+  
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
     <mat-card-title>Causal Activity Models (CAMs)</mat-card-title>
     <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
 
+  <mat-card-content>
+    
     <h2>GO-CAMs: linking standard GO Annotations</h2>
 
     <p>
@@ -58,11 +60,11 @@
       </button>
     </a>
     <button mat-button (click)="learnMore('NM')">
-      <span>Learn More<mat-icon>school</mat-icon></span>
+      <span>Learn More<mat-icon color=primary>school</mat-icon></span>
     </button>
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">
-      <span>Share<mat-icon>share</mat-icon></span>
+      <span>Share<mat-icon color=primary>share</mat-icon></span>
     </button>
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>

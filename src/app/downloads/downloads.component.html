@@ -14,7 +14,7 @@
     <p>
       Each biological fact can be written as a triplet (subject - predicate - object) and a GO-CAM model (a collection of triplets) can be stored in a <a href="https://www.w3.org/TR/turtle/" target="blank">TTL file</a>. Currently, the collection of all GO-CAMs (of all TTL files) are stored in the <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Triple Store</a> as a journal file.
     </p>
-  -->
+    -->
     <p>
       GO-CAMs are available in
       <a href="https://www.w3.org/TR/turtle/" target="blank">RDF Turtle (TTL)</a>,
@@ -25,31 +25,31 @@
   </mat-card-content>
 
   <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
-    <span matTooltip="Download Models as a TTL Archive" fxFlex=20%>
+    <span matTooltip="Download Models as a TTL Archive" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.ttl)">
         <span>TTL
-          <mat-icon>get_app</mat-icon>
+          <mat-icon color=primary>get_app</mat-icon>
         </span>
       </button>
     </span>
-    <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20%>
+    <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.jnl)">
         <span>JNL
-          <mat-icon>get_app</mat-icon>
+          <mat-icon color=primary>get_app</mat-icon>
         </span>
       </button>
     </span>
-    <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20%>
+    <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.ctab)">
         <span>CTAB
-          <mat-icon>get_app</mat-icon>
+          <mat-icon color=primary>get_app</mat-icon>
         </span>
       </button>
     </span>
-    <span matTooltip="Download Models as a SIF file" fxFlex=20%>
+    <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.sif)">
         <span>SIF
-          <mat-icon>get_app</mat-icon>
+          <mat-icon color=primary>get_app</mat-icon>
         </span>
       </button>
     </span>

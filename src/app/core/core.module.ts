@@ -9,6 +9,7 @@ import { GoRESTService } from './gorest.service';
 import { UtilsService } from './utils.service';
 import { GoSPARQLService } from './gosparql.service';
 import { SparqlrService } from './sparqlr.service';
+import { CacheService } from './cache.service';
 
 @NgModule({
   
@@ -27,7 +28,8 @@ import { SparqlrService } from './sparqlr.service';
     SparqlrService,
     PreferencesService,
     UrlHandlerService,
-    UtilsService
+    UtilsService,
+    CacheService
   ],
 
   exports: [
