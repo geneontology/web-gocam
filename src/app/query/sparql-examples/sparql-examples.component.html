@@ -1,7 +1,7 @@
 <br>
 
 
-
+<!-- EXAMPLE SECTION -->
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" style="margin-bottom:10px">
   <mat-card-header>
     <div mat-card-avatar>
@@ -14,13 +14,6 @@
   <mat-card-content class="small-border">
 
     <mat-chip-list>
-      <!--
-      <span matTooltip="{{ qu.help }}" *ngFor="let qu of queries;" [matTooltipPosition]="pos_right" [matTooltipShowDelay]="prefs.toolTipDelay">
-        <mat-chip selected="true" (click)="example(qu)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
-          {{ qu.name }}
-        </mat-chip>
-      </span>
-    -->
       <span matTooltip="{{ template.comment }}" *ngFor="let template of availableTemplates;" matTooltipPosition="below" [matTooltipShowDelay]="prefs.toolTipDelay">
         <mat-chip selected="true" (click)="example(template)" style="margin:calc(1px + 0.15vw);margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:white">
           {{ template.name }}
@@ -28,6 +21,7 @@
       </span>
     </mat-chip-list>
 
+    <!--
     <div *ngIf="template && template.variables" class="small-border" style="padding:10px">
       <h2>Parameter(s):</h2>
       <mat-form-field>
@@ -35,13 +29,15 @@
           <input matInput placeholder="{{variable.name}}" value="">
         </span>
       </mat-form-field>
-      <button mat-raised-button (click)=create()>Create</button>
+      <button mat-raised-button (click)=create()>Assign</button>
     </div>
+    -->
 
   </mat-card-content>
 </mat-card>
 
 
+<!-- QUERY SECTION -->
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" style="margin-bottom:10px">
   <mat-card-header>
     <div mat-card-avatar>
@@ -63,6 +59,8 @@
 
 </mat-card>
 
+
+<!-- RESPONSE SECTION -->
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5" *ngIf="jsResponse">
   <mat-card-header>
     <div mat-card-avatar>

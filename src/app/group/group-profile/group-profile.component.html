@@ -5,9 +5,67 @@
       <mat-icon>account_balance</mat-icon>
     </div>
     <mat-card-title>Profile: {{group}}</mat-card-title>
-    <mat-card-subtitle>Site: {{group}}</mat-card-subtitle>
+    <mat-card-subtitle>Site: <a href={{groupMeta[0].url}} *ngIf="groupMeta" target="_blank">{{groupMeta[0].url}}</a></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
 
+    <hr>
+    <br>
+
+    <mat-accordion *ngIf="groupMeta" class="my-headers-align">
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{nbContributors()}} Contributors
+          </mat-panel-title>
+          <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
+            {{nbGOCAMs()}} GO-CAMs
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!--
+        <ul>
+          <li *ngFor="let contrib of groupMeta">
+            <a routerLink="/users/{{ utils.extractORCID(contrib.orcid) }}" style="width:300px">{{contrib.name}}</a>{{ contrib.gocams}} {{ contrib.bps }}
+          </li>
+        </ul>
+      -->
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <mat-header-row *matHeaderRowDef="jsHeader" style="background-color: rgba(245, 245, 245, 0.788)" class="small-border"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: jsHeader;" style="padding:3px;padding-left:20px;padding-right:20px" ></mat-row>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Contributor</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <a routerLink="/users/{{ utils.extractORCID(row.orcid) }}">{{row.name}}</a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="gocams">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; margin:auto;">NB GO-CAMs</mat-header-cell>
+            <mat-cell *matCellDef="let row" style="text-align: center">
+              <a [routerLink]="['/browse', row.orcid]">{{ row.gocams }}</a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="bps">
+            <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; margin:auto;">NB BPs</mat-header-cell>
+            <mat-cell *matCellDef="let row" style="text-align: center; margin:auto;">
+              {{ row.bps }}
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
   </mat-card-content>
 </mat-card>
+
+
+
+
+
+<br>

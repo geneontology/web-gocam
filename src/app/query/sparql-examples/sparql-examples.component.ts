@@ -109,13 +109,16 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
       var json = JSON.parse(JSON.stringify(resp));
 //      var test = this.utils.parseYAML(json._body);
       this.template = this.utils.parseYAML(json._body);
+      this.yasqe.setValue(this.template.query);
+      this.showQuery = true;
+    /*
       if(!this.template.variables) {
-//        console.log(this.template);
         this.yasqe.setValue(this.template.query);
         this.showQuery = true;
       } else {
         this.yasqe.setValue("");
       }
+      */
     })
   }
 

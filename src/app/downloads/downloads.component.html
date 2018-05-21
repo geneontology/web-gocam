@@ -40,14 +40,14 @@
       </button>
     </span>
     <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.ctab)">
+      <button mat-button (click)="download(dtype.ctab)" disabled>
         <span>CTAB
           <mat-icon color=primary>get_app</mat-icon>
         </span>
       </button>
     </span>
     <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.sif)">
+      <button mat-button (click)="download(dtype.sif)" disabled>
         <span>SIF
           <mat-icon color=primary>get_app</mat-icon>
         </span>

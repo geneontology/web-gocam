@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
@@ -34,13 +34,16 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   gorestSub: any;
   gotermsSub: any;
 
+  searchFilter: string;
+
   constructor(private goREST: GoRESTService,
     private urlHandler: UrlHandlerService,
     public prefs: PreferencesService,
     public utils: UtilsService,
     private gosparql: GoSPARQLService,
     private cache: CacheService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -55,7 +58,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-
+      let search = this.route.snapshot.paramMap.get('search');
+      if(search) {
+        this.searchFilter = search;
+      }
+  
     } else {
 
       // loading the models
@@ -87,6 +94,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(this.models);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        let search = this.route.snapshot.paramMap.get('search');
+        if(search) {
+          this.searchFilter = search;
+        }
+
       });
     }
 
@@ -109,12 +121,15 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.applyFilter(this.searchFilter);
     }
 
     if(!this.cache.hasModelsGOs()) {
       console.log("LOADING ALL GOs");
       this.loadGOFromLambda();      
     }    
+
+
   }
 
 
@@ -141,6 +156,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           });
         }
       });
+      this.applyFilter(this.searchFilter);
     });
   }
 
@@ -264,6 +280,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   applyFilter(filterValue: string) {
+    if(!filterValue) {
+      this.dataSource.filter = undefined;
+      return;
+    }
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;

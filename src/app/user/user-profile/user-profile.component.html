@@ -18,7 +18,7 @@
         <td>Affiliation(s)</td>
         <td>
           <li *ngFor="let affiliation of userMeta.affiliations; let i = index">
-            <a href={{userMeta.affiliationsIRI[i]}} target="_blank">{{affiliation}}</a>
+            <a routerLink="/groups/{{affiliation}}">{{affiliation}}</a>
           </li>
         </td>
       </tr>
@@ -91,7 +91,10 @@
 
         <ul>
           <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
+              <a [routerLink]="['/browse', userMeta.bpNames[i] ]">{{userMeta.bpNames[i]}}</a>
+              <!--
             <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
+            -->
           </li>
         </ul>
 
@@ -112,8 +115,8 @@
         </mat-expansion-panel-header>
 
         <mat-chip-list>
-          <mat-chip *ngFor="let bp of userMeta?.gpIDs; let i = index" color=white selected="true" (click)="navigate(userMeta.gpIDs[i])"
-            style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
+          <mat-chip *ngFor="let bp of userMeta?.gpIDs; let i = index" color="primary" selected="true" (click)="navigate(userMeta.gpIDs[i])"
+            style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
             {{userMeta.gpNames[i]}}
           </mat-chip>
         </mat-chip-list>

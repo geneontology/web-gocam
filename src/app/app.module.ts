@@ -40,6 +40,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'browse', component: BrowseModelsComponent },
+  { path: 'browse/:search', component: BrowseModelsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

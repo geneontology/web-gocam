@@ -74,9 +74,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
 
-  navigate(page) {
+  navigate(page: string) {
     //    this.router.navigate([page]);
     //    window.location.href = page;
+    if(page.indexOf("MGI:MGI")) {
+      page = page.replace("MGI:MGI", "MGI");
+    }
     window.open(page, "_blank");
   }
 

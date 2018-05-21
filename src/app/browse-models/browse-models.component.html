@@ -11,7 +11,7 @@
     <!-- FILTER SECTION -->
     <div style="margin:20px">
       <mat-form-field>
-        <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keydown)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="searchFilter">
       </mat-form-field>
     </div>
 

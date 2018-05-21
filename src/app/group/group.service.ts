@@ -10,8 +10,14 @@ export class GroupService {
 
   groups;
 
+  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
+
   constructor(private http: Http,
-              private urlHandler: UrlHandlerService) { }
+              private urlHandler: UrlHandlerService) { 
+    if(!this.baseUrl.endsWith("/")) {
+      this.baseUrl += "/";
+    }
+  }
 
 
   loadGroupMetaData() {
@@ -30,4 +36,9 @@ export class GroupService {
 //    console.log("result: ", this.groups.filter(group => group.shorthand === shorthand));
     return this.groups.filter(group => group.shorthand === shorthand)[0];
   }
+
+  getGroupMeta(shorthand: string) {
+    return this.http.get(this.baseUrl + "groups/" + shorthand);
+  }
+  
 }
