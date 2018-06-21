@@ -1,3 +1,18 @@
+.mat-header-row {
+  padding: 0 calc(0.1vw) !important;
+  min-height: 1px;
+}
+
+.mat-header-cell {
+  font-size: calc(6px + 0.5vw) !important;
+}
+
+.mat-card-content {
+  width: 97%;
+  margin: 0 auto;
+  padding: 0;
+}
+
 .mat-form-field {
   font-size: calc(4px + 0.5vw);
   width: 100%;
@@ -6,25 +21,55 @@
 .mat-table {
   padding: calc(4px + 0.4vw);  
   overflow: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .mat-title {
-  font-size: calc(2px + 0.8vw);
-  font-weight: bold;
+  font-size: calc(3px + 0.8vw) !important;
+  font-weight: 700;
+  color:rgba(66, 82, 175, 1);
+}
+
+
+.small-horizontal-margin {
+  margin-left: calc(1px + 0.5vw) !important;  
+  margin-right: calc(1px + 0.5vw) !important;  
+}
+
+
+.small-horizontal-padding {
+  padding-left: calc(1px + 0.5vw) !important;  
+  padding-right: calc(1px + 0.5vw) !important;  
+}
+
+.no-horizontal-padding {
+  padding-left: 0 !important;  
+  padding-right: 0 !important;  
 }
 
 .mat-column-date {
   max-width: calc(26px + 5vw);
 }
 
-.mat-column-align {
-  max-width: calc(40px + 4vw);
-  text-align:right;
+
+
+.mat-column-align-center {
+  text-align:center !important;
+  margin: calc(1px + 1vw);
 }
 
+.mat-column-align-right {
+  text-align:right !important;
+  margin-right: calc(1px + 1vw);
+  max-width: calc(18px + 5vw);
+}
+
+
+
 .mat-row {
-  margin: calc(1px + 0.25vw);  
-  padding: calc(4px + 0.5vw);  
+  margin: calc(10px + 1.55vw) calc(.2vw) !important;
+  padding: calc(4px + 0.5vw)  !important;  
   border: 1px solid rgba(211, 211, 211, 0.50);
   border-radius: 10px;
 }
@@ -37,15 +82,18 @@
 
 .mat-cell {
   font-size: calc(6px + 0.5vw);    
-  padding-left: calc(4px + 0.5vw);  
-  padding-right: calc(4px + 0.5vw);  
+  padding-left: calc(0px + 0.3vw);  
+  /*
+  padding-right: calc(0px + 0.3vw);
+  */
+  padding-right: 0px;
+  /*
+  margin: auto calc(1px + 0.5vw);
+  */
+  margin: 0px;
 }
 
-/*
-.mat-chip {
-  text-shadow: 0 2.67px 1.8px #000000,0 -2px 1px rgb(0, 0, 0);  
-}
-*/
+
 
 .bp {
   background: linear-gradient(180deg, rgba(136, 33, 206, 0.3) 0, rgba(241,241,241,0.3) 100%);
@@ -62,7 +110,11 @@
 
 
 a {
+  display: block;
   font-size: calc(6px + 0.5vw);  
+}
+a:hover {
+  font-weight: inherit;
 }
 
 span {
@@ -111,4 +163,54 @@ EXPERIMENTAL TESTS
   box-shadow: 0px 5px 5px grey;  
 }
 
+.paginator-top-right {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
 
+
+mat-hint {
+  font-size: calc(6px + 0.5vw);
+  font-style: italic;
+}
+
+
+.mat-chip {
+  padding: calc(1px + 0.5vw) calc(1.5px + 0.5vw) !important;
+  margin: calc(1px + 0.5vw) calc(1px + 0.5vw) !important;
+  margin-bottom: calc(5px + 0.5vw) !important;
+}
+
+
+.mat-column-date {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mat-column-title {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mat-column-process {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mat-column-function {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mat-column-contributor {
+  max-width: calc(40px + 4vw) !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.mat-column-group {
+  max-width: calc(40px + 4vw) !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}

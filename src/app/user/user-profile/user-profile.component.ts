@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user.service';
 import { UrlHandlerService } from '../../core/url-handler.service';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,6 +11,8 @@ import { UrlHandlerService } from '../../core/url-handler.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
+
+  isLoading: boolean = true;
 
   found: boolean = true;
   step = 0;
@@ -35,6 +38,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         var json = JSON.parse(JSON.stringify(data));
         json = json._body;
         this.userMeta = JSON.parse(json);
+        this.isLoading = false;
 //        console.log(this.userMeta);
       });
     });

@@ -36,6 +36,10 @@ export class GoSPARQLService {
     return this.http.get(this.baseUrl + this.AllModelsGOs());
   }
 
+  getAllModelsGPs() {
+    return this.http.get(this.baseUrl + this.AllModelsGPs());
+  }
+
 
   ModelGOs(id) {
     var encoded = encodeURIComponent(`
@@ -108,6 +112,39 @@ export class GoSPARQLService {
   ORDER BY DESC(?models)
   `);
     return "?query=" + encoded;
+  }
+
+
+  AllModelsGPs() {
+    var encoded = encodeURIComponent(`
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> 
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX metago: <http://model.geneontology.org/>
+    
+    PREFIX enabled_by: <http://purl.obolibrary.org/obo/RO_0002333>
+    PREFIX in_taxon: <http://purl.obolibrary.org/obo/RO_0002162>
+    
+    SELECT ?models (GROUP_CONCAT(distinct ?identifier;separator=";") as ?identifiers)
+            (GROUP_CONCAT(distinct ?name;separator=";") as ?names)
+    
+    WHERE 
+    {
+    
+      GRAPH ?models {
+        ?models metago:graphType metago:noctuaCam .
+        ?s enabled_by: ?gpnode .    
+        ?gpnode rdf:type ?identifier .
+        FILTER(?identifier != owl:NamedIndividual) .         
+      }
+      optional {
+        ?identifier rdfs:label ?name
+      }
+    
+    }
+    GROUP BY ?models
+        `);
+    return "?query=" + encoded;    
   }
 
 

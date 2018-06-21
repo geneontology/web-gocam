@@ -4,8 +4,8 @@
     <div mat-card-avatar>
       <mat-icon>apps</mat-icon>
     </div>
-    <mat-card-title>Tools & API</mat-card-title>
-    <mat-card-subtitle>Use and browse GO-CAMs</mat-card-subtitle>
+    <mat-card-title><h1 class="heading-primary">Tools & API</h1></mat-card-title>
+    <mat-card-subtitle>Create, Browse And Query GO-CAMs</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -15,17 +15,25 @@
     </p>
     <ul>
       <li>
-        <a href="http://noctua.berkeleybop.org/" target="blank">Noctua</a> curation platform</li>
+        <a href="http://noctua.berkeleybop.org/" target="blank" class="displacement">
+          <img src='http://geneontology.org/sites/default/files/go-logo-icon.mini__0.png'> &nbsp;
+          Noctua Curation Platform
+        </a> 
+      </li>
       <li>
-        <img src="../assets/rdf_w3c_icon.64.png" style="width:32px"> &nbsp;
-        <a [routerLink]="['query/sparql-examples']">SPARQL endpoint</a>
+        <a [routerLink]="['query/sparql-examples']" class="displacement">
+          <img src="../assets/rdf_w3c_icon.64.png"> &nbsp;
+          SPARQL endpoint
+        </a>
         <!--
         <a href="http://rdf.geneontology.org/blazegraph/#query" target="blank">SPARQL endpoint</a>
         -->
       </li>
       <li>
-        <img src="../assets/rest-api-icon-8.jpg" style="width:32px"> &nbsp;
-        <a href="https://app.swaggerhub.com/apis/geneontology/gosparql/alpha" target="blank">REST endpoint</a>
+        <a href="https://app.swaggerhub.com/apis/geneontology/gosparql/alpha" target="blank" class="displacement">
+          <img src="../assets/rest-api-icon-8.jpg"> &nbsp;
+          REST endpoint
+        </a>
       </li>
     </ul>
 

@@ -5,7 +5,7 @@ export class PreferencesService {
 
   sideNavShown: boolean = true;
 
-  toolTipDelay = 500;
+  toolTipDelay = 800;
 
   constructor() { }
 

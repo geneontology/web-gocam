@@ -1,19 +1,25 @@
 <mat-card class="mat-elevation-z10" fxLayout="column" fxLayoutAlign="space-between stretch">
-  
+
+  <div class="top-right">
+      <button mat-raised-button color=primary routerLink="/browse">
+        Browse Models <mat-icon color=white>search</mat-icon>      
+      </button>
+  </div>
+
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>Causal Activity Models (CAMs)</mat-card-title>
+    <mat-card-title><h1 class="heading-primary">Causal Activity Models (CAMs)</h1></mat-card-title>
     <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    
-    <h2>GO-CAMs: linking standard GO Annotations</h2>
+
+    <h2 class="heading-secondary">GO-CAMs: linking standard GO Annotations</h2>
 
     <p>
-      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple
-      standard GO annotations into larger models of biological function (such as “pathways”) in a semantically structured
-      manner. GO-CAMs are created by expert biocurators from the
+      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple standard GO annotations into larger models
+      of biological function (such as “pathways”) in a semantically structured manner. GO-CAMs are created by expert biocurators
+      from the
       <a href="http://geneontology.org/page/go-consortium-contributors-list" target="blank">GO Consortium</a>, using the
       <a href="http://noctua.berkeleybop.org" target="blank">Noctua</a> modeling tool.
     </p>
@@ -27,18 +33,22 @@
         </mat-tab>
 
         <mat-tab label="NEDD4 Example">
-          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:5323da1800000002" target="_blank"><img src="./assets/NEDD4 Example.jpg" class="small-border" style="width:100%;"></a>
+          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:5323da1800000002" target="_blank">
+            <img src="./assets/NEDD4 Example.jpg" class="small-border" style="width:100%;">
+          </a>
         </mat-tab>
 
         <mat-tab label="DLK-1 Example">
-          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:57c82fad00000847" target="_blank"><img src="./assets/DLK1-model.jpg" class="small-border" style="width:100%;"></a>
+          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:57c82fad00000847" target="_blank">
+            <img src="./assets/DLK1-model.jpg" class="small-border" style="width:100%;">
+          </a>
         </mat-tab>
 
       </mat-tab-group>
 
     </p>
 
-    <h2>GO-CAMs: multiple uses</h2>
+    <h2 class="heading-secondary">GO-CAMs: multiple uses</h2>
     <ul>
       <li>“reduced” to standard pairwise GO annotations (these are included in the
         <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a>).</li>
@@ -53,19 +63,21 @@
 
   </mat-card-content>
 
-  <mat-card-actions style="margin:5px">
-    <a [routerLink]="['/browse']">
-      <button mat-raised-button color=primary>
-        <span>Browse Models<mat-icon color=white>search</mat-icon></span>
+  <mat-card-actions style="margin:5px;">
+
+      <button mat-raised-button color=primary routerLink="/browse">
+        Browse Models <mat-icon color=white>search</mat-icon>      
       </button>
-    </a>
+  
     <button mat-button (click)="learnMore('NM')">
-      <span>Learn More<mat-icon color=primary>school</mat-icon></span>
+      Learn More <mat-icon color=primary>school</mat-icon>
     </button>
+
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">
-      <span>Share<mat-icon color=primary>share</mat-icon></span>
+      Share <mat-icon color=primary>share</mat-icon>
     </button>
+
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>
       <share-button button="twitter" text="Tweet" [showText]="true" tags="GO" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>

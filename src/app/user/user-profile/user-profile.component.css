@@ -12,3 +12,8 @@
     margin: 5px;
     flex-basis: 0;
 }
+
+
+ul {
+    padding: 0px calc(10px + 1vw);
+}

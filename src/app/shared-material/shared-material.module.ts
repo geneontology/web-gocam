@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatExpansionModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedMaterialModule { }

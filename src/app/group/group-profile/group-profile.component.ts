@@ -12,6 +12,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class GroupProfileComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean = true;
 
   dataSource: MatTableDataSource<{}>;
   jsHeader = ["name", "gocams", "bps"];
@@ -35,6 +36,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
         json = json._body;
         this.groupMeta = JSON.parse(json);
         this.dataSource = new MatTableDataSource(this.groupMeta);
+        this.isLoading = false;
 //        console.log(this.groupMeta);
       });
       /*

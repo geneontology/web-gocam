@@ -4,16 +4,14 @@
 </header>
 
 <!-- main section -->
-<div fxLayout="column" fxLayoutAlign="space-around stretch" class="margin-20" style="margin-top:75px;">
+<main fxLayout="column" fxLayoutAlign="space-around stretch" class="section-main">
 
-  <mat-sidenav-container style="min-height:1500px;background-color:white">
+  <mat-sidenav-container style="min-height:calc(300px + 70vw);background-color:white">
 
     <!-- MAIN CONTENT SECTION -->
-    <mat-sidenav-content style="padding-left:5px;padding-right:10px;">
-
+    <mat-sidenav-content style="padding: 0 5px; padding-bottom:10px;">
       
       <router-outlet></router-outlet>
-      <br>
 
     </mat-sidenav-content>
 
@@ -21,7 +19,7 @@
     <!-- SIDE NAV SECTION -->
     <mat-sidenav #sidenav mode="side" [(opened)]="prefs.sideNavShown" position="end" style="max-width:450px;">
 
-      <div style="margin-left:10px;margin-right:10px;">
+      <div style="margin: 0 10px; margin-left: 5%">
         <br>
         <!-- download section -->
         <app-downloads></app-downloads>
@@ -40,7 +38,7 @@
 
   </mat-sidenav-container>
 
-</div>
+</main>
 
 <!-- footer section -->
 <footer>

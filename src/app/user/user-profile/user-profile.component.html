@@ -12,6 +12,11 @@
 
     <hr>
 
+    <div *ngIf="isLoading" style="text-align: center">
+      Loading &nbsp;
+      <mat-spinner color=accent [diameter]="20" style="display: inline-block; vertical-align:middle"></mat-spinner>
+    </div>
+
     <table>
 
       <tr *ngIf="userMeta?.affiliations">
@@ -91,8 +96,8 @@
 
         <ul>
           <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
-              <a [routerLink]="['/browse', userMeta.bpNames[i] ]">{{userMeta.bpNames[i]}}</a>
-              <!--
+            <a [routerLink]="['/browse', userMeta.bpNames[i] ]">{{userMeta.bpNames[i]}}</a>
+            <!--
             <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
             -->
           </li>

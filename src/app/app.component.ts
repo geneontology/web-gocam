@@ -33,6 +33,7 @@ export class AppComponent implements OnInit{
   autoSideNavState(width: number) {
 //    if(width < 1000)
 //    this._prefs.setSideNavState(false);
+    
     this.prefs.setSideNavState(width > 1000);
   }
     

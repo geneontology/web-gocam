@@ -1,9 +1,9 @@
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5">
-  <mat-card-header>
-    <div mat-card-avatar>
+  <mat-card-header >
+    <span mat-card-avatar>
       <mat-icon>attach_file</mat-icon>
-    </div>
-    <mat-card-title>Downloads</mat-card-title>
+    </span>
+    <mat-card-title><h1 class="heading-primary">Downloads</h1></mat-card-title>
     <mat-card-subtitle>Archive of GO-CAMs</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -24,34 +24,30 @@
 
   </mat-card-content>
 
-  <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
+  <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center" style="padding-bottom: 10px;">
+
     <span matTooltip="Download Models as a TTL Archive" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.ttl)">
-        <span>TTL
-          <mat-icon color=primary>get_app</mat-icon>
-        </span>
+      <button mat-raised-button (click)="download(dtype.ttl)">
+        TTL<mat-icon >get_app</mat-icon>
       </button>
     </span>
+
     <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.jnl)">
-        <span>JNL
-          <mat-icon color=primary>get_app</mat-icon>
-        </span>
+      <button mat-raised-button (click)="download(dtype.jnl)">
+        JNL<mat-icon >get_app</mat-icon>
       </button>
     </span>
+
     <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.ctab)" disabled>
-        <span>CTAB
-          <mat-icon color=primary>get_app</mat-icon>
-        </span>
+        CTA <mat-icon >get_app</mat-icon>
       </button>
     </span>
     <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.sif)" disabled>
-        <span>SIF
-          <mat-icon color=primary>get_app</mat-icon>
-        </span>
+        SIF<mat-icon >get_app</mat-icon>
       </button>
     </span>
+    
   </mat-card-actions>
 </mat-card>

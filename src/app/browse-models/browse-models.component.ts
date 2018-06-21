@@ -16,9 +16,12 @@ import { CacheService } from '../core/cache.service';
 })
 export class BrowseModelsComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean = true;
+
   pageSizes = [10, 25, 100];
 
   // can dynamically change the columns displayed
+//  displayedColumns = ['date', 'title', 'bps', 'mfs', 'gps', 'contributors', 'groups'];
   displayedColumns = ['date', 'title', 'bps', 'mfs', 'contributors', 'groups'];
   dataSource: MatTableDataSource<ModelData>;
 
@@ -30,11 +33,15 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   bps = new Map();
   ccs = new Map();
   mfs = new Map();
+  gps = new Map();
 
   gorestSub: any;
   gotermsSub: any;
 
   searchFilter: string;
+
+
+
 
   constructor(private goREST: GoRESTService,
     private urlHandler: UrlHandlerService,
@@ -45,10 +52,16 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute) { }
 
+
+
   ngOnInit() {
     window.scrollTo(0, 0);
+//    document.querySelector('[cdk-scrollable]').scrollTop = 0;
+//    document.querySelector('.mat-layout__content').scrollTop = 0;
     let initialSize = this.pageSizes[0];
 
+
+    // SOME CACHE ALREADY EXIST
     if (this.cache.hasModelList()) {
       console.log("**** USING CACHE");
       var json = this.cache.getModelList();
@@ -59,13 +72,16 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       let search = this.route.snapshot.paramMap.get('search');
-      if(search) {
+      if (search) {
         this.searchFilter = search;
       }
-  
+      this.isLoading = false;
+
+      
+    // LOAD IT FROM THE API
     } else {
 
-      // loading the models
+      // REST API REQUEST
       this.gorestSub = this.goREST.getModelList().subscribe(data => {
         //    this.gorestSub = this.goREST.getModelListRange(0, initialSize).subscribe(data => {
         var json = JSON.parse(JSON.stringify(data));
@@ -91,13 +107,29 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           });
         });
 
+        /*
+        this.gotermsSub = this.goREST.getModelsGPs(gocams).subscribe(data => {
+          var json = JSON.parse(JSON.stringify(data));
+          json = json._body;
+          json = JSON.parse(json);
+          var tabelt;
+          json.forEach(element => {
+            tabelt = this.models.find(item => { return item.gocam == element.gocam });
+            tabelt.gp = this.extractGPs(element);
+            //            console.log("after: " , tabelt);
+            // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
+          });
+        });
+        */
+
         this.dataSource = new MatTableDataSource(this.models);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         let search = this.route.snapshot.paramMap.get('search');
-        if(search) {
+        if (search) {
           this.searchFilter = search;
         }
+        this.isLoading = false;
 
       });
     }
@@ -106,9 +138,9 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.gorestSub)
+    if (this.gorestSub)
       this.gorestSub.unsubscribe();
-    if(this.gotermsSub)
+    if (this.gotermsSub)
       this.gotermsSub.unsubscribe();
   }
 
@@ -117,19 +149,18 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   ngAfterViewInit() {
     //    this.loadGOFromSPARQL();
     //    this.loadGOFromLambda();
-    if(this.cache.hasModelList()) {
+    if (this.cache.hasModelList()) {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.applyFilter(this.searchFilter);
     }
 
-    if(!this.cache.hasModelsGOs()) {
+    if (!this.cache.hasModelsGOs()) {
       console.log("LOADING ALL GOs");
-      this.loadGOFromLambda();      
-    }    
-
-
+      this.loadGOFromLambda();
+      this.loadGPFromSPARQL();
+    }
   }
 
 
@@ -142,18 +173,22 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
-        tabelt.bp = this.extractBPs(element);
-        tabelt.mf = this.extractMFs(element);
-        tabelt.searchfield = "";
-        if (tabelt.bp.length > 0) {
-          tabelt.bp.forEach(elt => {
-            tabelt.searchfield += elt.name + " ";
-          });
-        }
-        if (tabelt.mf.length > 0) {
-          tabelt.mf.forEach(elt => {
-            tabelt.searchfield += elt.name + " ";
-          });
+        if (!tabelt) {
+          console.error("could not find ", element.gocam);
+        } else {
+          tabelt.bp = this.extractBPs(element);
+          tabelt.mf = this.extractMFs(element);
+          tabelt.searchfield = "";
+          if (tabelt.bp.length > 0) {
+            tabelt.bp.forEach(elt => {
+              tabelt.searchfield += elt.name + " ";
+            });
+          }
+          if (tabelt.mf.length > 0) {
+            tabelt.mf.forEach(elt => {
+              tabelt.searchfield += elt.name + " ";
+            });
+          }
         }
       });
       this.applyFilter(this.searchFilter);
@@ -187,6 +222,37 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     })
   }
 
+
+  loadGPFromSPARQL() {
+    this.gosparql.getAllModelsGPs().subscribe(resp => {
+      var json = JSON.parse(JSON.stringify(resp));
+      json = json._body;
+      json = JSON.parse(json);
+
+      //      console.log("full: ", json);
+      var jsmod = this.transformModelsGPs(json.results.bindings);
+      //      console.log("transformed: ", jsmod);
+      var tabelt;
+      jsmod.forEach(element => {
+        if (element.gpids.length > 1) {
+          console.log(element);
+        }
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        if (tabelt) {
+          tabelt.gp = this.extractGPs(element);
+          if (!tabelt.searchfield)
+            tabelt.searchfield = "";
+          if (tabelt.gp.length > 0) {
+            tabelt.gp.forEach(elt => {
+              tabelt.searchfield += elt.name + " ";
+            });
+          }
+        } else {
+//          console.warn("Element Not Found: ", element);
+        }
+      });
+    })
+  }
 
   transformModelsGOs(json) {
     var gomapids = new Map();
@@ -250,6 +316,55 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
+
+  transformModelsGPs(json) {
+    var gomapgpids = new Map();
+    var gomapnames = new Map();
+    var gpids = [];
+    var gpnames = [];
+
+    json.forEach(element => {
+      if (gomapgpids.has(element.models.value)) {
+        gpids = gomapgpids.get(element.models.value);
+      } else {
+        gpids = [];
+        gomapgpids.set(element.models.value, gpids);
+      }
+      gpids.push(element.identifiers.value);
+
+      if (gomapnames.has(element.models.value)) {
+        gpnames = gomapnames.get(element.models.value);
+      } else {
+        gpnames = [];
+        gomapnames.set(element.models.value, gpnames);
+      }
+      gpnames.push(element.names.value);
+
+    });
+
+    console.log("gomapids: ", gomapgpids);
+    var jsmodified = [];
+
+
+    gomapgpids.forEach((value: any, key: any, map: Map<any, any>) => {
+      jsmodified.push({
+        "gocam": key,
+        "gpids": this.getField(value),
+        "gpnames": gomapnames.get(key),
+      });
+    });
+
+    return jsmodified;
+  }
+
+
+  getField(field: string) {
+    if (field.indexOf(";") == -1) {
+      return field;
+    }
+    return field.split(";");
+  }
+
   extractBPs(gocam) {
     var bps = [];
     for (var i = 0; i < gocam.goclasses.length; i++) {
@@ -278,9 +393,25 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     return mfs.sort(this.compare);
   }
 
+  extractGPs(gocam) {
+    var gps = [];
+    for (var i = 0; i < gocam.gpnames.length; i++) {
+      gps.push({
+        id: gocam.gpids[i].replace("MGI:MGI", "MGI"),
+        name: gocam.gpnames[i],
+      });
+    }
+    return gps.sort(this.compare);
+  }
+
+
+
+
 
   applyFilter(filterValue: string) {
-    if(!filterValue) {
+//    console.log("keydown:applyfilter(" + filterValue + "; " + this.searchFilter + ")");
+
+    if (!filterValue) {
       this.dataSource.filter = undefined;
       return;
     }
@@ -288,6 +419,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+
 
 
   simplifyNames(names: string[]) {
@@ -329,10 +462,21 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   }
 
 
-  navigate(page) {
+  ols(page) {
     //    this.router.navigate([page]);
     //    window.location.href = page;
     window.open("https://www.ebi.ac.uk/ols/ontologies/go/terms?iri=" + page, "_blank");
+  }
+
+  navigate(modelId) {
+    //    this.router.navigate([page]);
+    //    window.location.href = page;
+    let page = this.urlHandler.getPathwayView(modelId);
+    window.open(page, "_blank");
+  }
+
+  open(page) {
+    window.open(page, "_blank");
   }
 
   /* important for streaming data to the table, based on the current index */
@@ -396,8 +540,12 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   }
 
   filterFocus() {
-//    console.log("filter got focus");
-//    this.loadGO();
+    //    console.log("filter got focus");
+    //    this.loadGO();
+  }
+
+  rowClicked(event) {
+
   }
 
 }

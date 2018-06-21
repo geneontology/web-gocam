@@ -9,7 +9,8 @@ import { UtilsService } from './utils.service';
 @Injectable()
 export class GoRESTService {
 
-  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
+//  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
+baseUrl = "https://api.geneontology.cloud/"
 
   constructor(private http: Http,
               private utils: UtilsService) {
@@ -61,12 +62,12 @@ export class GoRESTService {
 
   getModelsBPs(gocams: string[]): Observable<object> {
     var gocamString = gocams.reduce(this.utils.concat);
-    return this.http.get(this.baseUrl + "models/bps?gocams=" + gocamString);
+    return this.http.get(this.baseUrl + "models/bp?gocams=" + gocamString);
   }
 
   getModelsGOs(gocams: string[]): Observable<object> {
     var gocamString = gocams.reduce(this.utils.concat);
-    return this.http.get(this.baseUrl + "models/gos?gocams=" + gocamString);
+    return this.http.get(this.baseUrl + "models/go?gocams=" + gocamString);
   }
 
   getAllModelsGOs(): Observable<object> {
@@ -74,6 +75,10 @@ export class GoRESTService {
   }
 
 
+  getModelsGPs(gocams: string[]): Observable<object> {
+    var gocamString = gocams.reduce(this.utils.concat);
+    return this.http.get(this.baseUrl + "models/gp?gocams=" + gocamString);
+  }
  
 
 }

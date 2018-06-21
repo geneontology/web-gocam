@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
+        "go-theme.scss",
         "../node_modules/ionicons/scss/ionicons.scss"
       ],
       "scripts": [

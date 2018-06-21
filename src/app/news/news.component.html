@@ -1,44 +1,43 @@
-<mat-card class="mat-elevation-z5" fxLayout="column" fxLayoutAlign="space-between stretch" >
+<mat-card class="mat-elevation-z5" fxLayout="column" fxLayoutAlign="space-between stretch">
 
   <mat-card-header>
     <div mat-card-avatar class="header-image"></div>
-    <mat-card-title>Recent Models</mat-card-title>
-    <mat-card-subtitle>Newly created or edited GO-CAMs</mat-card-subtitle>
+    <mat-card-title><h1 class="heading-primary">Recent Models</h1></mat-card-title>
+    <mat-card-subtitle>Newly Created or Edited GO-CAMs</mat-card-subtitle>
   </mat-card-header>
 
   <!--  style="height:100px" -->
   <mat-card-content style="min-height: 100px">
 
     <div *ngIf="news.length > 0" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
-        <a href="{{ urlHandler.getPathwayView(news[newsPos].gocam) }}" target="blank">
-          <span [suiTransition]="transitionController" *ngIf="news.length > 0">
-            <mat-icon class="eye">visibility</mat-icon>
-            <span class="date">{{news[newsPos].date}}</span>: &nbsp;
-            <span class="title">{{news[newsPos].title}}</span>
-          </span>
-        </a>
-      </div>
+      <a href="{{ urlHandler.getPathwayView(news[newsPos].gocam) }}" target="blank">
+        <span [suiTransition]="transitionController" *ngIf="news.length > 0">
+          <mat-icon class="eye">visibility</mat-icon>
+          <span>{{news[newsPos].date}}</span>: &nbsp;
+          <span>{{news[newsPos].title}}</span>
+        </span>
+      </a>
+    </div>
 
 
     <div *ngIf="(newsPos+1) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
-        <a href="{{ urlHandler.getPathwayView(news[newsPos + 1].gocam) }}" target="blank">
-          <span [suiTransition]="transitionController" *ngIf="news.length > 0">
-            <mat-icon class="eye">visibility</mat-icon>
-            <span class="date">{{news[newsPos+1].date}}</span>: &nbsp;
-            <span class="title">{{news[newsPos+1].title}}</span>
-          </span>
-        </a>
-      </div>
+      <a href="{{ urlHandler.getPathwayView(news[newsPos + 1].gocam) }}" target="blank">
+        <span [suiTransition]="transitionController" *ngIf="news.length > 0">
+          <mat-icon class="eye">visibility</mat-icon>
+          <span>{{news[newsPos+1].date}}</span>: &nbsp;
+          <span>{{news[newsPos+1].title}}</span>
+        </span>
+      </a>
+    </div>
 
     <div *ngIf="(newsPos+2) < news.length" class="news" (mouseover)="newsOver($event)" (mouseleave)="newsLeft($event)" style="min-height:60px">
       <a href="{{ urlHandler.getPathwayView(news[newsPos + 2].gocam) }}" target="blank">
         <span [suiTransition]="transitionController" *ngIf="news.length > 0">
           <mat-icon class="eye">visibility</mat-icon>
-          <span class="date">{{news[newsPos+2].date}}</span>: &nbsp;
-          <span class="title">{{news[newsPos+2].title}}</span>
+          <span>{{news[newsPos+2].date}}</span>: &nbsp;
+          <span>{{news[newsPos+2].title}}</span>
         </span>
       </a>
     </div>
   </mat-card-content>
 </mat-card>
-

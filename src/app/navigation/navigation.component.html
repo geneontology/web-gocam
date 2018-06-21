@@ -1,152 +1,102 @@
-<mat-toolbar color="primary" style="box-shadow: 0px 10px 10px grey; padding:5px">
+<mat-toolbar color="primary" style="box-shadow: 0px 10px 10px grey;margin-top:2px;">
   <mat-toolbar-row>
 
-    <a [routerLink]="['/']">
-      <button mat-mini-fab color="white" class="header-image">
-      </button>
-    </a>
-    &nbsp; &nbsp;
-    <!--
-    <span class="name navbar-brand">Gene Ontology Causal Activity Models:
-      <i>GO-CAMs</i>
-    </span>
-    -->
-    
-    <!--
-    <span class="letter" data-letter="G">G</span>
-    <span class="name navbar-brand">ene</span>
-    <span class="letter" data-letter="O">O</span>
-    <span class="name navbar-brand">ntology Causal Activity Models:
-        <i>GO-CAMs</i>
-    </span>
-    -->
+    <div style="width:70%; text-align: left">
 
-    <!--
-    <span class="letter" data-letter="G">G</span>
-    <span class="name navbar-brand">ene</span>
-    <span class="letter" data-letter="O">O</span>
-    <span class="name navbar-brand">ntology </span>
-    <span class="letter" data-letter=":">:</span>
-    <span class="letter" data-letter="C">C</span>
-    <span class="name navbar-brand">ausal </span>
-    <span class="letter" data-letter="A">A</span>
-    <span class="name navbar-brand">ctivity </span>
-    <span class="letter" data-letter="M">M</span>
-    <span class="name navbar-brand">odels</span>
-    -->
-
-    <span class="letter" data-letter="G">G</span>
-    <span class="name navbar-brand">ene</span>
-    <span class="letter" data-letter="O">O</span>
-    <span class="name navbar-brand">ntology: Causal Activity Models</span>
-    <!--
-    <span class="name navbar-brand">Gene Ontology Causal Activity Models: </span>
-    <span class="letter" data-letter="G">G</span>
-    <span class="letter" data-letter="O">O</span>
-    <span class="letter" data-letter="-">-</span>
-    <span class="letter" data-letter="C">C</span>
-    <span class="letter" data-letter="A">A</span>
-    <span class="letter" data-letter="M">M</span>
-    -->
-
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between stretch">
-      <div></div>
-      <div></div>
-
-      <div>
-
-        <sui-dimmer class="page" [(isDimmed)]="pageDimmed" [isClickable]="false">
-
-          <mat-card style="width:450px; margin:auto;">
-
-            <mat-card-header>
-              <div mat-card-avatar>
-                <mat-icon color=primary>message</mat-icon>
-              </div>
-              <mat-card-title>Feedback</mat-card-title>
-              <mat-card-subtitle>Help Us Improve GO !</mat-card-subtitle>
-            </mat-card-header>
-
-            <mat-card-content fxLayout="column" fxLayoutAlign="start stretch">
-
-              <mat-form-field class="small-border" style="padding:5px;margin-bottom:5px">
-                <mat-select placeholder="Feedback on ?" required>
-                  <mat-option *ngFor="let fb of fbs" [value]="fb.value">
-                    {{ fb.viewValue }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field class="small-border" style="padding:5px;margin-bottom:5px">
-                <input matInput #email placeholder="Contact Email">
-              </mat-form-field>
-
-              <mat-form-field class="small-border" style="padding:5px">
-                <textarea matInput #message placeholder="Your Feedback" maxlength=512 rows=5 required></textarea>
-                <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
-              </mat-form-field>
-
-            </mat-card-content>
-            <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center" style="margin:5px">
-              <button mat-raised-button (click)="pageDimmed = false" color="primary">
-                Send
-              </button>
-              <button mat-button (click)="pageDimmed = false">
-                Cancel &nbsp;
-                <mat-icon style="font-size:16px">delete</mat-icon>
-              </button>
-
-            </mat-card-actions>
-          </mat-card>
-
-        </sui-dimmer>
-
-
-
-        <!-- GIVE FEED BACKS -->
-        <span matTooltip="Give Your Feedback" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <button mat-mini-fab color="white" (click)="pageDimmed = true">
-            <mat-icon color="primary">comment</mat-icon>
-          </button>
-        </span>
-
-        <!-- BROWSE GO-CAMs -->
-        <span matTooltip="Browse GO-CAMs" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <a [routerLink]="['/browse']">
-            <button mat-mini-fab color="white">
-              <mat-icon color="primary">search</mat-icon>
-            </button>
-          </a>
-        </span>
-
-        <!-- HOME PAGE -->
-        <span matTooltip="Home Page" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <a [routerLink]="['/']">
-            <button mat-mini-fab color="white">
-              <mat-icon color="primary">home</mat-icon>
-            </button>
-          </a>
-        </span>
-
-
-
-        <!-- USER ACCOUNT
-        <span matTooltip="User Account" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <button mat-mini-fab color="white">
-            <mat-icon color="primary">account_circle</mat-icon>
-          </button>
-        </span>
-         -->
-
-        <!-- TOGGLE SIDE NAV -->
-        <span matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <button mat-mini-fab color="white" (click)="prefs.toggleSideNav()">
-            <mat-icon color="primary">menu</mat-icon>
-          </button>
-        </span>
-
+      <!-- GENE ONTOLOGY LOGO HOME PAGE -->
+      <div class="round-button" style="margin-top:calc(0.2vw)">
+        <a routerLink="/" class="round-button__anchor-center">
+          <img src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="width-full">
+        </a>
       </div>
+
+      &nbsp; &nbsp;
+
+      <!-- GENE ONTOLOGY TITLE -->
+      <span class="letter" data-letter="G">G</span>
+      <span class="name navbar-brand" class="span-centered">ene</span>
+      <span class="letter" data-letter="O">O</span>
+      <span class="name navbar-brand" class="span-centered">ntology: Causal Activity Models</span>
+
     </div>
+
+    <!-- NAVIGATION BUTTONS -->
+    <div style="width:30%; text-align: right">
+
+      <div class="round-button background-color-secondary">
+        <a (click)="pageDimmed = true" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="color-white">comment</mat-icon>
+        </a>
+      </div>
+
+      <div class="round-button background-color-secondary">
+        <a routerLink="/browse" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="color-white">search</mat-icon>
+        </a>
+      </div>
+
+      <div class="round-button background-color-secondary">
+        <a routerLink="/" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="color-white">home</mat-icon>
+        </a>
+      </div>
+
+      <div class="round-button background-color-secondary">
+        <a (click)="prefs.toggleSideNav()" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="color-white">menu</mat-icon>
+        </a>
+      </div>
+
+    </div>
+
+
+    <sui-dimmer class="page" [(isDimmed)]="pageDimmed" [isClickable]="false">
+
+      <mat-card style="width:450px; margin:auto;">
+
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon color=primary>message</mat-icon>
+          </div>
+          <mat-card-title>Feedback</mat-card-title>
+          <mat-card-subtitle>Help Us Improve GO-CAMs !</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content fxLayout="column" fxLayoutAlign="start stretch">
+
+          <mat-form-field class="small-border" style="padding:5px;margin-bottom:5px">
+            <mat-select placeholder="Feedback on ?" required>
+              <mat-option *ngFor="let fb of fbs" [value]="fb.value">
+                {{ fb.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="small-border" style="padding:5px;margin-bottom:5px">
+            <input matInput #email placeholder="Contact Email">
+          </mat-form-field>
+
+          <mat-form-field class="small-border" style="padding:5px">
+            <textarea matInput #message placeholder="Your Feedback" maxlength=512 rows=5 required></textarea>
+            <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
+          </mat-form-field>
+
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center" style="margin:5px">
+          <button mat-raised-button (click)="pageDimmed = false" color="primary">
+            Send
+          </button>
+          <button mat-button (click)="pageDimmed = false">
+            Cancel &nbsp;
+            <mat-icon style="font-size:16px">delete</mat-icon>
+          </button>
+
+        </mat-card-actions>
+      </mat-card>
+
+    </sui-dimmer>
+
+
 
 
 
