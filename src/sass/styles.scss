@@ -1,13 +1,14 @@
-@import "scss/abstracts/variables";
-@import "scss/abstracts/mixins";
-@import "scss/abstracts/functions";
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "abstracts/functions";
 
-@import "scss/base/base";
-@import "scss/base/typography";
-@import "scss/base/utilities";
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
 
-@import "scss/components/material-mods";
-@import "scss/components/round-button";
+@import "components/material-mods";
+@import "components/round-button";
+@import "components/fullscreen-spinner";
 
 
 
@@ -75,6 +76,7 @@ header {
 
 footer {
     margin: 20px;
+//    margin-top: 0px;
     opacity: .8;
     font-size: $default-font-size;
 }
@@ -100,7 +102,7 @@ footer {
 }
 
 .header-image {
-    background-image: url('assets/go-logo-icon.mini__0.png');
+    background-image: url('../assets/go-logo-icon.mini__0.png');
     background-size: cover;
 }
 
@@ -119,30 +121,8 @@ div span p {
 
 
 
-
-
-
-
-
-
-
-
 .displacement:hover {
     transform: translateX(0.2rem);
 }
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
 
 

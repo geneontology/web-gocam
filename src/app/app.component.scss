@@ -1,0 +1,17 @@
+mat-sidenav-container {
+    background-color:white;
+    min-height: 0px !important;    
+}
+
+
+.mat-sidenav-no-height {
+    min-height: 0px !important;    
+}
+
+.mat-sidenav-with-height {
+    min-height: calc(300px + 70vw) !important;
+}
+
+.mat-sidenav-with-fixed-height {
+    min-height: 60rem !important;
+}

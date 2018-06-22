@@ -7,18 +7,21 @@ import { PreferencesService } from './core/preferences.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'app';
-
+  
   usages: string[];
   opened;
   secondaryNav;
 
+  showMain: boolean = true;
+
   constructor(public prefs: PreferencesService) {
-    this.autoSideNavState(window.innerWidth);
+   
   }
 
   ngOnInit(): void {
+    this.autoSideNavState(window.innerWidth);
   }
+
 
   isSideNavShown() {
     return this.prefs.isSideNavShown();
@@ -31,10 +34,8 @@ export class AppComponent implements OnInit{
   }
 
   autoSideNavState(width: number) {
-//    if(width < 1000)
-//    this._prefs.setSideNavState(false);
-    
-    this.prefs.setSideNavState(width > 1000);
+    let showSide = width > 1000; 
+    this.prefs.setSideNavState(showSide);
   }
     
 }

@@ -6,10 +6,10 @@
 <!-- main section -->
 <main fxLayout="column" fxLayoutAlign="space-around stretch" class="section-main">
 
-  <mat-sidenav-container style="min-height:calc(300px + 70vw);background-color:white">
+  <mat-sidenav-container [ngClass]="!prefs.isSideNavShown() ? 'mat-sidenav-no-height' : 'mat-sidenav-with-fixed-height'">
 
     <!-- MAIN CONTENT SECTION -->
-    <mat-sidenav-content style="padding: 0 5px; padding-bottom:30px;">
+    <mat-sidenav-content [style.display]="prefs.getMainStyle()" [ngClass]="prefs.getSideStyle() == 'none' ? 'mat-sidenav-no-height' : 'mat-sidenav-with-height'">
       
       <router-outlet></router-outlet>
 
@@ -17,9 +17,9 @@
 
 
     <!-- SIDE NAV SECTION -->
-    <mat-sidenav #sidenav mode="side" [(opened)]="prefs.sideNavShown" position="end" style="max-width:450px;">
+    <mat-sidenav #sidenav mode="side" [(opened)]="prefs.sideNavShown" position="end" [style.display]="prefs.getSideStyle()" id="sidenav">
 
-      <div style="margin: 0 10px; margin-left: 5%">
+      <div style="margin: 0 10px; max-width: 450px;">
 
         <!-- download section -->
         <app-downloads></app-downloads>
@@ -32,6 +32,7 @@
 
         <!-- news section -->
         <app-news style="margin-bottom: 20px;"></app-news>
+
       </div>
 
     </mat-sidenav>

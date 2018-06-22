@@ -1,4 +1,11 @@
+.mat-sidenav {
+    padding-top:5px;
+}
 
+.mat-sidenav-content {
+    padding: 5px 5px; 
+    padding-bottom:30px;
+}
 
 .mat-card {
     border-radius: 10px !important;
@@ -107,6 +114,8 @@
 }
 
 
+
+
 .mat-raised-button:hover {
 /*    text-shadow: 1px 1px 10px rgba(0,0,0,0.5);  */
 /*    box-shadow: 3px 3px 3px grey !important; */
@@ -121,7 +130,9 @@
     width: 100% !important;
 }
 
-
+.mat-button {
+    padding: 10px 30px !important;
+}
 
 
 
