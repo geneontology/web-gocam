@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'app-group-profile',
   templateUrl: './group-profile.component.html',
-  styleUrls: ['./group-profile.component.css']
+  styleUrls: ['./group-profile.component.scss']
 })
 export class GroupProfileComponent implements OnInit, OnDestroy {
 

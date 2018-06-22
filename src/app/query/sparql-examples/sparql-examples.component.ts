@@ -15,7 +15,7 @@ var globalVarHead;
 @Component({
   selector: 'app-sparql-examples',
   templateUrl: './sparql-examples.component.html',
-  styleUrls: ['./sparql-examples.component.css']
+  styleUrls: ['./sparql-examples.component.scss']
 })
 export class SparqlExamplesComponent implements OnInit, OnDestroy {
 

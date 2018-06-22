@@ -5,45 +5,47 @@
 
       <!-- GENE ONTOLOGY LOGO HOME PAGE -->
       <div class="round-button" style="margin-top:calc(0.2vw)">
-        <a routerLink="/" class="round-button__anchor-center">
-          <img src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="width-full">
+        <a routerLink="/" class="u-display-inline">
+          <img src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="u-width-full">
         </a>
       </div>
 
       &nbsp; &nbsp;
 
       <!-- GENE ONTOLOGY TITLE -->
-      <span class="letter" data-letter="G">G</span>
-      <span class="name navbar-brand" class="span-centered">ene</span>
-      <span class="letter" data-letter="O">O</span>
-      <span class="name navbar-brand" class="span-centered">ntology: Causal Activity Models</span>
-
+      <h1 class="heading-primary">
+        <span class="letter" data-letter="G">G</span>
+        <span class="name navbar-brand" class="span-centered">ene</span>
+        <span class="letter" data-letter="O">O</span>
+        <span class="name navbar-brand" class="span-centered">ntology: Causal Activity Models</span>
+      </h1>
+      
     </div>
 
     <!-- NAVIGATION BUTTONS -->
     <div style="width:30%; text-align: right">
 
-      <div class="round-button background-color-secondary">
-        <a (click)="pageDimmed = true" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <mat-icon class="color-white">comment</mat-icon>
+      <div class="round-button u-background-color-secondary">
+        <a (click)="pageDimmed = true" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="u-color-white">comment</mat-icon>
         </a>
       </div>
 
-      <div class="round-button background-color-secondary">
-        <a routerLink="/browse" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <mat-icon class="color-white">search</mat-icon>
+      <div class="round-button u-background-color-secondary">
+        <a routerLink="/browse" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="u-color-white">search</mat-icon>
         </a>
       </div>
 
-      <div class="round-button background-color-secondary">
-        <a routerLink="/" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <mat-icon class="color-white">home</mat-icon>
+      <div class="round-button u-background-color-secondary">
+        <a routerLink="/" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="u-color-white">home</mat-icon>
         </a>
       </div>
 
-      <div class="round-button background-color-secondary">
-        <a (click)="prefs.toggleSideNav()" class="round-button__anchor-center" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
-          <mat-icon class="color-white">menu</mat-icon>
+      <div class="round-button u-background-color-secondary">
+        <a (click)="prefs.toggleSideNav()" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="u-color-white">menu</mat-icon>
         </a>
       </div>
 
@@ -52,7 +54,7 @@
 
     <sui-dimmer class="page" [(isDimmed)]="pageDimmed" [isClickable]="false">
 
-      <mat-card style="width:450px; margin:auto;">
+      <mat-card style="width:80%; margin:auto;">
 
         <mat-card-header>
           <div mat-card-avatar>

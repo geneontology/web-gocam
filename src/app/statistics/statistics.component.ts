@@ -4,7 +4,7 @@ import { GoRESTService } from '../core/gorest.service';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit, OnDestroy {
 

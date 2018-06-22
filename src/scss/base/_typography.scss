@@ -1,0 +1,32 @@
+.heading-primary {
+    font-size: $size-primary;
+    color: $color-primary;
+}
+
+.heading-secondary {
+    font-size: $size-secondary;
+    color: $color-primary;
+}
+
+.heading-tertiary {
+    font-size: $size-tertiary;
+    color: $color-primary;
+}
+
+
+
+
+a {
+    font-size: calc(6px + 0.6vw);    
+    display: inline-block;
+    transition: all 0.5s;
+}
+
+a:hover {
+    font-weight: 700;
+}
+
+ul li {
+    line-height: 1.9;
+    list-style-type: square;
+}

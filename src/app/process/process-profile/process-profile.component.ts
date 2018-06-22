@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-process-profile',
   templateUrl: './process-profile.component.html',
-  styleUrls: ['./process-profile.component.css']
+  styleUrls: ['./process-profile.component.scss']
 })
 export class ProcessProfileComponent implements OnInit, OnDestroy {
 

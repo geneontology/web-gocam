@@ -1,0 +1,149 @@
+
+
+.mat-card {
+    border-radius: 10px !important;
+    padding: calc(10px + 1vw) calc(1vw) !important
+}
+
+.mat-card-header .mat-card-title {
+    font-size: calc(12px + .8vw);
+    font-weight: 700;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    color:rgba(66, 82, 175, 1);
+    border-bottom: 1px solid rgb(70, 70, 71);
+}
+
+.mat-card-header .mat-card-subtitle {
+    font-size: calc(6px + .5vw);
+    font-weight: 300;
+    font-style: italic;
+    transform: translateY(-0.5rem);
+}
+
+.mat-card-header .mat-card-avatar .mat-icon {
+    font-size: calc(16px + 0.5vw);  
+    vertical-align: middle;
+}
+
+.mat-card-content {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.mat-card p {
+    font-size: calc(6px + 0.6vw);    
+}
+
+.mat-card-content ul li {
+    font-size: calc(6px + 0.6vw);    
+}
+
+.mat-card-content div a span {
+    font-size: calc(6px + 0.6vw);    
+}
+
+.mat-icon {
+    font-size: calc(8px + 1vw);
+    width: auto !important;
+    height: auto !important;
+}
+
+
+/* button text */
+.mat-card-actions span {
+    font-size: calc(8px + 0.4vw);
+}
+.mat-card-actions span .mat-icon {
+    font-size: calc(8px + 0.6vw);
+    margin-left:calc(1px + 0.5vw);
+    vertical-align: middle;
+}
+
+
+
+.mat-mini-fab {
+    background-color: #21A179 !important;
+    background-color: rgba(231, 81, 127, 1) !important;
+    
+}
+
+.mat-raised-button {
+    background-color: #21A179 !important;
+    background-color: rgba(231, 81, 127, 1) !important;
+
+    color: rgb(255, 255, 255) !important;
+    text-shadow: 1px 1px 10px rgba(0,0,0,1);
+
+    border-radius: 100px !important;
+    
+    /*
+    background-image: linear-gradient(
+        to right bottom,
+        #F6D155,
+        rgb(235, 216, 154)
+    );
+    */
+
+    /*
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(231, 81, 127, 1),
+        rgb(235, 216, 154)
+    );
+    */
+
+    width:auto !important;
+    height: auto !important;
+
+    transition: all 0.3s !important;
+    box-shadow: 0px .3rem 1rem rgba(0, 0, 0, .2) !important;
+
+    height: calc(13px + 2vw) !important;
+//    padding: 0px calc(0px + 1vw) !important;
+    /*
+    width: calc(16px + 12vw) !important;
+    */
+}
+
+
+.mat-raised-button:hover {
+/*    text-shadow: 1px 1px 10px rgba(0,0,0,0.5);  */
+/*    box-shadow: 3px 3px 3px grey !important; */
+/*    box-shadow: 0px 1rem 2rem rgba(0, 0, 0, .2) !important;*/
+    transform: scale(1.025) translateY(-0.1rem);
+    box-shadow: 0px .6rem 1rem rgba(0, 0, 0, .4) !important;
+}
+
+.mat-button-wrapper {
+    position: inherit;
+    display: block !important;
+    width: 100% !important;
+}
+
+
+
+
+
+.mat-tooltip {
+    background-color: rgba(10,10,10, 0.9) !important;
+    font-size: calc(6px + 0.4vw)  !important;
+    box-shadow: 0px 20px 20px grey; 
+    border-radius: 10px  !important;
+    padding: 10px 20px !important;
+}
+
+
+
+
+.mat-chip {
+    font-size: calc(6px + 0.4vw) !important;
+    text-align: center;
+    box-shadow: 2px 2px 2px grey; 
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.5) ;
+    transition: all 0.5s;
+}
+  
+.mat-chip:hover {
+    box-shadow: 5px 5px 5px black;
+}

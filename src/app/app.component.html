@@ -9,7 +9,7 @@
   <mat-sidenav-container style="min-height:calc(300px + 70vw);background-color:white">
 
     <!-- MAIN CONTENT SECTION -->
-    <mat-sidenav-content style="padding: 0 5px; padding-bottom:10px;">
+    <mat-sidenav-content style="padding: 0 5px; padding-bottom:30px;">
       
       <router-outlet></router-outlet>
 
@@ -20,7 +20,7 @@
     <mat-sidenav #sidenav mode="side" [(opened)]="prefs.sideNavShown" position="end" style="max-width:450px;">
 
       <div style="margin: 0 10px; margin-left: 5%">
-        <br>
+
         <!-- download section -->
         <app-downloads></app-downloads>
 

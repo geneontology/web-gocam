@@ -19,8 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "go-theme.scss",
+        "styles.scss",
         "../node_modules/ionicons/scss/ionicons.scss"
       ],
       "scripts": [
@@ -59,7 +58,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }

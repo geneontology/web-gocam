@@ -13,7 +13,7 @@ export enum DownloadType {
 @Component({
   selector: 'app-downloads',
   templateUrl: './downloads.component.html',
-  styleUrls: ['./downloads.component.css']
+  styleUrls: ['./downloads.component.scss']
 })
 export class DownloadsComponent implements OnInit {
 

@@ -1,0 +1,102 @@
+*,
+:before,
+:after {
+    line-height: 1;
+}
+
+mat-toolbar {
+    margin: 0 0 !important;
+    height: calc(40px + 1.4vw) !important;
+    min-height: calc(34px + 2.2vw) !important;
+}
+
+span {
+    color: #fff;
+    font-size: calc(2px + 2vw);
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.5) ;
+}
+
+.span-centered {
+    display: inline-block;
+    vertical-align: top;
+}
+
+h1 {
+    display: inline-block;
+    letter-spacing: calc(.1vw);
+    font: inherit !important;
+    vertical-align: middle;
+}
+
+
+/* Useless, but for the Funny Rotating Letters */
+.letter{
+//    display: inline-block;
+    font-weight: 900 !important;
+    font-size: calc(1px + 2.2vw);
+//    margin: 0 0.15em;
+    position: relative;
+    color: rgb(0, 0, 0);
+    transform-style: preserve-3d;
+    perspective: 400;
+    z-index: 1;
+
+    transition: all 0.3s ease-in-out;
+    
+    /* pseudo-elements on top of the parent letter class */
+    &:before,
+    &:after {
+        content: attr(data-letter);
+        transform-origin: top left;
+        position:absolute;
+        left:0;
+        font-size: inherit;
+
+        transition: all 0.3s ease-in-out;
+    }
+
+    &:before {
+        color: #fff;
+        text-shadow: 
+          -1px 0px 1px rgba(255,255,255,.8),
+          1px 0px 1px rgba(0,0,0,.8);
+        transform:
+          rotateX(0deg)
+          rotateY(-15deg)
+          rotateZ(0deg);
+          z-index: 3;
+    }
+
+    &:after {
+        color: rgba(0,0,0,.11);
+        transform:
+          scale(1.08,1)
+          rotateX(0deg)
+          rotateY(0deg)
+          rotateZ(0deg)
+          skew(0deg,1deg);
+          z-index:2;
+    }
+
+    &:hover {
+        &:before {
+            color: #fafafa;
+            transform:
+              rotateX(0deg)
+              rotateY(-70deg)
+              rotateZ(0deg);
+        }
+
+        &:after {
+            transform:
+            scale(1.08,1)
+            rotateX(0deg)
+            rotateY(40deg)
+            rotateZ(0deg)
+            skew(0deg,22deg);
+        }
+    }
+            
+}
+
+  

@@ -12,7 +12,7 @@ import { CacheService } from '../core/cache.service';
 @Component({
   selector: 'app-browse-models',
   templateUrl: './browse-models.component.html',
-  styleUrls: ['./browse-models.component.css']
+  styleUrls: ['./browse-models.component.scss']
 })
 export class BrowseModelsComponent implements OnInit, OnDestroy {
 
