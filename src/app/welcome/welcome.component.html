@@ -24,22 +24,22 @@
       <a href="http://noctua.berkeleybop.org" target="blank">Noctua</a> modeling tool.
     </p>
 
-    <p align="center" id="carousel">
+    <p align="center" id="carousel" class="u-small-border-rounded u-margin-vertical-responsive">
       <mat-tab-group style="padding:10px; min-height:calc(200px + 0.5vw)" [selectedIndex]="selectedIndex" (mouseover)="pause = true"
         (mouseleave)="pause = false" ng-focus="">
 
         <mat-tab label="GO-CAM Principle">
-          <img src="./assets/GO-CAM Principle.jpg" class="small-border" style="width:100%;">
+          <img src="./assets/GO-CAM Principle.jpg" class="small-border" style="width:100%;" alt="GO-CAM Principle">
         </mat-tab>
 
         <mat-tab label="NEDD4 Example">
-          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:5323da1800000002" target="_blank">
+          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:5323da1800000002" target="_blank" alt="GO-CAM Example: NEDD4">
             <img src="./assets/NEDD4 Example.jpg" class="small-border" style="width:100%;">
           </a>
         </mat-tab>
 
         <mat-tab label="DLK-1 Example">
-          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:57c82fad00000847" target="_blank">
+          <a href="http://noctua.berkeleybop.org/editor/graph/gomodel:57c82fad00000847" target="_blank" alt="GO-CAM Example: DLK-1">
             <img src="./assets/DLK1-model.jpg" class="small-border" style="width:100%;">
           </a>
         </mat-tab>
@@ -50,8 +50,8 @@
 
     <h2 class="heading-secondary">GO-CAMs: multiple uses</h2>
     <ul>
-      <li>“reduced” to standard pairwise GO annotations (these are included in the
-        <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a>).</li>
+      <li><p>“reduced” to standard pairwise GO annotations (these are included in the
+        <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a>).</p></li>
       <li>As networks representing the causal interactions between the activities of different gene products (we provide Cytoscape
         <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).</li>
       <li>As full GO-CAM graphs that can be

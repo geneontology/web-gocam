@@ -25,7 +25,7 @@
             [(ngModel)]="searchFilter" style="margin:0;padding:0">
           <mat-hint>Title, Biological Process, Molecular Function, Curator, Group</mat-hint>
         </mat-form-field>
-        <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" style="display:inline-block; width:50%; margin:0;padding:0;position:absolute;right:2rem"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" style="display:inline-block; width:45%; margin:0;padding:0;position:absolute;right:2rem"></mat-paginator>
       </div>
 
 
@@ -41,7 +41,7 @@
         <!-- DATE SECTON -->
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef mat-sort-header><h2 class="heading-secondary">Date</h2></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{ row.date | date }} </mat-cell>
         </ng-container>
 
 

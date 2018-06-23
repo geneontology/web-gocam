@@ -1,0 +1,237 @@
+$shape-size: 80px;
+$text-size: $font-size-default;
+$text-size-big: $font-size-big;
+$canvas-color: #fff;
+
+.canvas {
+    position: relative;
+    display: block;
+    height: 500px;
+    background-color: $canvas-color;
+    border: 1px solid rgba($color-black, 0.2);
+    border-radius: 10px;
+    margin: 1rem 1.5rem;
+    text-align: center;
+
+    &__container {
+        display: inline-block;
+        position: absolute;
+
+        &__shape {
+            position: relative;
+            width: $shape-size;
+            height: $shape-size;
+
+            // align item on (0, 0)
+//            transform: translate(-50%, -50%);
+        
+            color: $color-white;
+            font-size: $text-size;
+            text-align: center;
+
+            box-shadow: 0rem 1rem 1rem rgba($color-black, 0.2);
+            overflow: hidden;
+
+            &__text {
+                @extend .canvas__container__shape;
+                top: 50%;
+                z-index: 100;
+//                font-size: $text-size-big;
+                font-size: 12px;
+                box-shadow: none;
+            }
+
+            &__title {
+                @extend .canvas__container__shape;
+                top: 50%;
+                z-index: 100;
+//                font-size: $text-size-big;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-weight: 700;
+                box-shadow: none;
+            }
+        
+            &-gp {
+                @extend .canvas__container__shape;
+                background: radial-gradient(circle at 10px 10px, #5cabff, #000);
+//                background-color: $color-primary;
+                border-radius: 50%;
+            }
+        
+            &-mf {
+                @extend .canvas__container__shape;
+                border-radius: 100px / 50px;
+                background: radial-gradient(circle at 10px 10px, #5cabff, #000);
+//                background-color: $color-primary;
+                /*
+                border-top: 0px solid transparent;
+                border-right: $shape-size solid transparent;
+                border-bottom: $shape-size solid $color-primary;
+                border-left: $shape-size solid transparent;
+                box-shadow: none;
+                */
+            }
+        
+            &-bp {
+                @extend .canvas__container__shape;
+                background-color: $color-primary;
+                border-radius: 10%;
+            }
+
+            &-link {
+                @extend .canvas__container__shape;
+                background-color: $color-primary;
+                height: 10px;
+                transform: translateX(-50%);
+            }
+
+            &-hexagon {
+                background-color: $color-primary;
+                width: 100px;
+                height: 55px;
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: -25px;
+                    left: 0;
+                    width: 0;
+                    height: 0;
+                    border-left: 50px solid transparent;
+                    border-right: 50px solid transparent;
+                    border-bottom: 25px solid $color-primary;           
+                }
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -25px;
+                    left: 0;
+                    width: 0;
+                    height: 0;
+                    border-left: 50px solid transparent;
+                    border-right: 50px solid transparent;
+                    border-top: 25px solid $color-primary;                
+                }
+            }
+        }
+        
+    }
+}
+
+
+.centered {
+    transform: translateX(-50%);
+} 
+
+
+.anim-gp1 {
+    animation: scenario-gp1 5s ease-in-out infinite;    
+}
+.anim-gp2 {
+    animation: scenario-gp1 5s ease-in-out infinite;    
+    animation-delay: 5s;
+}
+
+@keyframes scenario-gp1 {
+    0% { opacity: 0; top: 50%; left: 10% }
+    10% { opacity: 1; }
+    20% { }
+    30% { top: 50%; left: 20% }
+    40% { }
+    50% { }
+    60% { top: 10%; left: 20% }
+    70% { }
+    80% { }
+    90% { opacity: 1; top: 10%; left: 20% }
+    100% { opacity: 1; top: 10%; left: 20% }
+}
+
+
+
+.anim-mf1 {
+    animation: scenario-mf1 5s ease-in-out infinite;    
+}
+
+.anim-cc1 {
+    animation: scenario-mf1 5s ease-in-out infinite;
+    animation-delay: 5s;
+}
+
+@keyframes scenario-mf1 {
+    0% { opacity: 0; top: 50%; right: 10% }
+    10% { opacity: 1; }
+    20% { }
+    30% { top: 50%; right: 20% }
+    40% { }
+    50% { }
+    60% { top: 10%; right: 20% }
+    70% { }
+    80% { }
+    90% { opacity: 1; top: 10%; right: 20% }
+    100% { opacity: 1; top: 10%; right: 20% }
+}
+
+
+
+
+
+.anim-bp1 {
+    animation: scenario-bp1 5s ease-in-out infinite;    
+}
+
+@keyframes scenario-bp1 {
+    0% { opacity: 0; top: 50%; left: 10% }
+    10% { opacity: 1; }
+    20% {  }
+    30% { top: 50%; left: 10% }
+    40% { }
+    50% { }
+    60% { top: 10%; left: 10% }
+    70% { }
+    80% { }
+    90% { opacity: 1; top: 10%; left: 10% }
+    100% { opacity: 1; top: 10%; left: 10% }
+}
+
+
+
+
+
+
+.anim-link-gp1-mf1{
+    animation: scenario-link-gp1-mf1 5s ease-in-out infinite;    
+}
+
+@keyframes scenario-link-gp1-mf1 {
+    0% { opacity: 0; top: 55%; left: 50% }
+    10% { }
+    20% { opacity: 0; top: 55%; left: 50% }
+    30% { opacity: 1; top: 55%; left: 50% }
+    40% { }
+    50% { }
+    60% { opacity: 1; top: 15%; left: 50% }
+    70% { }
+    80% { }
+    90% { opacity: 1; top: 15%; left: 50% }
+    100% { opacity: 0; top: 15%; left: 50% }
+}
+
+
+
+.anim-link-gp1-mf1-text{
+    animation: scenario-link-gp1-mf1-text 5s ease-in-out infinite;    
+}
+
+@keyframes scenario-link-gp1-mf1-text {
+    0% { opacity: 0; top: 70%; left: 50% }
+    10% { }
+    20% { opacity: 0; top: 70%; left: 50% }
+    30% { opacity: 1; top: 70%; left: 50% }
+    40% {  }
+    50% { }
+    60% { opacity: 1; top: 30%; left: 50% }
+    70% { }
+    80% { }
+    90% { opacity: 1; top: 30%; left: 50% }
+    100% { opacity: 0; top: 30%; left: 50% }
+}

@@ -5,15 +5,36 @@
     border-radius: 50%;
     width: 120px;
     height: 120px;
-    animation: spin 2s ease-in-out infinite;
+    animation: spin 1.5s ease-in-out infinite;
 
     position: absolute; 
     left: 35%; 
     top: 17%; 
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
+.fullscreen-spinner-secondary {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid $color-primary;
+    border-bottom: 16px solid $color-secondary;
+    border-radius: 50%;
+    animation: spin 1.5s ease-in-out infinite;
+
+    position: absolute; 
+    transform: translate(-50%, -50%);
+
+    width: 50px;
+    height: 50px;
+    top: 28%;
+    left: 44%;
+    animation-delay: 0.5s;
+    animation-direction: reverse;
+    animation-timing-function: linear;
+}
+
+
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); border-radius: 50%; }
+    50% { transform: rotate(180deg) translateY(-2rem); border-radius: 25%;  }
+    100% { transform: rotate(360deg); border-radius: 50%; }
 }

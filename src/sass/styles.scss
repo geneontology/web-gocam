@@ -9,6 +9,7 @@
 @import "components/material-mods";
 @import "components/round-button";
 @import "components/fullscreen-spinner";
+@import "components/animation-concepts";
 
 
 
@@ -78,7 +79,7 @@ footer {
     margin: 20px;
 //    margin-top: 0px;
     opacity: .8;
-    font-size: $default-font-size;
+    font-size: $font-size-default;
 }
 
 .section-main {
@@ -88,7 +89,54 @@ footer {
 }
 
 
+.section-news {
+    font-size: $font-size-default;
+    color: $color-black;
 
+    min-height: calc(13px + 3vw) !important;
+    padding: 5px;
+
+    border: 1px solid rgba(211, 211, 211, 0.50);
+    border-radius: 10px;
+
+
+    &__eye {
+        display: inline-block;
+        color: $color-primary !important;
+        margin-right: calc(5px + 0.8vw);
+        transition: all 0.5s;
+    }
+    &__content {
+        width: 80%;
+        display: inline-block;
+        vertical-align: middle;
+        color: $color-black !important;
+        transition: all 0.5s;
+    }
+    &:hover &__content {
+        font-weight: 700;
+        color: $color-primary !important;
+        transform: translateX(3px);
+    }
+    &:hover &__eye {
+        transform: scale(1.1);
+    }
+}
+
+
+.section-news__line:hover {
+    color: $color-primary !important;
+}
+
+.section-news:hover {
+    padding: 5px;
+    background-color: rgba(220, 220, 220, 0.385);
+    box-shadow: 0px 3px 3px grey;    
+    /*
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+    */
+    cursor: pointer;
+}
 
 
 

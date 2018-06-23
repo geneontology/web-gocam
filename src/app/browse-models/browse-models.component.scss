@@ -1,5 +1,6 @@
 .mat-header-row {
-  padding: 0 calc(0.1vw) !important;
+  padding: 0 calc(0.05vw) !important;
+  padding-left: calc(10px + 0.6vw) !important;
   min-height: 1px;
 }
 
@@ -50,6 +51,7 @@
 
 .mat-column-date {
   max-width: calc(26px + 5vw);
+  margin-right: 3px !important;
 }
 
 
@@ -180,6 +182,7 @@ mat-hint {
   padding: calc(1px + 0.5vw) calc(1.5px + 0.5vw) !important;
   margin: calc(1px + 0.5vw) calc(1px + 0.5vw) !important;
   margin-bottom: calc(5px + 0.5vw) !important;
+  border-radius: calc(1px + 1vw) !important;
 }
 
 

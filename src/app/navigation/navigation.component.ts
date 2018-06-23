@@ -32,4 +32,14 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
   }
 
+  deactivateToolTip() {
+    console.log("ask to deactivate tooltip");
+    
+  }
+
+  menuClicked(tooltip) {
+    console.log(tooltip);
+    this.prefs.toggleSideNav();
+    tooltip.hide(); 
+  }
 }

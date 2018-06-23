@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" style="box-shadow: 0px 10px 10px grey;margin-top:2px;">
+<mat-toolbar color="primary" style="box-shadow: 0px calc(.8vw) 10px rgba(0, 0, 0, 0.2);margin-top:2px;">
   <mat-toolbar-row>
 
     <div style="width:70%; text-align: left">
@@ -26,25 +26,25 @@
     <div style="width:30%; text-align: right; margin-right: 5px; margin-top: 2px">
 
       <div class="round-button u-background-color-secondary">
-        <a (click)="pageDimmed = true" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <a (click)="pageDimmed = true" matTooltip="Send Us Feedbacks" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">comment</mat-icon>
         </a>
       </div>
 
       <div class="round-button u-background-color-secondary">
-        <a routerLink="/browse" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <a routerLink="/browse" matTooltip="Browse Models" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">search</mat-icon>
         </a>
       </div>
 
       <div class="round-button u-background-color-secondary">
-        <a routerLink="/" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <a routerLink="/" matTooltip="Home Page" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">home</mat-icon>
         </a>
       </div>
 
       <div class="round-button u-background-color-secondary">
-        <a (click)="prefs.toggleSideNav()" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <a (click)="prefs.toggleSideNav()"   #tooltip="matTooltip" matTooltip="Toggle Navigation Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">menu</mat-icon>
         </a>
       </div>

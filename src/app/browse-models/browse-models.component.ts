@@ -17,7 +17,8 @@ import { CacheService } from '../core/cache.service';
 export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = true;
-
+  date = new Date();
+  
   pageSizes = [10, 25, 100];
 
   // can dynamically change the columns displayed

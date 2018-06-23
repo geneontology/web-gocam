@@ -4,40 +4,26 @@ mat-card-content {
     width: 100%;
 }
 
-.eye {
-    margin: 0;
-    margin-right: calc(5px + 0.8vw);
-    padding: 0px;
-    vertical-align: middle;
-}
     
 div {
     margin-bottom: 4px;
     position: relative;
 }
 
-.news {
-    font-size: calc(5px + 0.8vw);    
-    color:rgba(33, 33, 166, 0.8);    
-    border: 1px solid rgba(211, 211, 211, 0.50);
-    border-radius: 10px;
-    padding: 5px;
+a {
+    display: block;
 }
 
-.news:hover {
-    padding: 5px;
-    background-color: rgba(220, 220, 220, 0.385);
-    box-shadow: 0px 3px 3px grey;    
-    /*
-    text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
-    */
-    cursor: pointer;
+mat-icon {
+    vertical-align: middle;
 }
 
+/*
 a {
     position:absolute;
     top: 50%;
     left: calc(5px + 0.5vw);
     transform: translateY(-50%);
 }
+*/
 

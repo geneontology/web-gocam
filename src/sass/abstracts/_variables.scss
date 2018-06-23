@@ -1,13 +1,15 @@
 $background-color: #fff;
 
-$default-font-size: calc(10px + 0.5vw);
+
+$font-size-primary: calc(4px + 1.3vw);
+$font-size-secondary: calc(4px + 1.1vw);
+$font-size-tertiary: calc(4px + .5vw);
+
+$font-size-default: calc(4px + 0.9vw);
+$font-size-small: calc(5px + .7vw);
+$font-size-big: calc(5px + .1.3vw);
 
 $default-line-height: 1.6;
-
-
-$size-primary: calc(2px + 1.3vw);
-$size-secondary: calc(4px + 1vw);
-$size-tertiary: calc(2px + 0.8vw);
 
 
 $color-primary: rgba(66, 82, 175, 1);
@@ -17,3 +19,7 @@ $color-tertiary: #21A179;
 $color-white: #fff;
 $color-black: #000;
 
+$value-small: 2rem;
+$value-medium: 4rem;
+$value-big: 6rem;
+$value-huge: 8rem;

@@ -1,15 +1,15 @@
 .heading-primary {
-    font-size: $size-primary;
+    font-size: $font-size-primary;
     color: $color-primary;
 }
 
 .heading-secondary {
-    font-size: $size-secondary;
+    font-size: $font-size-secondary;
     color: $color-primary;
 }
 
 .heading-tertiary {
-    font-size: $size-tertiary;
+    font-size: $font-size-tertiary;
     color: $color-primary;
 }
 
@@ -17,7 +17,7 @@
 
 
 a {
-    font-size: calc(6px + 0.6vw);    
+    font-size: $font-size-default;    
     display: inline-block;
     transition: all 0.5s;
 }
@@ -26,7 +26,11 @@ a:hover {
     font-weight: 700;
 }
 
-ul li {
-    line-height: 1.9;
+li {
+//    line-height: 1.9;
     list-style-type: square;
+}
+
+li:not(:last-child) {
+    margin-bottom: calc(2px + 1vw);
 }

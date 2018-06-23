@@ -34,7 +34,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { QueryModule } from './query/query.module';
 
-
+import * as config from '../gocam-config.json';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -63,7 +63,7 @@ const appRoutes: Routes = [
     UseCasesComponent,
 
     BrowseModelsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent    
   ],
 
   imports: [

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { PreferencesService } from './core/preferences.service';
-
+import * as config from '../gocam-config.json';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
   showMain: boolean = true;
 
   constructor(public prefs: PreferencesService) {
-   
+//   console.log("FIRING: ", config);
   }
 
   ngOnInit(): void {
