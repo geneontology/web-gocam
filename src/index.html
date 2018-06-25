@@ -4,11 +4,9 @@
 <head>
   <!-- Load CSS first -->
   <link rel="icon" href="assets/go-logo-icon.mini__0.png">
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-
   <link rel="stylesheet" href='//cdn.jsdelivr.net/npm/yasgui-yasqe@2.11.18/dist/yasqe.min.css' type='text/css' />
 
   <!-- Basic Stuff -->
@@ -17,7 +15,6 @@
 
   <!-- META DATA FOR SEO -->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="description" content="GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple standard GO annotations into larger models of biological function (such as “pathways”) in a semantically structured manner.">
   <meta name="keywords" content="GO, GO-CAM, CAM, Causal Activity Models, Gene Ontology, Annotations, Ontology, OWL, RDF, TTL, Knowledgebase, Noctua">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -27,7 +24,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'UA-116732335-1');
   </script>
 
@@ -35,26 +31,55 @@
 
 <body>
 
-    <noscript>
-        Your browser does not support JavaScript, which is required to load the GO-CAM site.        
-    </noscript>
-  
+  <noscript>
+    <style>
+      .jsonly {
+        display: none
+      }
+    </style>
+    <h1 style="margin: 40px auto; padding-top: 20px; text-align:center;">Gene Ontology Causal Activity Models (GO-CAMs)</h1>
+    <section style="margin: auto 20px; max-width: 800px; margin-bottom: 20px">
+      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple standard GO annotations into larger models
+      of biological function (such as “pathways”) in a semantically structured manner. GO-CAMs are created by expert biocurators
+      from the
+      <a href="http://geneontology.org/page/go-consortium-contributors-list" target="blank">GO Consortium</a>, using the
+      <a href="http://noctua.berkeleybop.org" target="blank">Noctua</a> modeling tool.
+    </section>
 
-    <app-root>
-      <div class="u-central-element">
-        <div class="u-central-title">Loading GO-CAM</div>
-        <div class="fullscreen-spinner"></div>
-        <!--
-        <div class="fullscreen-spinner-secondary"></div>
-        -->
-      </div>
+    <div style="max-width: 800px; color:black; margin: auto 20px;">
+      <p style=" text-align: center">
+        Your browser does not support JavaScript but the GO-CAM site requires JavaScript. Please activate JavaScript to continue:
+      </p>
+      <ul>
+        <li>
+          <a href="http://activatejavascript.org/en/instructions/chrome#instructions" target=_blank>Activate JavaScript on Chrome</a>
+        </li>
+        <li>
+          <a href="http://activatejavascript.org/en/instructions/firefox#instructions" target=_blank>Activate JavaScript on Firefox</a>
+        </li>
+        <li>
+          <a href="http://activatejavascript.org/en/instructions/safari#instructions" target=_blank>Activate JavaScript on Safari</a>
+        </li>
+        <li>
+          <a href="http://activatejavascript.org/en/instructions/ie#instructions" target=_blank>Activate JavaScript on Internet Explorer</a>
+        </li>
+      </ul>
+    </div>
+  </noscript>
+
+  
+  <app-root class="jsonly">
+    <div class="u-central-element ">
+      <div class="u-central-title">Loading GO-CAM</div>
+      <div class="fullscreen-spinner u-margin-vertical-small"></div>
+      <div class="fullscreen-spinner-secondary u-margin-vertical-small"></div>
+    </div>
   </app-root>
 
 
   </div>
 
-  
-  
+
 </body>
 
 </html>

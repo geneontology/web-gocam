@@ -1,0 +1,27 @@
+<mat-card class="mat-elevation-z5" fxLayout="column" fxLayoutAlign="space-between stretch">
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img mat-card-avatar src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="u-width-full">
+    </div>
+    <mat-card-title>
+      <h1 class="heading-primary">Recent Models</h1>
+    </mat-card-title>
+    <mat-card-subtitle>Newly Created or Edited GO-CAMs</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <app-model *ngFor='let gocam of displayedObservables; let i = index' [gocam]=gocam [animate]="i == displayedObservables.length - 1"  (mouseover)="mouseOver($event)" (mouseleave)="mouseLeft($event)">
+    </app-model>
+
+  </mat-card-content>
+</mat-card>
+
+<!--
+<div *ngIf="models">
+<div *ngFor='let i of itemsDisplayed'>
+  [{{i + newsPos }} / {{ nbMostRecents }}]: {{ pos(i + newsPos) }} {{ models[pos(i + newsPos)]?.title }}
+</div>
+</div>
+Test: {{ testObservable | json }}-->

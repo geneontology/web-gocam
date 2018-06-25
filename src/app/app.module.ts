@@ -17,7 +17,6 @@ import { DownloadsComponent } from './downloads/downloads.component';
 import { ApiComponent } from './api/api.component';
 import { DocumentationsComponent } from './documentations/documentations.component';
 import { UseCasesComponent } from './use-cases/use-cases.component';
-import { NewsComponent } from './news/news.component';
 import { BrowseModelsComponent } from './browse-models/browse-models.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
@@ -28,13 +27,13 @@ import { GroupModule } from './group/group.module';
 import { ProcessModule } from './process/process.module';
 
 
-import { SuiModule } from 'ng2-semantic-ui';
 import { ChartsModule } from 'ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { QueryModule } from './query/query.module';
 
 import * as config from '../gocam-config.json';
+import { RecentModelsModule } from './recent-models/recent-models.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -58,12 +57,11 @@ const appRoutes: Routes = [
     DownloadsComponent,
     ApiComponent,
     DocumentationsComponent,
-    NewsComponent,
 
     UseCasesComponent,
 
     BrowseModelsComponent,
-    PageNotFoundComponent    
+    PageNotFoundComponent
   ],
 
   imports: [
@@ -80,8 +78,9 @@ const appRoutes: Routes = [
     QueryModule,
     
     FlexLayoutModule,
-    SuiModule,
     ChartsModule,
+
+    RecentModelsModule,
 
     ShareButtonModule.forRoot(),
     RouterModule.forRoot(appRoutes), // advised to put the router at the end of imports

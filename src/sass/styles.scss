@@ -9,6 +9,7 @@
 @import "components/material-mods";
 @import "components/round-button";
 @import "components/fullscreen-spinner";
+@import "components/dimmer";
 @import "components/animation-concepts";
 
 
@@ -93,7 +94,7 @@ footer {
     font-size: $font-size-default;
     color: $color-black;
 
-    min-height: calc(13px + 3vw) !important;
+    min-height: calc(13px + 3.5vw) !important;
     padding: 5px;
 
     border: 1px solid rgba(211, 211, 211, 0.50);
@@ -102,22 +103,29 @@ footer {
 
     &__eye {
         display: inline-block;
+        height: 100%;
         color: $color-primary !important;
         margin-right: calc(5px + 0.8vw);
         transition: all 0.5s;
     }
+
     &__content {
-        width: 80%;
-        display: inline-block;
+//        width: 80%;
+//        height: 100%;
+//        display: inline-block;
+        
         vertical-align: middle;
         color: $color-black !important;
         transition: all 0.5s;
+        background-color: greenyellow;
     }
+
     &:hover &__content {
         font-weight: 700;
         color: $color-primary !important;
         transform: translateX(3px);
     }
+
     &:hover &__eye {
         transform: scale(1.1);
     }
@@ -168,8 +176,11 @@ div span p {
 
 
 
+.a-font-weight:hover {
+    font-weight: 700;
+}
 
-.displacement:hover {
+.a-displacement:hover {
     transform: translateX(0.2rem);
 }
 

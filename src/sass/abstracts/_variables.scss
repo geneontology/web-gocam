@@ -6,6 +6,7 @@ $font-size-secondary: calc(4px + 1.1vw);
 $font-size-tertiary: calc(4px + .5vw);
 
 $font-size-default: calc(4px + 0.9vw);
+$font-size-xsmall: calc(4px + 0.5vw);
 $font-size-small: calc(5px + .7vw);
 $font-size-big: calc(5px + .1.3vw);
 
@@ -19,6 +20,8 @@ $color-tertiary: #21A179;
 $color-white: #fff;
 $color-black: #000;
 
+$value-xxsmall: 0.5rem;
+$value-xsmall: 1rem;
 $value-small: 2rem;
 $value-medium: 4rem;
 $value-big: 6rem;

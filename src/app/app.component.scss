@@ -1,3 +1,5 @@
+@import "../sass/abstracts/variables";
+
 mat-sidenav-container {
     background-color:white;
     min-height: 0px !important;    
@@ -9,9 +11,13 @@ mat-sidenav-container {
 }
 
 .mat-sidenav-with-height {
-    min-height: calc(310px + 70vw) !important;
+    min-height: calc(300px + 85vw) !important;
 }
 
 .mat-sidenav-with-fixed-height {
     min-height: 60rem !important;
+}
+
+section {
+    margin-bottom: $value-xsmall;
 }

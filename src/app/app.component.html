@@ -10,8 +10,10 @@
 
     <!-- MAIN CONTENT SECTION -->
     <mat-sidenav-content [style.display]="prefs.getMainStyle()" [ngClass]="prefs.getSideStyle() == 'none' ? 'mat-sidenav-no-height' : 'mat-sidenav-with-height'">
-      
-      <router-outlet></router-outlet>
+
+      <section>
+        <router-outlet></router-outlet>
+      </section>
 
     </mat-sidenav-content>
 
@@ -22,16 +24,27 @@
       <aside style="margin: 0 10px; max-width: 450px;">
 
         <!-- download section -->
-        <app-downloads></app-downloads>
+        <section>
+          <app-downloads></app-downloads>
+        </section>
 
         <!-- tools & api section -->
-        <app-api style="margin: 20px;"></app-api>
+        <section>
+          <app-api></app-api>
+        </section>
 
         <!-- documentation section -->
-        <app-documentations style="margin: 20px;"></app-documentations>
+        <section>
+          <app-documentations></app-documentations>
+        </section>
 
         <!-- news section -->
-        <app-news style="margin-bottom: 20px;"></app-news>
+        <section>
+          <!--
+          <app-news style="margin-bottom: 20px;"></app-news>
+          -->
+          <app-model-list></app-model-list>
+        </section>
 
       </aside>
 

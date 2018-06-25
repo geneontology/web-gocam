@@ -19,8 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "sass/styles.scss",
-        "../node_modules/ionicons/scss/ionicons.scss"
+        "sass/styles.scss"
       ],
       "scripts": [
         "../node_modules/esprima/dist/esprima.js",

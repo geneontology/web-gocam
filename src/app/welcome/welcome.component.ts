@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+
 import { UrlHandlerService } from '../core/url-handler.service';
 import { UtilsService } from '../core/utils.service';
 import { SparqlrService } from '../core/sparqlr.service';
@@ -31,7 +33,10 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if(this.sub) {
+      this.sub.unsubscribe();
+      this.sub = null;
+    }
   }
 
   cycle() {

@@ -8,6 +8,7 @@ import { UtilsService } from '../core/utils.service';
 import { GoRESTService } from '../core/gorest.service';
 import { GoSPARQLService } from '../core/gosparql.service';
 import { CacheService } from '../core/cache.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-browse-models',
@@ -51,7 +52,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private gosparql: GoSPARQLService,
     private cache: CacheService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private meta: Meta) { 
+      this.meta.addTag({ name: 'description', content: 'Browse Gene Ontology Causal Activity Models to discover structured relations between gene products, biological processes and cellular locations.' });
+    }
 
 
 

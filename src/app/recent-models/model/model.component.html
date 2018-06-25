@@ -1,0 +1,9 @@
+<div *ngIf="displayed" class="model u-small-border-rounded u-margin-vertical-xxsmall">
+  <a href="{{baseURL + displayed.gocam}}" target="_blank" [style.opacity]="opacity">
+    <span class="model__link">
+      <mat-icon class="model__link__icon">visibility</mat-icon>
+      <span class="model__link__title">{{ displayed.title}}</span>
+    </span>
+    <span class="model__date" [style.opacity]="opacity">{{ displayed.date | date: 'dd/MM/yy' }}</span>
+  </a>
+</div>

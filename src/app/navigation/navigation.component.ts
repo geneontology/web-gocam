@@ -9,6 +9,8 @@ import { PreferencesService } from '../core/preferences.service';
 export class NavigationComponent implements OnInit {
 
   pageDimmed = false;
+
+
   fbs = [
     {
       value: "site",

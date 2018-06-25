@@ -1,11 +1,15 @@
 .heading-primary {
     font-size: $font-size-primary;
     color: $color-primary;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 .heading-secondary {
     font-size: $font-size-secondary;
     color: $color-primary;
+    font-weight: 700;
+    margin-bottom: $value-xxsmall;
 }
 
 .heading-tertiary {
@@ -20,6 +24,8 @@ a {
     font-size: $font-size-default;    
     display: inline-block;
     transition: all 0.5s;
+    text-decoration: none;
+    color: $color-primary;
 }
 
 a:hover {
@@ -33,4 +39,8 @@ li {
 
 li:not(:last-child) {
     margin-bottom: calc(2px + 1vw);
+}
+
+p {
+    margin-bottom: $value-xxsmall;
 }

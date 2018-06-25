@@ -79,7 +79,7 @@
 .mat-row:hover {
   padding: calc(4px + 0.5vw);  
   background-color: rgba(220, 220, 220, 0.385);
-  box-shadow: 0px 3px 3px grey;    
+  box-shadow: 0px 3px 3px rgba(grey, 0.5);
 }
 
 .mat-cell {
@@ -183,6 +183,7 @@ mat-hint {
   margin: calc(1px + 0.5vw) calc(1px + 0.5vw) !important;
   margin-bottom: calc(5px + 0.5vw) !important;
   border-radius: calc(1px + 1vw) !important;
+  cursor: pointer !important;
 }
 
 

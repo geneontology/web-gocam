@@ -28,6 +28,11 @@
     transform: translateY(-0.5rem);
 }
 
+.mat-card-header .mat-card-avatar {
+    width:calc(8px + 3.5vw) !important;
+    max-width: 45px;
+}
+
 .mat-card-header .mat-card-avatar .mat-icon {
     font-size: calc(16px + 0.5vw);  
     vertical-align: middle;

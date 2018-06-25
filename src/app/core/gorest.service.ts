@@ -6,6 +6,15 @@ import * as xml2js from 'xml2js';
 import { Observable } from 'rxjs/Observable';
 import { UtilsService } from './utils.service';
 
+export class GOCamSimple {
+  gocam: string;
+  date: Date;
+  title: string;
+  names: [string];
+  orcids: [string]
+}
+
+
 @Injectable()
 export class GoRESTService {
 
@@ -13,13 +22,20 @@ export class GoRESTService {
 baseUrl = "https://api.geneontology.cloud/"
 
   constructor(private http: Http,
+              private httpClient: HttpClient,
               private utils: UtilsService) {
   }
 
+  getMostRecents(nb: number): Observable<GOCamSimple[]> {
+    return this.httpClient.get<[GOCamSimple]>(this.baseUrl + 'models/last/' + nb)
+    .map(res => res);
+  }
 
+  /*
   getMostRecents(nb: number): Observable<object> {
     return this.http.get(this.baseUrl + "models/last/" + nb);
   }
+  */
 
   getModelList(): Observable<object> {
     return this.http.get(this.baseUrl + "models");
