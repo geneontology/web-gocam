@@ -5,7 +5,7 @@ export class PreferencesService {
 
   sideNavShown: boolean = true;
 
-  toolTipDelay = 800;
+  toolTipDelay = 600;
 
   mainStyle: string;
   sideStyle: string = 'inherit';

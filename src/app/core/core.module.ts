@@ -10,6 +10,7 @@ import { UtilsService } from './utils.service';
 import { GoSPARQLService } from './gosparql.service';
 import { SparqlrService } from './sparqlr.service';
 import { CacheService } from './cache.service';
+import { PubmedRestService } from './pubmed-rest.service';
 
 @NgModule({
   
@@ -26,6 +27,7 @@ import { CacheService } from './cache.service';
     GoRESTService,
     GoSPARQLService,
     SparqlrService,
+    PubmedRestService,
     PreferencesService,
     UrlHandlerService,
     UtilsService,

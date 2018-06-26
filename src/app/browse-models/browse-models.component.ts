@@ -9,6 +9,8 @@ import { GoRESTService } from '../core/gorest.service';
 import { GoSPARQLService } from '../core/gosparql.service';
 import { CacheService } from '../core/cache.service';
 import { Meta } from '@angular/platform-browser';
+import { PubmedRestService } from '../core/pubmed-rest.service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-browse-models',
@@ -48,6 +50,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   constructor(private goREST: GoRESTService,
     private urlHandler: UrlHandlerService,
     public prefs: PreferencesService,
+    public pubmed: PubmedRestService,
     public utils: UtilsService,
     private gosparql: GoSPARQLService,
     private cache: CacheService,
@@ -82,16 +85,14 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       }
       this.isLoading = false;
 
-      
+
+  
     // LOAD IT FROM THE API
     } else {
 
       // REST API REQUEST
-      this.gorestSub = this.goREST.getModelList().subscribe(data => {
+      this.gorestSub = this.goREST.getModelList().subscribe(json => {
         //    this.gorestSub = this.goREST.getModelListRange(0, initialSize).subscribe(data => {
-        var json = JSON.parse(JSON.stringify(data));
-        json = json._body;
-        json = JSON.parse(json);
         this.cache.setModelList(json);
         json.map(res => {
           this.models.push(res);
@@ -110,7 +111,13 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
             tabelt.mf = this.extractMFs(element);
             // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
           });
+
+          if(!this.cache.hasModelsPMIDs()) {
+            this.loadPMIDFromLambda();
+          }          
+                
         });
+
 
         /*
         this.gotermsSub = this.goREST.getModelsGPs(gocams).subscribe(data => {
@@ -152,9 +159,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   /* complete the filling of the table */
   ngAfterViewInit() {
-    //    this.loadGOFromSPARQL();
-    //    this.loadGOFromLambda();
-    if (this.cache.hasModelList()) {
+    if (this.cache.hasModelList()) {      
+      console.log("has list of models in cache");
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -162,11 +168,12 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     }
 
     if (!this.cache.hasModelsGOs()) {
-      console.log("LOADING ALL GOs");
+      console.log("has not list of GOs in cache: reload them");
       this.loadGOFromLambda();
-      this.loadGPFromSPARQL();
+//      this.loadGPFromSPARQL();
     }
-  }
+
+}
 
 
   loadGOFromLambda() {
@@ -258,6 +265,33 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       });
     })
   }
+
+
+
+  loadPMIDFromLambda() {
+    console.log("Loading All PMIDs");      
+    this.goREST.getAllModelsPMIDs().subscribe(json => {
+      this.cache.setPMIDs(json);
+      var tabelt;
+      json.forEach(element => {
+//        console.log("searching for ", element , " in: ", this.models);
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        if (!tabelt) {
+          console.error("could not find ", element.gocam);
+        } else {
+          tabelt.pmid = this.extractPMIDs(element);
+          if (tabelt.pmid.length > 0) {
+            tabelt.pmid.forEach(elt => {
+              tabelt.searchfield += elt.pmid + " ";
+            });
+          }
+        }
+      });
+      this.applyFilter(this.searchFilter);
+      });
+  }
+
+
 
   transformModelsGOs(json) {
     var gomapids = new Map();
@@ -409,6 +443,16 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     return gps.sort(this.compare);
   }
 
+  extractPMIDs(gocam) {
+    var pmids = [];
+    for (var i = 0; i < gocam.sources.length; i++) {
+      pmids.push({
+        pmid: gocam.sources[i],
+      });
+    }
+    return pmids.sort(this.compare);
+  }
+
 
 
 
@@ -552,6 +596,25 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   rowClicked(event) {
 
   }
+
+
+  articleTooltip = "Please wait...";
+  overpmid(pmid) {
+    this.articleTooltip = "Please wait...";
+    this.pubmed.getMeta(pmid)
+    .subscribe(data => {
+      this.articleTooltip = data.title + " -- " + data.lastauthor + " (" + data.source + ", " + data.epubdate + ")";
+    })
+  }
+
+
+
+
+
+
+
+
+
 
 }
 

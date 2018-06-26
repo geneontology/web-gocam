@@ -1,3 +1,5 @@
+@import "../../sass/abstracts/variables";
+
 .mat-header-row {
   padding: 0 calc(0.05vw) !important;
   padding-left: calc(10px + 0.6vw) !important;
@@ -78,7 +80,7 @@
 
 .mat-row:hover {
   padding: calc(4px + 0.5vw);  
-  background-color: rgba(220, 220, 220, 0.385);
+//  background-color: rgba(220, 220, 220, 0.385);
   box-shadow: 0px 3px 3px rgba(grey, 0.5);
 }
 
@@ -218,3 +220,36 @@ mat-hint {
   margin: 0px !important;
   padding: 0px !important;
 }
+
+
+.row__articles__container {
+//  background-color: greenyellow;
+  display: inline-block;
+}
+
+.row__article {
+  display: inline-block;
+//  color: $color-primary;
+}
+
+.row__article a  {
+  color: $color-tertiary !important;
+
+  &:hover {
+    font-weight: 700;
+    transform: translateY(2px) scale(1.2);
+    //    text-shadow: 1px 1px 6px rgba(0,0,0,0.2);    
+  }
+}
+
+
+.row__title {
+  &:hover {
+    transform: translateX(2px);
+    font-weight: 700;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+  }
+}
+
+
+

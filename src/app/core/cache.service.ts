@@ -7,6 +7,7 @@ export class CacheService {
 
   modelList: object = undefined;
   modelsGOs: object = undefined;
+  pmids: object = undefined;
 
   setModelList(list: object) {
     this.modelList = list;
@@ -32,6 +33,19 @@ export class CacheService {
   
   hasModelsGOs() {
     return this.modelsGOs != undefined;
+  }
+
+
+  setPMIDs(list: object) {
+    this.pmids = list;
+  }
+
+  getPMIDs(list: object) {
+    return this.pmids;
+  }
+
+  hasModelsPMIDs() {
+    return this.pmids != undefined;;
   }
 
 }

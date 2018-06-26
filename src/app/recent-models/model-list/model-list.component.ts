@@ -19,7 +19,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
   nbMostRecents = 12;
 
   @Input()
-  timeToSwitch: number = 1500;
+  timeToSwitch: number = 3000;
 
   @Input()
   switchDuration: number = 1000;

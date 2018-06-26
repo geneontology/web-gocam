@@ -59,6 +59,11 @@ export class UrlHandlerService {
   }
 
 
+  getPubMedAbstract(pmid: string) {
+    pmid = pmid.replace("PMID:", "");
+    return "https://www.ncbi.nlm.nih.gov/pubmed/" + pmid;    
+  }
+
   extractModel(model) {
     if(!model)
     return;

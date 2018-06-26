@@ -36,12 +36,15 @@
         <!-- Basic Header -->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-        <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;" (click)="navigate(row.gocam)"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;">
+        </mat-row>
 
         <!-- DATE SECTON -->
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef mat-sort-header><h2 class="heading-secondary">Date</h2></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.date | date }} </mat-cell>
+          <mat-cell *matCellDef="let row">
+             {{ row.date | date }} 
+          </mat-cell>
         </ng-container>
 
 
@@ -49,7 +52,16 @@
         <ng-container matColumnDef="title">
           <mat-header-cell *matHeaderCellDef mat-sort-header><h2 class="heading-secondary">Title</h2></mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">{{row.title}}</a>
+            <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank" class="row__title">{{row.title}} &nbsp; <br><hr> <mat-icon>open_in_new</mat-icon></a>
+
+            <div class="row__articles__container">
+                <span class="row__article" *ngFor="let source of row.pmid">
+                  <span matTooltip="{{ articleTooltip }}" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
+                    <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank" (mouseover)=overpmid(source.pmid)><mat-icon>library_books</mat-icon></a>
+                  </span>
+                </span>
+            </div>
+
           </mat-cell>
         </ng-container>
 

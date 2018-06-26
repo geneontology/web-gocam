@@ -152,6 +152,38 @@
 
 
 
+.u-margin-bottom-xxsmall {
+    margin-bottom: $value-xxsmall;
+}
+
+.u-margin-bottom-xsmall {
+    margin-bottom: $value-xsmall;
+}
+
+.u-margin-bottom-small {
+    margin-bottom: $value-small;
+}
+
+.u-margin-bottom-medium {
+    margin-bottom: $value-medium;
+}
+
+.u-margin-bottom-big {
+    margin-bottom: $value-big;
+}
+
+.u-margin-bottom-huge {
+    margin-bottom: $value-huge;
+}
+
+.u-margin-bottom-responsive {
+    margin-bottom: calc(2px + 3vw);
+}
+
+
+
+
+
 .u-padding-xxsmall {
     padding: $value-xxsmall;
 }

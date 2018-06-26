@@ -14,12 +14,27 @@ export class GOCamSimple {
   orcids: [string]
 }
 
+export class GOCam {
+  gocam: string;
+  date: string;
+  title: string;
+  orcids: [string];
+  names: [string];
+  groupids: [string];
+  groupnames: [string];
+}
+
+
+export class GOCamPMID {
+  gocam: string;
+  sources: [string];
+}
 
 @Injectable()
 export class GoRESTService {
 
 //  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
-baseUrl = "https://api.geneontology.cloud/"
+  baseUrl = "https://api.geneontology.cloud/"
 
   constructor(private http: Http,
               private httpClient: HttpClient,
@@ -31,15 +46,27 @@ baseUrl = "https://api.geneontology.cloud/"
     .map(res => res);
   }
 
-  /*
-  getMostRecents(nb: number): Observable<object> {
-    return this.http.get(this.baseUrl + "models/last/" + nb);
+  getAllModelsPMIDs(): Observable<GOCamPMID[]> {
+    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid')
+    .map(res => res);
   }
-  */
 
+  getModelsPMIDs(gocams): Observable<GOCamPMID[]> {
+    var gocamString = gocams.reduce(this.utils.concat);
+    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid?gocams=' + gocamString)
+    .map(res => res);
+  }
+
+  getModelList(): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models')
+    .map(res => res);
+  }
+ 
+  /*
   getModelList(): Observable<object> {
     return this.http.get(this.baseUrl + "models");
   }
+  */
 
   models = [];
   getStaticModelList() {
