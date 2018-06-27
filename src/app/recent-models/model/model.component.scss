@@ -8,7 +8,7 @@
     transition: all 0.2s;
 
     &__link {
-        font-size: $font-size-xsmall !important;
+        font-size: $font-size-xxsmall !important;
         font-family: inherit;
 
         position: absolute;
@@ -26,7 +26,7 @@
         }
 
         &__title {
-            font-size: $font-size-small;
+            font-size: $font-size-xxsmall !important;
             font-style: italic;
             display: inline-block;
             vertical-align: middle;

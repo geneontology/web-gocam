@@ -36,7 +36,7 @@ export class PubmedRestService {
   constructor(private httpClient: HttpClient) { }
 
   getMeta(pmid): Observable<PMIDMeta> {
-    console.log("receive request for: ", pmid);
+//    console.log("receive request for: ", pmid);
     pmid = pmid.replace("PMID:", "");
     return this.httpClient.get<any>(this.pubmedMetaURL + "&id=" + pmid)
     .map(res => res.result[res.result.uids[0]]);

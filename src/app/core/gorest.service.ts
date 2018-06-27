@@ -24,6 +24,14 @@ export class GOCam {
   groupnames: [string];
 }
 
+export class GOCamGO {
+  gocam: string;
+  goclasses: [string];
+  goids: [string];
+  gonames: [string];
+  definitions: [string]
+}
+
 
 export class GOCamPMID {
   gocam: string;
@@ -113,8 +121,10 @@ export class GoRESTService {
     return this.http.get(this.baseUrl + "models/go?gocams=" + gocamString);
   }
 
-  getAllModelsGOs(): Observable<object> {
-    return this.http.get(this.baseUrl + "models/go");
+  getAllModelsGOs(): Observable<GOCamGO[]> {
+//    return this.http.get(this.baseUrl + "models/go");
+    return this.httpClient.get<GOCamGO[]>(this.baseUrl + 'models/go/')
+    .map(res => res);
   }
 
 

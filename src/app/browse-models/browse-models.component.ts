@@ -20,6 +20,7 @@ import { Subject } from 'rxjs/Subject';
 export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = true;
+  isBufferLoading: boolean = true;
   date = new Date();
   
   pageSizes = [10, 25, 100];
@@ -33,22 +34,17 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   models = [];
-  gos = new Map();
-  bps = new Map();
-  ccs = new Map();
-  mfs = new Map();
-  gps = new Map();
 
   gorestSub: any;
   gotermsSub: any;
 
-  searchFilter: string;
+  searchFilter: string = undefined;
 
 
 
 
   constructor(private goREST: GoRESTService,
-    private urlHandler: UrlHandlerService,
+    public urlHandler: UrlHandlerService,
     public prefs: PreferencesService,
     public pubmed: PubmedRestService,
     public utils: UtilsService,
@@ -62,42 +58,28 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
+
+
   ngOnInit() {
     window.scrollTo(0, 0);
 //    document.querySelector('[cdk-scrollable]').scrollTop = 0;
 //    document.querySelector('.mat-layout__content').scrollTop = 0;
     let initialSize = this.pageSizes[0];
 
+    if(this.cache.hasDetailedModels()) {
+      this.models = this.cache.getDetailedModels();
+      this.updateTable(false);
 
-    // SOME CACHE ALREADY EXIST
-    if (this.cache.hasModelList()) {
-      console.log("**** USING CACHE");
-      var json = this.cache.getModelList();
-      json.forEach(elt => {
-        this.models.push(elt);
-      });
-      this.dataSource = new MatTableDataSource(this.models);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      let search = this.route.snapshot.paramMap.get('search');
-      if (search) {
-        this.searchFilter = search;
-      }
-      this.isLoading = false;
-
-
-  
-    // LOAD IT FROM THE API
     } else {
 
-      // REST API REQUEST
+      // Load the list of GO-CAMs (fast)
       this.gorestSub = this.goREST.getModelList().subscribe(json => {
-        //    this.gorestSub = this.goREST.getModelListRange(0, initialSize).subscribe(data => {
         this.cache.setModelList(json);
         json.map(res => {
           this.models.push(res);
         });
 
+        // Then for 1st rendering speed, only retrieve the GO terms of the first displayed page
         var gocams = this.extractModels(json);
         gocams.length = initialSize;
         this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(data => {
@@ -112,42 +94,17 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
             // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
           });
 
-          if(!this.cache.hasModelsPMIDs()) {
-            this.loadPMIDFromLambda();
-          }          
-                
+          // we probably want to add the PMID info here as well
+          //          this.loadPMIDFromLambda();
+
+          this.updateTable(true);
         });
-
-
-        /*
-        this.gotermsSub = this.goREST.getModelsGPs(gocams).subscribe(data => {
-          var json = JSON.parse(JSON.stringify(data));
-          json = json._body;
-          json = JSON.parse(json);
-          var tabelt;
-          json.forEach(element => {
-            tabelt = this.models.find(item => { return item.gocam == element.gocam });
-            tabelt.gp = this.extractGPs(element);
-            //            console.log("after: " , tabelt);
-            // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
-          });
-        });
-        */
-
-        this.dataSource = new MatTableDataSource(this.models);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        let search = this.route.snapshot.paramMap.get('search');
-        if (search) {
-          this.searchFilter = search;
-        }
-        this.isLoading = false;
-
       });
+
     }
 
-
   }
+
 
   ngOnDestroy(): void {
     if (this.gorestSub)
@@ -159,38 +116,37 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   /* complete the filling of the table */
   ngAfterViewInit() {
-    if (this.cache.hasModelList()) {      
-      console.log("has list of models in cache");
+    // If and only if the table was not loaded from cache, then add both GO & PMID data
+    if(!this.cache.hasDetailedModels()) {
+      this.loadGOFromLambda();
+
+    } else {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.applyFilter(this.searchFilter);
-    }
 
-    if (!this.cache.hasModelsGOs()) {
-      console.log("has not list of GOs in cache: reload them");
-      this.loadGOFromLambda();
-//      this.loadGPFromSPARQL();
     }
-
-}
+  }
 
 
   loadGOFromLambda() {
-    this.goREST.getAllModelsGOs().subscribe(data => {
-      var json = JSON.parse(JSON.stringify(data));
-      json = json._body;
-      json = JSON.parse(json);
+    this.goREST.getAllModelsGOs().subscribe(json => {
       this.cache.setModelsGOs(json);
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
         if (!tabelt) {
           console.error("could not find ", element.gocam);
+          
         } else {
+
+          if(!tabelt.searchfield) {
+            tabelt.searchfield = "";
+          }
+
           tabelt.bp = this.extractBPs(element);
           tabelt.mf = this.extractMFs(element);
-          tabelt.searchfield = "";
           if (tabelt.bp.length > 0) {
             tabelt.bp.forEach(elt => {
               tabelt.searchfield += elt.name + " ";
@@ -203,7 +159,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           }
         }
       });
-      this.applyFilter(this.searchFilter);
+      this.loadPMIDFromLambda();
+//      this.applyFilter(this.searchFilter);
     });
   }
 
@@ -267,7 +224,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   }
 
 
-
+  // should only be run AFTER loadGOFromLambda()
   loadPMIDFromLambda() {
     console.log("Loading All PMIDs");      
     this.goREST.getAllModelsPMIDs().subscribe(json => {
@@ -278,19 +235,50 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
         if (!tabelt) {
           console.error("could not find ", element.gocam);
+          
         } else {
+          if(!tabelt.searchfield) {
+            tabelt.searchfield = "";
+          }
+
           tabelt.pmid = this.extractPMIDs(element);
           if (tabelt.pmid.length > 0) {
             tabelt.pmid.forEach(elt => {
               tabelt.searchfield += elt.pmid + " ";
             });
           }
+//          console.log(tabelt.searchfield);
         }
       });
-      this.applyFilter(this.searchFilter);
+      this.cache.setDetailedModels(this.models);
+      this.updateTable(false);
       });
   }
 
+
+  updateTable(isBufferLoading: boolean) {
+    this.dataSource = new MatTableDataSource(this.models);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    let search = this.route.snapshot.paramMap.get('search');
+    if (search) {
+      this.searchFilter = search;
+    }
+    this.isLoading = false;
+    this.isBufferLoading = isBufferLoading;
+    this.applyFilter(this.searchFilter);
+//    console.log("updateTable: " + this.isLoading + "\t" + this.isBufferLoading + " (filter: " + this.searchFilter + ")");
+  }
+
+  applyFilter(filterValue: string) {
+    if (!filterValue) {
+      this.dataSource.filter = undefined;
+      return;
+    }
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
 
 
   transformModelsGOs(json) {
@@ -457,17 +445,6 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
-  applyFilter(filterValue: string) {
-//    console.log("keydown:applyfilter(" + filterValue + "; " + this.searchFilter + ")");
-
-    if (!filterValue) {
-      this.dataSource.filter = undefined;
-      return;
-    }
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
 
 
 
@@ -603,7 +580,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     this.articleTooltip = "Please wait...";
     this.pubmed.getMeta(pmid)
     .subscribe(data => {
-      this.articleTooltip = data.title + " -- " + data.lastauthor + " (" + data.source + ", " + data.epubdate + ")";
+      this.articleTooltip = data.title + " -- " + data.authors[0].name + " (" + data.source + ", " + data.pubdate + ")";
     })
   }
 

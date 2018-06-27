@@ -9,6 +9,23 @@ export class CacheService {
   modelsGOs: object = undefined;
   pmids: object = undefined;
 
+  detailedModels: object = undefined;
+
+  
+
+  setDetailedModels(list: object) {
+    this.detailedModels = list;
+  }
+
+  getDetailedModels(): any {
+    return this.detailedModels;
+  }
+
+  hasDetailedModels() {
+    return this.detailedModels != undefined;
+  }
+
+
   setModelList(list: object) {
     this.modelList = list;
   }
