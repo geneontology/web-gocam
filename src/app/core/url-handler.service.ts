@@ -5,6 +5,24 @@ export class UrlHandlerService {
 
   constructor() { }
 
+  getRESTEndpoint() {
+    return "https://app.swaggerhub.com/apis/geneontology/gosparql/alpha";
+  }
+
+  getSPARQLEndPoint() {
+//    return "http://rdf.geneontology.org/blazegraph/#query";
+    return "query/sparql-examples";
+  }
+
+  getNoctuaPlatform() {
+    return "http://noctua.berkeleybop.org/";    
+  }
+
+  getAmigoTerm(goterm: string) {
+    goterm = this.extractGOTerm(goterm);
+    return "http://amigo.geneontology.org/amigo/term/" + goterm;
+  }
+
   getDBXRefs(): string {
     return "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml";    
   }
@@ -72,6 +90,14 @@ export class UrlHandlerService {
     } else {
       return model.indexOf("/") != -1 ? "gomodel:" + model.substring(model.lastIndexOf("/") +1) : "gomodel:" + model
     }
+  }
+
+  extractGOTerm(term) {
+    if(term.indexOf("/") != -1) {
+      term = term.substring(term.lastIndexOf("/") + 1).trim();
+    }
+    term = term.replace("_", ":");
+    return term;
   }
 
 }

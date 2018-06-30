@@ -1,14 +1,19 @@
 <mat-card class="mat-elevation-z10" fxLayout="column" fxLayoutAlign="space-between stretch">
 
   <div class="top-right">
-      <button mat-raised-button color=primary routerLink="/browse">
-        Browse Models <mat-icon color=white>search</mat-icon>      
-      </button>
+    <button mat-raised-button color=primary routerLink="/browse">
+      Browse Models
+      <mat-icon color=white>search</mat-icon>
+    </button>
   </div>
 
   <mat-card-header>
-    <div mat-card-avatar><img mat-card-avatar src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="u-width-full"></div>
-    <mat-card-title><h1 class="heading-primary">Causal Activity Models (CAMs)</h1></mat-card-title>
+    <div mat-card-avatar>
+      <img mat-card-avatar src="assets/go-logo-icon.mini__0.png" alt="GO CAM Logo" class="u-width-full">
+    </div>
+    <mat-card-title>
+      <h1 class="heading-primary">Causal Activity Models (CAMs)</h1>
+    </mat-card-title>
     <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
   </mat-card-header>
 
@@ -17,11 +22,11 @@
     <h2 class="heading-secondary">GO-CAMs: linking standard GO Annotations</h2>
 
     <p>
-      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple standard GO annotations into larger models
+      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple <a href="http://geneontology.org/page/download-go-annotations" target="_blank">standard GO annotations</a> into larger models
       of biological function (such as “pathways”) in a semantically structured manner. GO-CAMs are created by expert biocurators
       from the
       <a href="http://geneontology.org/page/go-consortium-contributors-list" target="blank">GO Consortium</a>, using the
-      <a href="http://noctua.berkeleybop.org" target="blank">Noctua</a> modeling tool.
+      <a href="{{ urlHandler.getNoctuaPlatform() }}" target="blank">Noctua Curation Platform</a>.
     </p>
 
     <p align="center" id="carousel" class="u-small-border-rounded u-margin-vertical-responsive">
@@ -50,32 +55,40 @@
 
     <h2 class="heading-secondary">GO-CAMs: multiple uses</h2>
     <ul>
-      <li><p>“reduced” to standard pairwise GO annotations (these are included in the
-        <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a>).</p></li>
+      <li>As “pathway diagrams” that can be
+        <a routerLink="/browse">browsed and visualized</a>.
+      </li>
       <li>As networks representing the causal interactions between the activities of different gene products (we provide Cytoscape
-        <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).</li>
+        <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).
+      </li>
       <li>As full GO-CAM graphs that can be
         <a href="https://www.w3.org/TeamSubmission/turtle/" target="blank">downloaded (as RDF Turtle)</a> and queried via
-        <a href="http://rdf.geneontology.org/blazegraph/#query" target="blank">SPARQL</a>.</li>
-      <li>As “pathway diagrams” that can be
-        <a [routerLink]="['/browse']">browsed and visualized</a>.</li>
+        <a href="{{ urlHandler.getSPARQLEndPoint() }}" target="blank">SPARQL</a>.
+      </li>
+      <li>
+        <p>As “reduced” standard pairwise GO annotations, included in the
+          <a href="http://geneontology.org/page/download-go-annotations" target="blank">standard GO annotation files</a> for backward compatibility with the broader GO communities.</p>
+      </li>
     </ul>
 
   </mat-card-content>
 
   <mat-card-actions style="margin:5px;">
 
-      <button mat-raised-button color=primary routerLink="/browse">
-        Browse Models <mat-icon color=white>search</mat-icon>      
-      </button>
-  
+    <button mat-raised-button color=primary routerLink="/browse">
+      Browse Models
+      <mat-icon color=white>search</mat-icon>
+    </button>
+
     <button mat-button (click)="learnMore('NM')">
-      Learn More <mat-icon color=primary>school</mat-icon>
+      Learn More
+      <mat-icon color=primary>school</mat-icon>
     </button>
 
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">
-      Share <mat-icon color=primary>share</mat-icon>
+      Share
+      <mat-icon color=primary>share</mat-icon>
     </button>
 
     <mat-menu #shareMenu="matMenu">

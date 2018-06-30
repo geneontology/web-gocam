@@ -20,7 +20,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   selectedIndex = 0;
 
-  constructor(private urlHandler: UrlHandlerService,
+  constructor(public urlHandler: UrlHandlerService,
               public utils: UtilsService) { }
 
   ngOnInit() {

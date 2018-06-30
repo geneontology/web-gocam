@@ -51,7 +51,10 @@
             <h2 class="heading-secondary">Date</h2>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            {{ row.date | date }}
+            <div class="date-design">
+              <span class="date-design__year">{{ row.date | date: 'yyyy' }}</span>
+              <span class="date-design__day-month">{{ row.date | date: 'dd' }} {{ row.date | date: 'MMM' }}</span>
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -72,7 +75,7 @@
               <span class="row__article" *ngFor="let source of row.pmid">
                 <span matTooltip="{{ articleTooltip }}" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
                   <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank" (mouseover)=overpmid(source.pmid)>
-                    <mat-icon>library_books</mat-icon>
+                    <mat-icon class="article-icon">library_books</mat-icon>
                   </a>
                 </span>
               </span>
@@ -100,9 +103,19 @@
           -->
             <mat-chip-list *ngIf="row?.bp" class="mat-chip-list-stacked">
               <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" matTooltipPosition="before" [matTooltipShowDelay]="prefs.toolTipDelay">
-                <mat-chip class="bp" selected="true" (click)="ols(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
+                <!--
+                <mat-chip class="bp" selected="true" (click)="urlHandler.getAmigoTerm(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
                   {{ bp.name }}
                 </mat-chip>
+                -->
+                <!--
+                <div class="round-button">
+                  <a href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank">{{ bp.name }}</a>
+                </div>
+                  -->
+                <a href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank" class="table-button color-bp">
+                  {{ bp.name }}
+                </a>
               </span>
             </mat-chip-list>
           </mat-cell>
@@ -128,9 +141,14 @@
           -->
             <mat-chip-list *ngIf="row?.mf" class="mat-chip-list-stacked">
               <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
-                <mat-chip class="mf" selected="true" (click)="ols(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
+                <!--
+                <mat-chip class="mf" selected="true" (click)="urlHandler.getAmigoTerm(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
                   {{ mf.name }}
                 </mat-chip>
+                -->
+                <a href="{{ urlHandler.getAmigoTerm(mf.id) }}" target="_blank" class="table-button color-mf">
+                  {{ mf.name }}
+                </a>
               </span>
             </mat-chip-list>
           </mat-cell>
