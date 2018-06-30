@@ -247,6 +247,7 @@ mat-hint {
 
   font-size: $font-size-xxsmall !important;
   text-align: center;
+  letter-spacing: 0.5px;
 
   background-color: $color-white;
   padding: 8px 6px;
@@ -269,11 +270,11 @@ mat-hint {
 }
 
 .color-bp {
-  background: linear-gradient(150deg, #ca113b, rgba(189, 129, 20, 0.5) 100%);
+  background: linear-gradient(150deg, #00158c, rgba(16, 222, 222, 0.5) 100%);
 }
 
 .color-mf {
-  background: linear-gradient(150deg, #00158c, rgba(16, 222, 222, 0.5) 100%);
+  background: linear-gradient(150deg, #ca113b, rgba(189, 129, 20, 0.5) 100%);
 }
 
 
