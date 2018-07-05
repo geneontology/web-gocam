@@ -258,6 +258,38 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 //          console.log(tabelt.searchfield);
         }
       });
+//      this.cache.setDetailedModels(this.models);
+//      this.updateTable(false);
+      this.loadGPFromLambda();
+      });
+  }
+
+
+  loadGPFromLambda() {
+    console.log("Loading All GPs");      
+    this.goREST.getAllModelsGPs().subscribe(json => {
+      this.cache.setGPs(json);
+      var tabelt;
+      json.forEach(element => {
+//        console.log("searching for ", element , " in: ", this.models);
+        tabelt = this.models.find(item => { return item.gocam == element.gocam });
+        if (!tabelt) {
+          console.error("could not find ", element.gocam);
+          
+        } else {
+          if(!tabelt.searchfield) {
+            tabelt.searchfield = "";
+          }
+
+          tabelt.gp = this.extractGPs(element);
+          if (tabelt.gp.length > 0) {
+            tabelt.gp.forEach(elt => {
+              tabelt.searchfield += elt.fullName + " ";
+            });
+          }
+//          console.log(tabelt.searchfield);
+        }
+      });
       this.cache.setDetailedModels(this.models);
       this.updateTable(false);
       });
@@ -431,11 +463,15 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   extractGPs(gocam) {
     var gps = [];
     for (var i = 0; i < gocam.gpnames.length; i++) {
+      if(!gocam.gpids[i]) {
+        console.error("warning, gocam gp without id !", gocam);
+        continue;
+      }
       gps.push({
         id: gocam.gpids[i].replace("MGI:MGI", "MGI"),
-        name: gocam.gpnames[i].substring(0, gocam.gpnames[i].lastIndexOf(" ")),
+        name: gocam.gpnames[i].indexOf("uniprot/") != -1 ? gocam.gpnames[i].substring(gocam.gpnames[i].lastIndexOf("/") + 1) : gocam.gpnames[i].substring(0, gocam.gpnames[i].lastIndexOf(" ")),
         species: gocam.gpnames[i].substring(gocam.gpnames[i].lastIndexOf(" ") + 1),
-        fullName: gocam.gpnames[i]
+        fullName: gocam.gpnames[i].indexOf("uniprot/") != -1 ? gocam.gpnames[i].substring(gocam.gpnames[i].lastIndexOf("/") + 1) : gocam.gpnames[i]
       });
     }
     return gps.sort(this.compare);

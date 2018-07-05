@@ -8,6 +8,7 @@ export class CacheService {
   modelList: object = undefined;
   modelsGOs: object = undefined;
   pmids: object = undefined;
+  gps: object = undefined;
 
   detailedModels: object = undefined;
 
@@ -65,4 +66,20 @@ export class CacheService {
     return this.pmids != undefined;;
   }
 
+
+
+
+  setGPs(list: object) {
+    this.gps = list;
+  }
+
+  getGPs(list: object) {
+    return this.gps;
+  }
+
+  hasModelsGPs() {
+    return this.gps != undefined;;
+  }  
+
+  
 }

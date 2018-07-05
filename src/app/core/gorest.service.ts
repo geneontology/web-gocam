@@ -148,6 +148,11 @@ export class GoRESTService {
     .map(res => res);
   }
  
+  getAllModelsGPs(): Observable<GOCamGP[]> {
+    return this.httpClient.get<[GOCamGP]>(this.baseUrl + 'models/gp')
+    .map(res => res);
+  }
+
 
 }
 
