@@ -32,6 +32,12 @@ export class GOCamGO {
   definitions: [string]
 }
 
+export class GOCamGP {
+  gocam: string;
+  gpnames: [string];
+  gpids: [string];
+}
+
 
 export class GOCamPMID {
   gocam: string;
@@ -116,21 +122,30 @@ export class GoRESTService {
     return this.http.get(this.baseUrl + "models/bp?gocams=" + gocamString);
   }
 
+  /*
   getModelsGOs(gocams: string[]): Observable<object> {
     var gocamString = gocams.reduce(this.utils.concat);
     return this.http.get(this.baseUrl + "models/go?gocams=" + gocamString);
   }
+  */
 
+
+  getModelsGOs(gocams: string[]): Observable<GOCamGO[]> {
+    var gocamString = gocams.reduce(this.utils.concat);
+    return this.httpClient.get<GOCamGO[]>(this.baseUrl + "models/go?gocams=" + gocamString)
+    .map(res => res);
+}
+  
   getAllModelsGOs(): Observable<GOCamGO[]> {
-//    return this.http.get(this.baseUrl + "models/go");
     return this.httpClient.get<GOCamGO[]>(this.baseUrl + 'models/go/')
     .map(res => res);
   }
 
 
-  getModelsGPs(gocams: string[]): Observable<object> {
+  getModelsGPs(gocams: string[]): Observable<GOCamGP[]> {
     var gocamString = gocams.reduce(this.utils.concat);
-    return this.http.get(this.baseUrl + "models/gp?gocams=" + gocamString);
+    return this.httpClient.get<GOCamGP[]>(this.baseUrl + "models/gp?gocams=" + gocamString)
+    .map(res => res);
   }
  
 

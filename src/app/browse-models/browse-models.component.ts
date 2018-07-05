@@ -26,8 +26,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   pageSizes = [10, 25, 100];
 
   // can dynamically change the columns displayed
-//  displayedColumns = ['date', 'title', 'bps', 'mfs', 'gps', 'contributors', 'groups'];
-  displayedColumns = ['date', 'title', 'bps', 'mfs', 'contributors', 'groups'];
+//  displayedColumns = ['date', 'title', 'bps', 'mfs', 'contributors', 'groups'];
+  displayedColumns = ['date', 'title', 'bps', 'mfs', 'gps', 'contributors', 'groups'];
   dataSource: MatTableDataSource<ModelData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,6 +37,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   gorestSub: any;
   gotermsSub: any;
+  gpSub: any;
 
   searchFilter: string = undefined;
 
@@ -79,13 +80,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           this.models.push(res);
         });
 
+
         // Then for 1st rendering speed, only retrieve the GO terms of the first displayed page
         var gocams = this.extractModels(json);
         gocams.length = initialSize;
-        this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(data => {
-          var json = JSON.parse(JSON.stringify(data));
-          json = json._body;
-          json = JSON.parse(json);
+        this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(json => {
           var tabelt;
           json.forEach(element => {
             tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -94,10 +93,17 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
             // note: not yet puting any info in the searchfield to enable the search, as is is done by the background query in ngAfterViewInit()
           });
 
-          // we probably want to add the PMID info here as well
-          //          this.loadPMIDFromLambda();
-
-          this.updateTable(true);
+          // now updating the GPs
+          this.gpSub = this.goREST.getModelsGPs(gocams).subscribe(json2 => {
+            var tabelt;
+            json2.forEach(element => {
+              tabelt = this.models.find(item => { return item.gocam == element.gocam });
+//              console.log("ok found gocam <" + element.gocam + ">: ", element);
+              tabelt.gp = this.extractGPs(element);
+            });
+            this.updateTable(true);
+          });
+  
         });
       });
 
@@ -111,6 +117,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.gorestSub.unsubscribe();
     if (this.gotermsSub)
       this.gotermsSub.unsubscribe();
+    if(this.gpSub)
+      this.gpSub.unsubscribe();
   }
 
 
@@ -425,7 +433,9 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     for (var i = 0; i < gocam.gpnames.length; i++) {
       gps.push({
         id: gocam.gpids[i].replace("MGI:MGI", "MGI"),
-        name: gocam.gpnames[i],
+        name: gocam.gpnames[i].substring(0, gocam.gpnames[i].lastIndexOf(" ")),
+        species: gocam.gpnames[i].substring(gocam.gpnames[i].lastIndexOf(" ") + 1),
+        fullName: gocam.gpnames[i]
       });
     }
     return gps.sort(this.compare);
@@ -586,6 +596,17 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
+  getSpeciesIcon(species: string) {
+//    console.log(species);
+
+    switch(species) {
+      case "Drer":
+      return "";
+      case "Cele":
+      return "";
+    }
+    return "";
+  }
 
 
 

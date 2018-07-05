@@ -92,32 +92,15 @@
             <h2 class="heading-secondary">Processes</h2>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <!--
-          <mat-chip-list *ngIf="bps.get(row.gocam);" class="mat-chip-list-stacked">
-            <span matTooltip="{{ bpToolTip(bp) }}" *ngFor="let bp of bps.get(row.gocam);" matTooltipPosition="before" [matTooltipShowDelay]="prefs.toolTipDelay">
-              <mat-chip class="bp" selected="true" (click)="navigate(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
-                {{ bp.name }}
-              </mat-chip>
-            </span>
-          </mat-chip-list>
-          -->
-            <mat-chip-list *ngIf="row?.bp" class="mat-chip-list-stacked">
+
+            <div *ngIf="row?.bp" class="mat-chip-list-stacked">
               <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" matTooltipPosition="before" [matTooltipShowDelay]="prefs.toolTipDelay">
-                <!--
-                <mat-chip class="bp" selected="true" (click)="urlHandler.getAmigoTerm(bp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
-                  {{ bp.name }}
-                </mat-chip>
-                -->
-                <!--
-                <div class="round-button">
-                  <a href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank">{{ bp.name }}</a>
-                </div>
-                  -->
                 <a href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank" class="table-button color-bp">
                   {{ bp.name }}
                 </a>
               </span>
-            </mat-chip-list>
+            </div>
+
           </mat-cell>
         </ng-container>
 
@@ -130,45 +113,42 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
 
-            <!--
-          <mat-chip-list *ngIf="mfs.get(row.gocam);" class="mat-chip-list-stacked">
-            <span matTooltip="{{ mfToolTip(mf) }}" *ngFor="let mf of mfs.get(row.gocam);" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
-              <mat-chip class="mf" selected="true" (click)="navigate(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
-                {{ mf.name }}
-              </mat-chip>
-            </span>
-          </mat-chip-list>
-          -->
-            <mat-chip-list *ngIf="row?.mf" class="mat-chip-list-stacked">
+            <div *ngIf="row?.mf">
               <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
-                <!--
-                <mat-chip class="mf" selected="true" (click)="urlHandler.getAmigoTerm(mf.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);color:black">
-                  {{ mf.name }}
-                </mat-chip>
-                -->
                 <a href="{{ urlHandler.getAmigoTerm(mf.id) }}" target="_blank" class="table-button color-mf">
                   {{ mf.name }}
                 </a>
               </span>
-            </mat-chip-list>
+            </div>
+
           </mat-cell>
         </ng-container>
 
 
-        <!-- GENE PRODUCT COLUMN
-      <ng-container matColumnDef="gps">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Gene Products</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-chip-list *ngIf="row?.gp" class="mat-chip-list-stacked">
-            <span matTooltip="Unknown" *ngFor="let gp of row.gp;" matTooltipPosition="before" [matTooltipShowDelay]="prefs.toolTipDelay">
-              <mat-chip class="gp" selected="true" (click)="open(gp.id)" style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
-                {{ gp.name }}
-              </mat-chip>
-            </span>
-          </mat-chip-list>
-        </mat-cell>
-      </ng-container>
-       -->
+
+        <!-- GENE PRODUCT COLUMN -->
+        <ng-container matColumnDef="gps">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-align-center">
+            <h2 class="heading-secondary">Gene Products</h2>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+
+            <div *ngIf="row?.gp" class="gp-chip">
+              <!--
+              <span matTooltip=" {{ 'Species: ' + gp.species + ' -- URI: ' + gp.id }} " *ngFor="let gp of row.gp" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
+              -->
+              <span *ngFor="let gp of row.gp">
+                  <a href="{{ gp.id }}" target="_blank" class="table-button color-gp">
+                  {{ gp.fullName }} 
+                  <!--
+                  <img src="{{ '../assets/' + getSpeciesIcon(gp.species) + '.png' }}" class="gp-chip__logo">
+                  -->
+                </a>
+              </span>
+            </div>
+            
+          </mat-cell>
+        </ng-container>
 
 
 
@@ -178,10 +158,12 @@
             <h2 class="heading-secondary">Curators</h2>
           </mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align-right">
+
             <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
               <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
               <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
             </div>
+
           </mat-cell>
         </ng-container>
 
@@ -193,10 +175,12 @@
             <h2 class="heading-secondary">Groups</h2>
           </mat-header-cell>
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align-right">
+
             <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
               <a routerLink="/groups/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
               <span *ngIf="!row.groupids[i]">{{name}}</span>
             </span>
+
           </mat-cell>
         </ng-container>
 

@@ -45,4 +45,12 @@ export class ModelComponent implements OnInit {
     }
   }
 
+  maxCharacters = 80;
+  formattedTitle(fullTitle: string) : string {
+    if(fullTitle.length < this.maxCharacters) {
+      return fullTitle;
+    }
+    return fullTitle.substring(0, Math.min(fullTitle.length, this.maxCharacters) ) + "...";
+  }
+
 }
