@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { GOCamSimple, GoRESTService } from '../../core/gorest.service';
+import { GOCam, GoRESTService } from '../../core/gorest.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { Subscription } from 'rxjs/Subscription';
@@ -26,14 +26,14 @@ export class ModelListComponent implements OnInit, OnDestroy {
 
   paused: boolean = false;
 
-  models: GOCamSimple[];
+  models: GOCam[];
 
   recentModels$: Subscription;
   cycleSub: Subscription;
 
   // of size nbDisplayed
-  displayedSubjects: Subject<GOCamSimple>[];
-  displayedObservables: Observable<GOCamSimple>[];
+  displayedSubjects: Subject<GOCam>[];
+  displayedObservables: Observable<GOCam>[];
 
   constructor(private gorest: GoRESTService) {
 //   this.itemsDisplayed = Array.from({ length: this.nbDisplayed }, (x, i) => i);

@@ -254,7 +254,7 @@ mat-hint {
   margin: 5px 0px;
 
   border: 1px solid rgba(0, 0, 0, .3);
-  border-radius: 40px 10px;
+  border-radius: calc(8px + 1.5vw) calc(.5vw);
 
   color: $color-white;
   text-shadow: 1px 1px 1px $color-black;

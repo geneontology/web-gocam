@@ -5,11 +5,13 @@ import 'rxjs/add/operator/map';
 
 //import * as jsyaml from "js-yaml";
 
+import { environment } from '../../environments/environment';
+
 
 @Injectable()
 export class GoSPARQLService {
 
-  baseUrl = "http://rdf.geneontology.org/blazegraph/sparql";
+  baseUrl = environment.rdfStore;
 
   constructor(private http: Http) { }
 

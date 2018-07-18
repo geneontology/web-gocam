@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class UrlHandlerService {
 
-  constructor() { }
+  constructor(private utilsService: UtilsService) { }
 
   getRESTEndpoint() {
     return "https://app.swaggerhub.com/apis/geneontology/gosparql/alpha";
@@ -64,13 +65,13 @@ export class UrlHandlerService {
 
 
   getGraphView(goModelId: string) {
-    var model = this.extractModel(goModelId);
+    var model = this.utilsService.curieGOCam(goModelId);
     //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
     return "http://noctua.berkeleybop.org/editor/graph/" + model;
   }
 
   getPathwayView(goModelId: string) {
-    var model = this.extractModel(goModelId);
+    var model = this.utilsService.curieGOCam(goModelId);
     //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
     //return "http://noctua.berkeleybop.org/workbench/pathwayview/?model_id=" + goModelId;
     return this.getGraphView(model);
@@ -80,16 +81,6 @@ export class UrlHandlerService {
   getPubMedAbstract(pmid: string) {
     pmid = pmid.replace("PMID:", "");
     return "https://www.ncbi.nlm.nih.gov/pubmed/" + pmid;    
-  }
-
-  extractModel(model) {
-    if(!model)
-    return;
-    if(model.indexOf("gomodel:") != -1) {
-      return model;
-    } else {
-      return model.indexOf("/") != -1 ? "gomodel:" + model.substring(model.lastIndexOf("/") +1) : "gomodel:" + model
-    }
   }
 
   extractGOTerm(term) {

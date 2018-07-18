@@ -6,13 +6,9 @@ import * as xml2js from 'xml2js';
 import { Observable } from 'rxjs/Observable';
 import { UtilsService } from './utils.service';
 
-export class GOCamSimple {
-  gocam: string;
-  date: Date;
-  title: string;
-  names: [string];
-  orcids: [string]
-}
+import { environment } from '../../environments/environment';
+
+
 
 export class GOCam {
   gocam: string;
@@ -47,16 +43,15 @@ export class GOCamPMID {
 @Injectable()
 export class GoRESTService {
 
-//  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
-  baseUrl = "https://api.geneontology.cloud/"
+  baseUrl = environment.apiUrl;
 
   constructor(private http: Http,
               private httpClient: HttpClient,
               private utils: UtilsService) {
   }
 
-  getMostRecents(nb: number): Observable<GOCamSimple[]> {
-    return this.httpClient.get<[GOCamSimple]>(this.baseUrl + 'models/last/' + nb)
+  getMostRecents(nb: number): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models?last=' + nb)
     .map(res => res);
   }
 

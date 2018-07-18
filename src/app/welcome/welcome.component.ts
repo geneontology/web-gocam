@@ -4,7 +4,6 @@ import 'rxjs/add/observable/interval';
 
 import { UrlHandlerService } from '../core/url-handler.service';
 import { UtilsService } from '../core/utils.service';
-import { SparqlrService } from '../core/sparqlr.service';
 
 
 @Component({

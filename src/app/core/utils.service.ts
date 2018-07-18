@@ -24,6 +24,15 @@ export class UtilsService {
     return url.substring(url.lastIndexOf("/") + 1);
   }
   
+  curieGOCam(model: string) {
+    if(model.indexOf("/")) {
+      model = model.substring(model.lastIndexOf("/") + 1);
+    }
+    if(!model.startsWith("gomodel:")) {
+      model = "gomodel:" + model;
+    }
+    return model;
+  }  
 
   concat(a, b) {
     return a + "," + b;

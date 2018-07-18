@@ -1,5 +1,5 @@
 <div *ngIf="displayed" class="model u-small-border-rounded u-margin-vertical-xxsmall">
-  <a href="{{baseURL + displayed.gocam}}" target="_blank" [style.opacity]="opacity">
+  <a href="{{ getViewUrl(displayed.gocam) }}" target="_blank" [style.opacity]="opacity">
     <span class="model__link">
       <mat-icon class="model__link__icon">visibility</mat-icon>
       <span class="model__link__title">{{ formattedTitle(displayed.title) }}</span>

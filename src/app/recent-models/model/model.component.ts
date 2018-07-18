@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GOCamSimple } from '../../core/gorest.service';
+import { GOCam } from '../../core/gorest.service';
 import { Observable } from 'rxjs/Observable';
 import { delay } from 'q';
+import { UtilsService } from '../../core/utils.service';
 
 @Component({
   selector: 'app-model',
@@ -15,14 +16,14 @@ export class ModelComponent implements OnInit {
   opacity: number = 0;
 
   @Input()
-  gocam: Observable<GOCamSimple>;
+  gocam: Observable<GOCam>;
 
   @Input()
   animate: boolean = false;
 
-  displayed: GOCamSimple;
+  displayed: GOCam;
 
-  constructor() { 
+  constructor(private utilsService : UtilsService) { 
   }
 
   ngOnInit() {
@@ -51,6 +52,11 @@ export class ModelComponent implements OnInit {
       return fullTitle;
     }
     return fullTitle.substring(0, Math.min(fullTitle.length, this.maxCharacters) ) + "...";
+  }
+
+
+  getViewUrl(gocam: string) {
+    return this.baseURL + this.utilsService.curieGOCam(gocam);
   }
 
 }
