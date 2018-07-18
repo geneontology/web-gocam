@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   rdfStore : "http://rdf.geneontology.org/blazegraph/sparql",
-  apiUrl : "https://api.geneontology.xyz/"
+  apiUrl : "https://api.geneontology.cloud/"
 };
