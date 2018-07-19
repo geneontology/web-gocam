@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class UrlHandlerService {
 
   constructor(private utilsService: UtilsService) { }
 
   getRESTEndpoint() {
-    return "https://app.swaggerhub.com/apis/geneontology/gosparql/alpha";
+    return environment.swaggerUrl;
   }
 
   getSPARQLEndPoint() {
