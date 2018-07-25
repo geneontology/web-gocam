@@ -5,7 +5,6 @@ import 'rxjs/add/observable/interval';
 import { UrlHandlerService } from '../core/url-handler.service';
 import { UtilsService } from '../core/utils.service';
 
-
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -19,7 +18,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
   selectedIndex = 0;
 
-  constructor(public urlHandler: UrlHandlerService,
+  constructor(public urlHandler : UrlHandlerService,
               public utils: UtilsService) { }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     console.log("receiving call to learnMore on " + name);
     switch (name) {
       case 'NM':
-        window.open(this.urlHandler.getURLNoctuaModelDescription(), "_blank");
+        window.open(this.urlHandler.getDocGOCAM(), "_blank");
       default:
         break;
     }

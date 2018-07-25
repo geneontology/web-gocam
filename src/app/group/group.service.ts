@@ -5,12 +5,14 @@ import { UrlHandlerService } from '../core/url-handler.service';
 
 import * as jsyaml from "js-yaml";
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class GroupService {
 
   groups;
 
-  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
+  baseUrl = environment.apiUrl;
 
   constructor(private http: Http,
               private urlHandler: UrlHandlerService) { 

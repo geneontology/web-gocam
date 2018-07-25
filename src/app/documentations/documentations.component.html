@@ -18,14 +18,10 @@
     </p>
 
     <ul>
-      <li><a href="http://wiki.geneontology.org/index.php/cam/docs/research" target="blank" class="a-displacement"><mat-icon>school</mat-icon> &nbsp; Researchers </a></li>
-      <li><a href="http://wiki.geneontology.org/index.php/cam/docs/curation" target="blank" class="a-displacement"><mat-icon>edit</mat-icon> &nbsp; Curators </a></li>
-      <li><a href="http://wiki.geneontology.org/index.php/cam/docs/development" target="blank" class="a-displacement"><mat-icon>build</mat-icon> &nbsp; Developers </a></li>
+      <li><a href="{{ urlHandler.getDocResearch() }}" target="blank" class="a-displacement"><mat-icon>school</mat-icon> &nbsp; Researchers </a></li>
+      <li><a href="{{ urlHandler.getDocCuration() }}" target="blank" class="a-displacement"><mat-icon>edit</mat-icon> &nbsp; Curators </a></li>
+      <li><a href="{{ urlHandler.getDocDevelopment() }}" target="blank" class="a-displacement"><mat-icon>build</mat-icon> &nbsp; Developers </a></li>
     </ul>
-      <!--
-      <button mat-button><a href="http://wiki.geneontology.org/index.php/cam/docs/research" target="blank"><mat-icon>school</mat-icon> Researchers </a></button>
-      <button mat-button><a href="http://wiki.geneontology.org/index.php/cam/docs/curation" target="blank"><mat-icon>edit</mat-icon> Curators </a></button>
-      <button mat-button><a href="http://wiki.geneontology.org/index.php/cam/docs/development" target="blank"><mat-icon>build</mat-icon> Developers </a></button>
-      -->
+    
   </mat-card-content>
 </mat-card>

@@ -2,7 +2,9 @@
 
   <mat-card-header>
     <mat-card-title>
-      <h1 class="heading-primary">{{ dataSource?.filteredData.length }} available GO-CAMs</h1>
+      <h1 class="heading-primary">
+          {{ dataSource?.filteredData?.length }} Available GO-CAMs
+      </h1>
     </mat-card-title>
     <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
   </mat-card-header>
@@ -12,12 +14,22 @@
     <div *ngIf="isLoading" style="text-align: center">
       Loading Models ... &nbsp;
       <mat-spinner color=accent [diameter]="20" style="display: inline-block; vertical-align:middle"></mat-spinner>
+      <!--
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      -->
     </div>
 
+    <div *ngIf="!isLoading">
     <div *ngIf="isBufferLoading" style="text-align: center; background-color: rgba(orange, 0.5)">
       Loading Buffers ... &nbsp;
+      
       <mat-spinner color=primary [diameter]="20" style="display: inline-block; vertical-align:middle"></mat-spinner>
+      <!--
+      <mat-progress-bar mode="indeterminate" color=warn></mat-progress-bar>
+      -->
     </div>
+  </div>
+
 
     <!-- can not use the *ngIf directive with table !
 
@@ -65,12 +77,15 @@
             <h2 class="heading-secondary">Title</h2>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank" class="row__title">{{row.title}} &nbsp;
-              <br>
-              <hr>
-              <mat-icon>open_in_new</mat-icon>
+
+            <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" class="row__title">{{row.title}} &nbsp;<br><hr>
+              <span class="row__title__view-primary" matTooltip="Open Graph View" matTooltipPosition="below" [matTooltipShowDelay]="0.2">G<mat-icon class="row__title__open">open_in_new</mat-icon></span>
             </a>
 
+            <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank" class="row__title">
+                <span class="row__title__view-secondary" matTooltip="Open Pathway View" matTooltipPosition="below" [matTooltipShowDelay]="0.2">P<mat-icon class="row__title__open">open_in_new</mat-icon></span>
+            </a>
+  
             <div class="row__articles__container">
               <span class="row__article" *ngFor="let source of row.pmid">
                 <span matTooltip="{{ articleTooltip }}" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
@@ -126,6 +141,26 @@
 
 
 
+        <!-- CELLULAR COMPONENT COLUMN -->
+        <ng-container matColumnDef="ccs">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-align-center">
+              <h2 class="heading-secondary">Cellular Components</h2>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+  
+              <div *ngIf="row?.cc">
+                <span matTooltip="{{ cc.definition }}" *ngFor="let cc of row.cc;" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
+                  <a href="{{ urlHandler.getAmigoTerm(cc.id) }}" target="_blank" class="table-button color-cc">
+                    {{ cc.name }}
+                  </a>
+                </span>
+              </div>
+  
+            </mat-cell>
+          </ng-container>
+  
+
+
         <!-- GENE PRODUCT COLUMN -->
         <ng-container matColumnDef="gps">
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-align-center">
@@ -138,15 +173,15 @@
               <span matTooltip=" {{ 'Species: ' + gp.species + ' -- URI: ' + gp.id }} " *ngFor="let gp of row.gp" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
               -->
               <span *ngFor="let gp of row.gp">
-                  <a href="{{ gp.id }}" target="_blank" class="table-button color-gp">
-                  {{ gp.fullName }} 
+                <a href="{{ gp.id }}" target="_blank" class="table-button color-gp">
+                  {{ gp.fullName }}
                   <!--
                   <img src="{{ '../assets/' + getSpeciesIcon(gp.species) + '.png' }}" class="gp-chip__logo">
                   -->
                 </a>
               </span>
             </div>
-            
+
           </mat-cell>
         </ng-container>
 
@@ -160,7 +195,7 @@
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align-right">
 
             <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i">
-              <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1">{{simplifyName(name)}}</a>
+              <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1" class="a-vertical-displacement a-font-weight">{{simplifyName(name)}}</a>
               <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
             </div>
 
@@ -177,7 +212,7 @@
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align-right">
 
             <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i">
-              <a routerLink="/groups/{{name}}" *ngIf="row.groupids[i]">{{name}}</a>
+              <a routerLink="/groups/{{name}}" *ngIf="row.groupids[i]" class="a-vertical-displacement a-font-weight">{{name}}</a>
               <span *ngIf="!row.groupids[i]">{{name}}</span>
             </span>
 

@@ -12,7 +12,7 @@
 
   <mat-card-content>
 
-    <app-model *ngFor='let gocam of displayedObservables; let i = index' [gocam]=gocam [animate]="i == displayedObservables.length - 1"  (mouseover)="mouseOver($event)" (mouseleave)="mouseLeft($event)">
+    <app-model *ngFor='let gocam of displayedObservables; let i = index' [baseURL]=baseURL [gocam]=gocam [animate]="i == displayedObservables.length - 1"  (mouseover)="mouseOver($event)" (mouseleave)="mouseLeft($event)">
     </app-model>
 
   </mat-card-content>

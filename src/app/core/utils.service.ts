@@ -26,13 +26,16 @@ export class UtilsService {
   
   curieGOCam(model: string) {
     if(model.indexOf("/")) {
-      model = model.substring(model.lastIndexOf("/") + 1);
+      model = model.substring(model.lastIndexOf("/") + 1).trim();
     }
+    // in case of GO_XXX instead of GO:XXX
+    model = model.replace("_", ":");
     if(!model.startsWith("gomodel:")) {
       model = "gomodel:" + model;
     }
     return model;
   }  
+
 
   concat(a, b) {
     return a + "," + b;
@@ -43,7 +46,7 @@ export class UtilsService {
   }
 
   lastUpdate(): string {
-    return "May, 2018";
+    return "July, 2018";
   }
 
   genericSPARQLJSON(json) {

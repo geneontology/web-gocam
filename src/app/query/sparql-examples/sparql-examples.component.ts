@@ -8,6 +8,7 @@ import { SparqlrService } from '../../core/sparqlr.service';
 import { UtilsService } from '../../core/utils.service';
 
 import * as YASQE from 'yasgui-yasqe';
+import { UrlHandlerService } from '../../core/url-handler.service';
 
 var globalVar;
 var globalVarHead;
@@ -51,6 +52,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
   constructor(private sparql: GoSPARQLService,
     private sparqlr: SparqlrService,
     private utils: UtilsService,
+    public urlHandler : UrlHandlerService,
     public prefs: PreferencesService) { }
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
     this.yasqe = YASQE(document.getElementById("yasqe"), {
       sparql: {
         showQueryButton: true,
-        endpoint: "http://rdf.geneontology.org/blazegraph/sparql"
+        endpoint: this.urlHandler.getSPARQL()
       }
     });
 

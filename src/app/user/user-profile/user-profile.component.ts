@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   sub: any;
 
-  constructor(private urlHandler: UrlHandlerService,
+  constructor(public urlHandler: UrlHandlerService,
               private userService: UserService,
               private route: ActivatedRoute) { }
 

@@ -31,7 +31,7 @@
       <tr>
         <td style="padding-right:100px;">ORCID</td>
         <td>
-          <a href="http://orcid.org/{{orcid}}" target="_blank">{{userMeta?.name}}</a>
+          <a href="{{ urlHandler.getORCID(orcid) }}" target="_blank">{{userMeta?.name}}</a>
         </td>
       </tr>
       <!--
@@ -73,7 +73,7 @@
         <ul>
           <li *ngFor="let model of userMeta?.gocams; let i = index">
             <!--{{userMeta.gocamsDate[i]}} &nbsp;&nbsp;-->
-            <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
+            <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank" class="a-displacement">{{userMeta.gocamsTitle[i]}}</a>
           </li>
         </ul>
 
@@ -82,23 +82,20 @@
 
     <br>
 
-    <mat-accordion *ngIf="userMeta && userMeta.bpIDs" class="my-headers-align">
+    <mat-accordion *ngIf="userMeta && userMeta.bpids" class="my-headers-align">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Biological Processes
           </mat-panel-title>
           <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
-            {{userMeta?.bpIDs?.length}} annotated
+            {{userMeta?.bpids?.length}} annotated
           </mat-panel-description>
         </mat-expansion-panel-header>
 
         <ul>
-          <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
-            <a [routerLink]="['/browse', userMeta.bpNames[i] ]">{{userMeta.bpNames[i]}}</a>
-            <!--
-            <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
-            -->
+          <li *ngFor="let bp of userMeta?.bpids; let i = index">
+            <a [routerLink]="['/browse', userMeta.bpnames[i] ]" class="a-displacement">{{userMeta.bpnames[i]}}</a>
           </li>
         </ul>
 
@@ -107,75 +104,26 @@
 
     <br>
 
-    <mat-accordion *ngIf="userMeta && userMeta.gpIDs" class="my-headers-align">
+    <mat-accordion *ngIf="userMeta && userMeta.gpids" class="my-headers-align">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Gene Products
           </mat-panel-title>
           <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
-            {{userMeta?.gpIDs?.length}} annotated
+            {{userMeta?.gpids?.length}} annotated
           </mat-panel-description>
         </mat-expansion-panel-header>
 
         <mat-chip-list>
-          <mat-chip *ngFor="let bp of userMeta?.gpIDs; let i = index" color="primary" selected="true" (click)="navigate(userMeta.gpIDs[i])"
+          <mat-chip *ngFor="let bp of userMeta?.gpids; let i = index" color="primary" selected="true" (click)="navigate(userMeta.gpids[i])"
             style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
-            {{userMeta.gpNames[i]}}
+            {{userMeta.gpnames[i]}}
           </mat-chip>
         </mat-chip-list>
 
-        <!--
-        <ul>
-          <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
-            <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
-          </li>
-        </ul>
-      -->
-
       </mat-expansion-panel>
     </mat-accordion>
-
-
-    <!--
-    <div class="small-card">
-      <h3 *ngIf="userMeta && userMeta.gocams">
-        {{userMeta?.gocams?.length}} GO-CAMs produced
-      </h3>
-      <hr>
-      <ul>
-        <li *ngFor="let model of userMeta?.gocams; let i = index">
-          {{userMeta.gocamsDate[i]}} &nbsp;&nbsp;
-          <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank">{{userMeta.gocamsTitle[i]}}</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="small-card">
-      <h3 *ngIf="userMeta && userMeta.bpIDs">
-        {{userMeta?.bpIDs?.length}} Biological Process Annotated
-      </h3>
-      <hr>
-      <ul>
-        <li *ngFor="let bp of userMeta?.bpIDs; let i = index">
-          <a href="{{userMeta.bpIDs[i]}}" target="_blank">{{userMeta.bpNames[i]}}</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="small-card">
-      <h3 *ngIf="userMeta && userMeta.gpIDs">
-        {{userMeta?.gpIDs?.length}} Gene Products Annotated
-      </h3>
-      <hr>
-      <ul>
-        <li *ngFor="let bp of userMeta?.gpIDs; let i = index">
-          <a href="{{userMeta.gpIDs[i]}}" target="_blank">{{userMeta.gpNames[i]}}</a>
-        </li>
-      </ul>
-    </div>
-  -->
-
 
   </mat-card-content>
 </mat-card>

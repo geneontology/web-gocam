@@ -8,89 +8,146 @@ export class UrlHandlerService {
 
   constructor(private utilsService: UtilsService) { }
 
-  getRESTEndpoint() {
+  
+  getAPIDoc() : string {
     return environment.swaggerUrl;
   }
 
-  getSPARQLEndPoint() {
-//    return "http://rdf.geneontology.org/blazegraph/#query";
+  getAPI() : string {
+    return environment.apiUrl;
+  }
+
+
+  getSPARQLDoc() : string {
     return "query/sparql-examples";
   }
 
-  getNoctuaPlatform() {
-    return "http://noctua.berkeleybop.org/";    
+  getSPARQL() : string {
+    return environment.sparqlUrl;
   }
 
-  getAmigoTerm(goterm: string) {
-    goterm = this.extractGOTerm(goterm);
-    return "http://amigo.geneontology.org/amigo/term/" + goterm;
+
+
+  getNoctuaPlatform() : string {
+    return environment.noctuaUrl;
   }
 
-  getDBXRefs(): string {
-    return "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/db-xrefs.yaml";    
+  getAmigoTerm(goterm: string) : string {
+    goterm = this.utilsService.curieGOCam(goterm);
+    return environment.amigoTermUrl + goterm;
+  }
+
+
+
+  getGOContext() : string {
+    return environment.goContext;
   }
 
   getURLGroupContacts(): string {
-    return "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/group-contacts.csv";
+    return environment.groupContacts;
   }
 
   getURLGroupMetaData(): string {
-    return "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/groups.yaml";
+    return environment.groupMeta;
   }
 
   getURLUserMetaData(): string {
-    return "https://raw.githubusercontent.com/geneontology/go-site/master/metadata/users.yaml";
+    return environment.userMeta;
   }
 
 
-  getURLNoctuaModelDescription(): string {
-    //    return "https://github.com/geneontology/minerva/blob/master/specs/owl-model.md";
-    //    return "http://wiki.geneontology.org/index.php/Cam";
-    return "http://wiki.geneontology.org/index.php/GO-CAM";
+
+  getDefaultView(goModelId: string) : string {
+    return this.getGraphView(goModelId);    
   }
 
-  getDownloadURL_GOCAM_TTL(): string {
-    return "https://s3.us-east-2.amazonaws.com/noctua.dev/GO-CAMs.ttl.gz";
-  }
-
-  getDownloadURL_GOCAM_JNL(): string {
-    return "https://s3.us-east-2.amazonaws.com/noctua.dev/GO-CAMs-blazegraph.jnl.gz";
-  }
-
-  getDownloadURL_GOCAM_CTAB(): string {
-    return "#";
-  }
-
-  getDownloadURL_GOCAM_SIF(): string {
-    return "#";
-  }
-
-
-  getGraphView(goModelId: string) {
+  getGraphView(goModelId: string) : string {
     var model = this.utilsService.curieGOCam(goModelId);
-    //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
-    return "http://noctua.berkeleybop.org/editor/graph/" + model;
+    return environment.noctuaGraphViewUrl + model;
   }
 
-  getPathwayView(goModelId: string) {
+  getPathwayView(goModelId: string) : string {
     var model = this.utilsService.curieGOCam(goModelId);
-    //        return "http://tomodachi.berkeleybop.org/amigo/model/" + goModelId;
-    //return "http://noctua.berkeleybop.org/workbench/pathwayview/?model_id=" + goModelId;
-    return this.getGraphView(model);
+    return environment.noctuaPathwayViewUrl + model;
   }
 
 
-  getPubMedAbstract(pmid: string) {
+  getPubMedAbstract(pmid: string) : string {
     pmid = pmid.replace("PMID:", "");
-    return "https://www.ncbi.nlm.nih.gov/pubmed/" + pmid;    
+    return environment.pubmedUrl + pmid;
   }
 
-  extractGOTerm(term) {
-    if(term.indexOf("/") != -1) {
-      term = term.substring(term.lastIndexOf("/") + 1).trim();
-    }
-    term = term.replace("_", ":");
-    return term;
+
+  getDocGOCAM() : string {
+    return environment.docGOCAM;
+  }
+
+  getDocResearch() : string {
+    return environment.docResearch;
+  }
+
+  getDocCuration() : string {
+    return environment.docCuration;
+  }
+
+  getDocDevelopment() : string {
+    return environment.docDevelopment;
+  }
+
+  getDocGOAnnotation() : string {
+    return environment.goAnnotations;    
+  }
+
+  getGOContributors() : string {
+    return environment.goContributors;
+  }
+
+
+  downloadTTL() : string {
+    return environment.gocamTTL;
+  }
+
+  downloadJNL() : string {
+    return environment.gocamJNL;
+  }
+
+  downloadSIF() : string {
+    return environment.gocamSIF;
+  }
+
+  downloadCTAB() : string {
+    return environment.gocamCTAB;
+  }
+
+
+  getGO() : string {
+    return environment.goUrl;
+  }
+
+  getOBOFoundry() : string {
+    return environment.oboFoundryUrl;
+  }
+
+
+  getLicence() : string {
+    return environment.licence;
+  }
+
+  getTermsOfUse() : string {
+    return environment.termsOfUse;
+  }
+
+  getCiteUs() : string {
+    return environment.citeUs;
+  }
+
+  getContactUs() : string {
+    return environment.contactUs;
+  }
+
+
+  getORCID(orcid: string) : string {
+    return environment.orcidUrl + orcid;
   }
 
 }

@@ -1,9 +1,11 @@
 <mat-card fxLayout="column" fxLayoutAlign="space-between stretch" class="mat-elevation-z5">
-  <mat-card-header >
+  <mat-card-header>
     <span mat-card-avatar>
       <mat-icon>attach_file</mat-icon>
     </span>
-    <mat-card-title><h1 class="heading-primary">Downloads</h1></mat-card-title>
+    <mat-card-title>
+      <h1 class="heading-primary">Downloads</h1>
+    </mat-card-title>
     <mat-card-subtitle>Archive of GO-CAMs</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -28,26 +30,31 @@
 
     <span matTooltip="Download Models as a TTL Archive" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-raised-button (click)="download(dtype.ttl)">
-        TTL<mat-icon >get_app</mat-icon>
+        TTL
+        <mat-icon>get_app</mat-icon>
       </button>
     </span>
 
     <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-raised-button (click)="download(dtype.jnl)">
-        JNL<mat-icon >get_app</mat-icon>
+        JNL
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </span>
+
+    <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
+      <button mat-button (click)="download(dtype.sif)" disabled>
+        SIF
+        <mat-icon>get_app</mat-icon>
       </button>
     </span>
 
     <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.ctab)" disabled>
-        CTA <mat-icon >get_app</mat-icon>
+        CTA
+        <mat-icon>get_app</mat-icon>
       </button>
     </span>
-    <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.sif)" disabled>
-        SIF<mat-icon >get_app</mat-icon>
-      </button>
-    </span>
-    
+
   </mat-card-actions>
 </mat-card>

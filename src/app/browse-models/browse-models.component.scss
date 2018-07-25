@@ -4,10 +4,11 @@
   padding: 0 calc(0.05vw) !important;
   padding-left: calc(10px + 0.6vw) !important;
   min-height: 1px;
+  font-size: $font-size-default;
 }
 
-.mat-header-cell {
-  font-size: calc(6px + 0.5vw) !important;
+.mat-header-cell h2 {
+  font-size: calc(2px + 1vw) !important;
 }
 
 .mat-card-content {
@@ -72,16 +73,18 @@
 
 
 .mat-row {
+  position: relative;
   margin: calc(10px + 1.55vw) calc(.2vw) !important;
   padding: calc(4px + 0.5vw)  !important;  
   border: 1px solid rgba(211, 211, 211, 0.50);
   border-radius: 10px;
+  transition: all 0.2s;
 }
 
 .mat-row:hover {
   padding: calc(4px + 0.5vw);  
 //  background-color: rgba(220, 220, 220, 0.385);
-  box-shadow: 0px 3px 3px rgba(grey, 0.5);
+  box-shadow: 0px 0px 10px rgba(0, 0, 220, 0.45)
 }
 
 .mat-cell {
@@ -166,11 +169,13 @@ mat-hint {
 .mat-column-date {
   margin: 0px !important;
   padding: 0px !important;
+  max-width: calc(30px + 2.5vw) !important;
 }
 
 .mat-column-title {
+//  position: relative;
   margin: 0px !important;
-  padding: 0px !important;
+  padding: 10px 0px !important;
 }
 
 .mat-column-process {
@@ -199,6 +204,7 @@ mat-hint {
 .row__articles__container {
 //  background-color: greenyellow;
   display: inline-block;
+  width: 100%;
 }
 
 .row__article {
@@ -218,13 +224,65 @@ mat-hint {
 
 
 .row__title {
-  &:hover {
-    transform: translateX(2px);
-    font-weight: 700;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+//  position: relative;
+  padding: calc(5px + 0.5vw);
+//  border: 1px solid rgba(0, 0, 0, .3);
+//  border-radius:  calc(.5vw) calc(8px + 1.5vw);
+//  color: white;
+//  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+
+//  background: linear-gradient(150deg, lightsteelblue, rgba(16, 122, 222, 0.5) 100%);
+
+
+  &__view-primary {
+    display: inline-block;
+    text-align: left;
+    transition: all 0.2s;
+    box-shadow: 0px 1px 6px rgba($color-black, .5);
+    border-radius: 50%;
+    background-color: $color-primary;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    right: 80px;
+    transition: all .3s;
+    &:hover {
+      box-shadow: 0px 3px 6px rgba($color-black, 1);
+      transform: translateY(-3px);
+      font-weight: 700;
+    }      
+  }
+
+  &__view-secondary {
+    display: inline-block;
+    text-align: left;
+    transition: all 0.2s;
+    box-shadow: 0px 1px 6px rgba($color-black, .5);
+    border-radius: 50%;
+    background-color: $color-secondary;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    transition: all .3s;
+    &:hover {
+      box-shadow: 0px 3px 6px rgba($color-black, 1);
+      transform: translateY(-3px);
+      font-weight: 700;
+    }
+  }
+
+  &__open {
+    vertical-align: middle !important;
   }
 }
 
+
+.row__details {
+  position: relative;  
+}
 
 
 
@@ -236,7 +294,7 @@ mat-hint {
 
   &:hover {
     text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
-    color: $color-primary;
+//    color: $color-primary;
   }
 }
 
@@ -245,13 +303,13 @@ mat-hint {
   display: block;
   width:100%;
 
-  font-size: $font-size-xxsmall !important;
+  font-size: $font-size-xxxsmall !important;
   text-align: center;
   letter-spacing: 0.5px;
 
   background-color: $color-white;
   padding: 6px 9px;
-  margin: 5px 0px;
+  margin: 6px 0px;
 
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: calc(8px + 1.5vw) calc(.5vw);
@@ -280,6 +338,12 @@ mat-hint {
 
 .color-gp {
   background: linear-gradient(150deg, #21A179, rgba(09, 200, 0, 0.5) 100%);
+}
+
+.color-cc {
+  background: linear-gradient(150deg, #dab61a, rgba(253, 253, 131, 0.5) 100%);
+  color: black !important;
+  text-shadow: none;
 }
 
 

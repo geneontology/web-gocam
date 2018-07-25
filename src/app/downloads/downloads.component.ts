@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
+import { UrlHandlerService } from '../core/url-handler.service';
 
 export enum DownloadType {
   ttl = "TTL",
@@ -19,7 +19,7 @@ export class DownloadsComponent implements OnInit {
 
   dtype = DownloadType;
 
-  constructor(private urlHandler: UrlHandlerService,
+  constructor(public urlHandler: UrlHandlerService,
               public prefs: PreferencesService,
               private router: Router) { }
 
@@ -29,16 +29,16 @@ export class DownloadsComponent implements OnInit {
   download(type: DownloadType): void {
     switch(type) {
       case DownloadType.ttl: 
-      window.location.href=this.urlHandler.getDownloadURL_GOCAM_TTL();
+      window.location.href = this.urlHandler.downloadTTL();
       break;
       case DownloadType.jnl:
-      window.location.href=this.urlHandler.getDownloadURL_GOCAM_JNL();
-      break;
-      case DownloadType.ctab:
-      window.location.href=this.urlHandler.getDownloadURL_GOCAM_CTAB();
+      window.location.href = this.urlHandler.downloadJNL();
       break;
       case DownloadType.sif:
-      window.location.href=this.urlHandler.getDownloadURL_GOCAM_SIF();
+      window.location.href = this.urlHandler.downloadSIF();
+      break;
+      case DownloadType.ctab:
+      window.location.href = this.urlHandler.downloadCTAB();
       break;
     }
   }

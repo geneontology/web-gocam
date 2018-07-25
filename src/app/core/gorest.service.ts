@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Http } from '@angular/http';
 
 import * as xml2js from 'xml2js';
 import { Observable } from 'rxjs/Observable';
@@ -45,9 +44,19 @@ export class GoRESTService {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private http: Http,
-              private httpClient: HttpClient,
+  constructor(private httpClient: HttpClient,
               private utils: UtilsService) {
+  }
+
+
+  getModelList(): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models')
+    .map(res => res);
+  }
+
+  getModelListRange(start: number, size: number): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + "models?start=" + start + "&size=" + size)
+    .map(res => res);
   }
 
   getMostRecents(nb: number): Observable<GOCam[]> {
@@ -55,28 +64,8 @@ export class GoRESTService {
     .map(res => res);
   }
 
-  getAllModelsPMIDs(): Observable<GOCamPMID[]> {
-    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid')
-    .map(res => res);
-  }
 
-  getModelsPMIDs(gocams): Observable<GOCamPMID[]> {
-    var gocamString = gocams.reduce(this.utils.concat);
-    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid?gocams=' + gocamString)
-    .map(res => res);
-  }
-
-  getModelList(): Observable<GOCam[]> {
-    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models')
-    .map(res => res);
-  }
  
-  /*
-  getModelList(): Observable<object> {
-    return this.http.get(this.baseUrl + "models");
-  }
-  */
-
   models = [];
   getStaticModelList() {
     this.getModelList().subscribe(data => {
@@ -90,54 +79,37 @@ export class GoRESTService {
           });        
   }
 
-  getModelListRange(start: number, size: number): Observable<object> {
-    return this.http.get(this.baseUrl + "models?start=" + start + "&size=" + size);      
-  }
-
-  getModelListDetails(start: number): Observable<object> {
-    return this.http.get(this.baseUrl + "models/details");
-  }
-
-  getUserMetaData(orcid: string): Observable<object> {
-    var checkedOrcid = this.utils.extractORCID(orcid);
-    return this.http.get(this.baseUrl + "users/" + orcid);
-  }
-
-  getGroupMetaData(id: string): Observable<object> {
-    return this.http.get(this.baseUrl + "groups/" + id);
-  }
-
-  getUserModels(orcid: string): Observable<object> {
-    var checkedOrcid = this.utils.extractORCID(orcid);
-    return this.http.get(this.baseUrl + "users/" + orcid + "/models");
-  }
-
-  getModelsBPs(gocams: string[]): Observable<object> {
-    var gocamString = gocams.reduce(this.utils.concat);
-    return this.http.get(this.baseUrl + "models/bp?gocams=" + gocamString);
-  }
-
-  /*
-  getModelsGOs(gocams: string[]): Observable<object> {
-    var gocamString = gocams.reduce(this.utils.concat);
-    return this.http.get(this.baseUrl + "models/go?gocams=" + gocamString);
-  }
-  */
 
 
+  /**
+   * Return meta data on GO-Terms associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
   getModelsGOs(gocams: string[]): Observable<GOCamGO[]> {
+    if(!gocams) {
+      return this.getAllModelsGOs();
+    }
+    console.log("asking to retrieve some GOs (" + gocams + ")");
     var gocamString = gocams.reduce(this.utils.concat);
     return this.httpClient.get<GOCamGO[]>(this.baseUrl + "models/go?gocams=" + gocamString)
     .map(res => res);
 }
   
   getAllModelsGOs(): Observable<GOCamGO[]> {
+    console.log("asking to retrieve ALL GOs");
     return this.httpClient.get<GOCamGO[]>(this.baseUrl + 'models/go/')
     .map(res => res);
   }
 
 
+  /**
+   * Return meta data on Gene Products associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
   getModelsGPs(gocams: string[]): Observable<GOCamGP[]> {
+    if(!gocams) {
+      return this.getAllModelsGPs();
+    }
     var gocamString = gocams.reduce(this.utils.concat);
     return this.httpClient.get<GOCamGP[]>(this.baseUrl + "models/gp?gocams=" + gocamString)
     .map(res => res);
@@ -148,6 +120,25 @@ export class GoRESTService {
     .map(res => res);
   }
 
+
+  /**
+   * Return meta data on PMIDs associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
+  getModelsPMIDs(gocams): Observable<GOCamPMID[]> {
+    if(!gocams) {
+      return this.getAllModelsPMIDs();
+    }
+    var gocamString = gocams.reduce(this.utils.concat);
+    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid?gocams=' + gocamString)
+    .map(res => res);
+  }
+  
+  getAllModelsPMIDs(): Observable<GOCamPMID[]> {
+    return this.httpClient.get<[GOCamPMID]>(this.baseUrl + 'models/pmid')
+    .map(res => res);
+  }
+  
 
 }
 

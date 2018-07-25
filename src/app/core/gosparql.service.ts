@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class GoSPARQLService {
 
-  baseUrl = environment.rdfStore;
+  baseUrl = environment.sparqlUrl;
 
   constructor(private http: Http) { }
 

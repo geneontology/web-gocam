@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GoRESTService } from '../core/gorest.service';
+import { UrlHandlerService } from '../core/url-handler.service';
 
 @Component({
   selector: 'app-statistics',
@@ -75,7 +76,8 @@ export class StatisticsComponent implements OnInit, OnDestroy {
     domain: ['gray', 'blue', 'yellow', '#AAAAAA']
   };
 
-  constructor(private goREST: GoRESTService) { 
+  constructor(public urlHandler : UrlHandlerService,
+              private goREST: GoRESTService) { 
     
   }
 

@@ -13,6 +13,9 @@ import { Subject } from 'rxjs/Subject';
 export class ModelListComponent implements OnInit, OnDestroy {
 
   @Input()
+  baseURL;
+
+  @Input()
   nbDisplayed = 3;
 
   @Input()

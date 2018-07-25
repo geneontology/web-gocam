@@ -42,7 +42,7 @@
       <mat-icon>edit</mat-icon>
     </div>
     <mat-card-title>Your SPARQL query</mat-card-title>
-    <mat-card-subtitle>http://rdf.geneontology.org/blazegraph/sparql</mat-card-subtitle>
+    <mat-card-subtitle>{{ urlHandler.getSPARQL() }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content class="small-border">
@@ -65,7 +65,7 @@
       <mat-icon>device_hub</mat-icon>
     </div>
     <mat-card-title>Response from GO SPARQL endpoint</mat-card-title>
-    <mat-card-subtitle>http://rdf.geneontology.org/blazegraph/sparql</mat-card-subtitle>
+    <mat-card-subtitle>{{ urlHandler.getSPARQL() }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content class="small-border" style="padding:10px">

@@ -21,7 +21,7 @@
     <!-- SIDE NAV SECTION -->
     <mat-sidenav #sidenav mode="side" [(opened)]="prefs.sideNavShown" position="end" [style.display]="prefs.getSideStyle()" id="sidenav">
 
-      <aside style="margin: 0 10px; max-width: 450px;">
+      <aside style="margin: 0 10px; max-width: 430px;">
 
         <!-- download section -->
         <section>
@@ -43,7 +43,7 @@
           <!--
           <app-news style="margin-bottom: 20px;"></app-news>
           -->
-          <app-model-list></app-model-list>
+          <app-model-list [baseURL]="urlHandler.getDefaultView('')"></app-model-list>
         </section>
 
       </aside>

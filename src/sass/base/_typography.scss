@@ -33,12 +33,12 @@ a:hover {
 }
 
 li {
-//    line-height: 1.9;
     list-style-type: square;
+    margin-left: 1.5rem;
 }
 
 li:not(:last-child) {
-    margin-bottom: calc(2px + 1vw);
+    margin-bottom: calc(10px + 1vw);
 }
 
 p {

@@ -11,7 +11,8 @@ import { UtilsService } from '../../core/utils.service';
 })
 export class ModelComponent implements OnInit {
 
-  baseURL = "http://noctua.berkeleybop.org/editor/graph/"
+  @Input()
+  baseURL;
 
   opacity: number = 0;
 

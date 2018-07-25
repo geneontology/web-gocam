@@ -177,11 +177,14 @@ div span p {
 
 
 .a-font-weight:hover {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 .a-displacement:hover {
-    transform: translateX(0.2rem);
+    transform: translateX(0.2rem) !important;
 }
 
+.a-vertical-displacement:hover {
+    transform: translateY(-0.2rem) !important;
+}
 

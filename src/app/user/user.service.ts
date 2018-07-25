@@ -7,10 +7,13 @@ import { UtilsService } from '../core/utils.service';
 
 import * as jsyaml from "js-yaml";
 
+import { environment } from '../../environments/environment';
+
+
 @Injectable()
 export class UserService {
 
-  baseUrl = "https://uumywyarhi.execute-api.us-west-1.amazonaws.com/gocam/"
+  baseUrl = environment.apiUrl;
 
   constructor(private http: Http,
               private utils: UtilsService,
@@ -43,10 +46,9 @@ export class UserService {
 
   /* automatically format orcid with http://orcid.org/ if missing */
   getUserMetaDataByORCID(orcid: string) {
-    if (!orcid.startsWith("http://orcid.org/")) {
-      orcid = "http://orcid.org/" + orcid;
+    if (!orcid.startsWith(this.urlHandler.getORCID(''))) {
+      orcid = this.urlHandler.getORCID(orcid);
     }
-    //    console.log(this.users.filter(user => user.uri === orcid));
     return this.users.filter(user => user.uri === orcid)[0];
   }
 
