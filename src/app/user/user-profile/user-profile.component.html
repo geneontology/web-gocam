@@ -62,7 +62,7 @@
     <mat-accordion *ngIf="userMeta && userMeta.gocams" class="my-headers-align">
       <mat-expansion-panel [expanded]="step === 0">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="panel-gocam">
             GO-CAMs
           </mat-panel-title>
           <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
@@ -70,12 +70,16 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <!--
         <ul>
           <li *ngFor="let model of userMeta?.gocams; let i = index">
-            <!--{{userMeta.gocamsDate[i]}} &nbsp;&nbsp;-->
             <a href="{{ urlHandler.getPathwayView(model) }}" target="_blank" class="a-displacement">{{userMeta.gocamsTitle[i]}}</a>
           </li>
         </ul>
+      -->
+      <a *ngFor="let model of userMeta?.gocams; let i = index" href="{{ urlHandler.getPathwayView(model) }}" target="_blank" class="badge-grey">{{userMeta.gocamsTitle[i]}}
+
+      </a>
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -85,7 +89,7 @@
     <mat-accordion *ngIf="userMeta && userMeta.bpids" class="my-headers-align">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="panel-bp">
             Biological Processes
           </mat-panel-title>
           <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
@@ -101,13 +105,26 @@
         </ul>
         -->
 
+        <!--
         <mat-chip-list>
           <mat-chip *ngFor="let bp of userMeta?.bpids; let i = index" color="primary" selected="true" 
-            (click)="navigate(userMeta.bpids[i])"
+            (click)="urlHandler.getAmigoTerm(userMeta.bpids[i])"
             style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
             {{userMeta.bpnames[i]}}
           </mat-chip>
         </mat-chip-list>        
+      -->
+
+      <!--
+      <a *ngFor="let bp of userMeta?.bpids; let i = index" href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank" class="badge color-bp">
+          {{ bp.name }}
+      </a>
+    -->
+
+      <a *ngFor="let bp of userMeta?.bpids; let i = index" href="{{ urlHandler.getAmigoTerm(userMeta.bpids[i]) }}" target="_blank" class="badge-primary">
+         {{ userMeta.bpnames[i] }}
+      </a>
+
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -117,7 +134,7 @@
     <mat-accordion *ngIf="userMeta && userMeta.gpids" class="my-headers-align">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="panel-gp">
             Gene Products
           </mat-panel-title>
           <mat-panel-description style="justify-content: space-between; align-items: center;flex-basis: 0;">
@@ -125,6 +142,7 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <!--
         <mat-chip-list>
           <mat-chip *ngFor="let bp of userMeta?.gpids; let i = index" color="primary" selected="true" 
             (click)="navigate(userMeta.gpids[i])"
@@ -132,6 +150,11 @@
             {{userMeta.gpnames[i]}}
           </mat-chip>
         </mat-chip-list>
+      -->
+
+      <a *ngFor="let bp of userMeta?.gpids; let i = index" href="{{ userMeta.gpids[i] }}" target="_blank" class="badge-tertiary">
+         {{ userMeta.gpnames[i] }}
+      </a>
 
       </mat-expansion-panel>
     </mat-accordion>

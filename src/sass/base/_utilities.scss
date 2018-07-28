@@ -286,3 +286,24 @@
 .u-font-size-big {
     font-size: $font-size-big !important;
 }
+
+
+.u-hover-primary:hover {
+    background-color: $color-primary;
+    background: $color-primary;
+}
+
+.u-hover-secondary:hover {
+    background-color: $color-secondary;
+    background: $color-secondary;
+}
+
+.u-hover-tertiary:hover {
+    background-color: $color-tertiary;
+    background: $color-tertiary;
+}
+
+.u-hover-quaternary:hover {
+    background-color: $color-quaternary;
+    background: $color-quaternary;
+}

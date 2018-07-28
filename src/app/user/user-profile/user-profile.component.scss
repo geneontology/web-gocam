@@ -1,3 +1,5 @@
+@import "../../../sass/abstracts/variables";
+
 .small-card {
     padding: 5px;
     margin: 5px;
@@ -31,3 +33,23 @@ mat-chip:not(.mat-basic-chip):hover {
     transform: translateY(-3px);
     background-color: rgba(231, 81, 127, 1);
 }
+
+
+mat-panel-title {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.panel-gocam {
+    color: $color-black;
+}
+
+.panel-bp {
+    color: $color-primary;
+}
+
+.panel-gp {
+    color: $color-tertiary;
+}
+
+

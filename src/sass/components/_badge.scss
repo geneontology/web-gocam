@@ -1,0 +1,92 @@
+.badge {
+    display: inline-block;
+
+    // min-width: 5rem;
+    // min-height: 2rem;
+  
+    font-size: $font-size-xxxsmall !important;
+    text-align: center;
+    letter-spacing: 0.5px;
+  
+    background-color: $color-white;
+    color: $color-black;
+
+    padding: 6px 9px;
+    margin: 6px 10px;
+  
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: calc(8px + 1.5vw) calc(.5vw);
+    
+    box-shadow: 0px 1px 6px rgba($color-black, .5);
+  
+    transition: all 0.2s;
+  
+    &:hover {
+      box-shadow: 0px 3px 6px rgba($color-black, 1);
+      transform: translateY(-3px);
+      cursor: pointer;
+    }
+
+    &-primary {
+        @extend .badge;
+        background-color: $color-primary;
+        color: $color-white;
+        text-shadow: 1px 1px 1px $color-black;
+
+        &:hover {
+            background-color: $color-secondary;            
+        }
+    }
+
+    &-secondary {
+        @extend .badge;
+        background-color: $color-secondary;
+        color: $color-white;
+        text-shadow: 1px 1px 1px $color-black;
+
+        &:hover {
+            background-color: $color-primary;            
+        }
+    }
+
+    &-tertiary {
+        @extend .badge;
+        background-color: $color-tertiary;
+        // background: linear-gradient(150deg, #21A179, rgba(09, 200, 0, 0.5) 100%);
+        color: $color-white;
+        text-shadow: 1px 1px 1px $color-black;
+    
+        &:hover {
+            background: $color-primary;            
+        }
+    }
+
+    &-quaternary {
+        @extend .badge;
+        background-color: $color-quaternary;
+        color: $color-white;
+        text-shadow: 1px 1px 1px $color-black;
+
+        &:hover {
+            background-color: $color-tertiary;            
+        }
+    }
+
+    &-grey {
+        @extend .badge;
+        background-color: $color-grey;
+        color: $color-black;
+//        text-shadow: 1px 1px 1px $color-black;
+
+        &:hover {
+//            background-color: $color-tertiary;            
+            background-color: $color-black;
+            color: $color-white;
+        }
+    }    
+}
+  
+
+
+  
+  
