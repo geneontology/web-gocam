@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GroupService } from '../group.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UrlHandlerService } from '../../core/url-handler.service';
 import { UtilsService } from '../../core/utils.service';
 import { MatTableDataSource } from '@angular/material';
+import { AbstractDataService } from '../../core/abstract-data.service';
 
 @Component({
   selector: 'app-group-profile',
@@ -20,7 +20,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   group;
   groupMeta;
 
-  constructor(private groupService: GroupService,
+  constructor(private dataService: AbstractDataService,
               private urlHandler: UrlHandlerService,
               public utils: UtilsService,
               private route: ActivatedRoute,
@@ -31,10 +31,8 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       this.group = params['id'];
 
-      this.groupService.getGroupMeta(this.group).subscribe(resp => {
-        var json = JSON.parse(JSON.stringify(resp));
-        json = json._body;
-        this.groupMeta = JSON.parse(json);
+      this.dataService.getGroupMetaData(this.group).subscribe(json => {
+        this.groupMeta = json;
         this.dataSource = new MatTableDataSource(this.groupMeta);
         this.isLoading = false;
 //        console.log(this.groupMeta);

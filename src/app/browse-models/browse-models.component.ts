@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
 import { UtilsService } from '../core/utils.service';
-import { GoRESTService } from '../core/gorest.service';
-import { GoSPARQLService } from '../core/gosparql.service';
 import { CacheService } from '../core/cache.service';
 import { Meta } from '@angular/platform-browser';
 import { PubmedRestService } from '../core/pubmed-rest.service';
 import { Subject } from 'rxjs/Subject';
+import { AbstractDataService } from '../core/abstract-data.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-browse-models',
@@ -22,6 +22,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   isBufferLoading: boolean = true;
   date = new Date();
+
+  @Input()
+  showDevModels: boolean = false;
+  @Input()
+  showReviewModels: boolean = false;
 
   pageSizes = [10, 25, 100];
 
@@ -42,7 +47,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private goREST: GoRESTService,
+  constructor(private dataService: AbstractDataService,
     public urlHandler: UrlHandlerService,
     public prefs: PreferencesService,
     public pubmed: PubmedRestService,
@@ -50,6 +55,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private cache: CacheService,
     private router: Router,
     private route: ActivatedRoute,
+    private auth: AuthService,
     private meta: Meta) {
     this.meta.addTag({ name: 'description', content: 'Browse Gene Ontology Causal Activity Models to discover structured relations between gene products, biological processes and cellular locations.' });
   }
@@ -74,10 +80,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       // - at this stage, no info is put in searchfield, it's done in ngAfterViewInit()
       //      let gotemp = this.goREST.getModelListRange(0, initialSize).subscribe(json => {
       let initialSize = this.pageSizes[0];
-      let gotemp = this.goREST.getModelList().subscribe(json => {
+      let gotemp = this.dataService.getModelList().subscribe(json => {
         json.map(res => {
           this.models.push(res);
         })
+//        console.log("retrieved: ", json);
 
 //        this.updateTable(true);
 
@@ -132,7 +139,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    */
   fillWithGOs(gocams) {
 //    console.log("fillWithGOs(" + gocams + "): start");
-    this.gotermsSub = this.goREST.getModelsGOs(gocams).subscribe(json => {
+    this.gotermsSub = this.dataService.getModelsGOs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -156,7 +163,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    */
   fillWithGPs(gocams) {
 //    console.log("fillWithGPs(" + gocams + "): start");
-    this.gpSub = this.goREST.getModelsGPs(gocams).subscribe(json => {
+    this.gpSub = this.dataService.getModelsGPs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -178,7 +185,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    */
   fillWithPMIDs(gocams) {
 //    console.log("fillWithPMIDs(" + gocams + "): start");
-    this.gpSub = this.goREST.getModelsPMIDs(gocams).subscribe(json => {
+    this.gpSub = this.dataService.getModelsPMIDs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -202,7 +209,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   */
   createSearchField() {
     this.models.forEach(tabelt => {
-      tabelt.searchfield = "";
+      tabelt.searchfield = tabelt.gocam + " " + tabelt.state;
       if (tabelt.bp && tabelt.bp.length > 0) {
         tabelt.bp.forEach(elt => {
           tabelt.searchfield += elt.name + " ";
@@ -233,7 +240,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   updateTable(isBufferLoading: boolean) {
-    console.log("updateTable(buffer:" + isBufferLoading + ")");
+//    console.log("updateTable(buffer:" + isBufferLoading + ")");
     this.dataSource = new MatTableDataSource(this.models);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -250,11 +257,25 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     }
   }
 
+
   applyFilter(filterValue: string) {
     if (!filterValue) {
       this.dataSource.filter = undefined;
       return;
     }
+
+    // if(this.showDevModels) {
+    //   this.dataSource.filter = undefined;
+    //   return;
+    // } else {
+    //   this.dataSource.filter = "production";
+    //   return;
+    // }
+
+    // must rewrite the filterPredicate if I want to filter with OR and not AND
+    // this.dataSource.filterPredicate =
+    // (data, filter: string) => data || filter === 'all';
+
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
@@ -452,6 +473,21 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     return "";
   }
 
+  // for test purposes only
+  onAuthenticated(event) {
+    this.auth.setIsAuthenticated(!this.auth.isAuthenticated());
+  }
+
+  isAuthenticated() {
+    return this.auth.isAuthenticated();
+  }
+
+  // for test purposes only
+  onDevModelChange(event) {
+    this.showDevModels = !this.showDevModels;
+    this.applyFilter(this.searchFilter);
+  }
+  
 
 }
 

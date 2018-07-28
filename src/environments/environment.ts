@@ -6,9 +6,14 @@
 export const environment = {
   production: false,
  
+  // Use the SPARQL endpoint or the API endpoint to fetch the data
+  useApi : true,
+
   // Change these two lines if you want to point to another Triple Store & API
   sparqlUrl : "http://rdf.geneontology.org/blazegraph/sparql",
+//  sparqlUrl : "http://localhost:8080/blazegraph/sparql",
   apiUrl : "https://api.geneontology.cloud/",
+  separator : "@@",
 
   // API Documentation
   swaggerUrl : "https://app.swaggerhub.com/apis/geneontology/gosparql",

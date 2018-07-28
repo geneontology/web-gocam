@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 import * as jsyaml from "js-yaml";
 import * as fs from "fs";
@@ -10,7 +10,7 @@ export class SparqlrService {
 
   baseUrl = "https://13irjbwknl.execute-api.us-west-1.amazonaws.com/sparqlr";
 
-  constructor(private http: Http) {
+  constructor(private httpClient: HttpClient) {
     if (!this.baseUrl.endsWith("/"))
       this.baseUrl += "/";
   }
@@ -63,9 +63,8 @@ export class SparqlrService {
     return this.sparqlrList;
   }
 
-  get(id: number): Observable<object> {
-    return this.http.get(this.sparqlrList[id].uri);
-//    return this.http.get(this.baseUrl + "sparqlr/" + encodeURIComponent(id));
+  get(id: number): Observable<any> {
+    return this.httpClient.get(this.sparqlrList[id].uri);
   }
 
 }

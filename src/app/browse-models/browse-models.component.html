@@ -41,12 +41,25 @@
         <mat-form-field style="display:inline-block;width:50%;min-width:20%;">
           <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keyup)="applyFilter($event.target.value)" placeholder="Filter"
             [(ngModel)]="searchFilter" style="margin:0;padding:0">
-          <mat-hint>Title, Biological Process, Molecular Function, PMID, Curator, Group</mat-hint>
+          <mat-hint>Title, GO-Term (BP, MF, CC), Gene Product, PMID, Curator, Group</mat-hint>
         </mat-form-field>
         <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" style="display:inline-block; width:45%; margin:0;padding:0;position:absolute;right:2rem"></mat-paginator>
       </div>
 
 
+      <!-- for test purposes only
+      <section class="toggleDev">
+        Include Dev Models: 
+        <mat-slide-toggle (change)="onDevModelChange($event)">
+        </mat-slide-toggle>
+      </section>
+
+      <section class="toggleDev">
+        Authenticated: 
+        <mat-slide-toggle (change)="onAuthenticated($event)">
+        </mat-slide-toggle>
+      </section>
+      -->
 
       <!-- TABLE SECTION -->
       <mat-table [dataSource]="dataSource" matSort>
@@ -84,6 +97,10 @@
 
             <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank" class="row__title">
                 <span class="row__title__view-secondary" matTooltip="Open Pathway View" matTooltipPosition="below" [matTooltipShowDelay]="0.2">P<mat-icon class="row__title__open">open_in_new</mat-icon></span>
+            </a>
+
+            <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" *ngIf="isAuthenticated()" class="row_title">
+                <span class="row__title__view-edit" matTooltip="Edit Model" matTooltipPosition="below" [matTooltipShowDelay]="0.2"><mat-icon class="row__title__open">edit</mat-icon></span>
             </a>
   
             <div class="row__articles__container">

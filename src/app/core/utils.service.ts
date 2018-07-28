@@ -23,13 +23,21 @@ export class UtilsService {
       return url;
     return url.substring(url.lastIndexOf("/") + 1);
   }
+
+  
+  
+  curieGOTerm(goterm: string) {
+    if(goterm.indexOf("/")) {
+      goterm = goterm.substring(goterm.lastIndexOf("/") + 1).trim();
+    }
+    goterm = goterm.replace("_", ":");
+    return goterm;
+  }  
   
   curieGOCam(model: string) {
     if(model.indexOf("/")) {
       model = model.substring(model.lastIndexOf("/") + 1).trim();
     }
-    // in case of GO_XXX instead of GO:XXX
-    model = model.replace("_", ":");
     if(!model.startsWith("gomodel:")) {
       model = "gomodel:" + model;
     }

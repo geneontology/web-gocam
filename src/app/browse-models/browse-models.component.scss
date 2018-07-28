@@ -223,6 +223,8 @@ mat-hint {
 }
 
 
+
+
 .row__title {
 //  position: relative;
   padding: calc(5px + 0.5vw);
@@ -233,6 +235,25 @@ mat-hint {
 
 //  background: linear-gradient(150deg, lightsteelblue, rgba(16, 122, 222, 0.5) 100%);
 
+
+  &__view-edit {
+    display: inline-block;
+    text-align: left;
+    transition: all 0.2s;
+    box-shadow: 0px 1px 6px rgba($color-black, .5);
+    border-radius: 50%;
+    background-color: $color-quaternary;
+    color: white;
+    padding: 10px;
+    position: absolute;
+    top: 5px;
+    right: 145px;  
+    &:hover {
+      box-shadow: 0px 3px 6px rgba($color-black, 1);
+      transform: translateY(-3px);
+      font-weight: 700;
+    }      
+  }
 
   &__view-primary {
     display: inline-block;
@@ -245,7 +266,7 @@ mat-hint {
     padding: 10px;
     position: absolute;
     top: 5px;
-    right: 80px;
+    right: 75px;
     transition: all .3s;
     &:hover {
       box-shadow: 0px 3px 6px rgba($color-black, 1);

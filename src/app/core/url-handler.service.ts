@@ -33,7 +33,7 @@ export class UrlHandlerService {
   }
 
   getAmigoTerm(goterm: string) : string {
-    goterm = this.utilsService.curieGOCam(goterm);
+    goterm = this.utilsService.curieGOTerm(goterm);
     return environment.amigoTermUrl + goterm;
   }
 
@@ -57,7 +57,9 @@ export class UrlHandlerService {
 
 
 
-  getDefaultView(goModelId: string) : string {
+  getDefaultView(goModelId?: string) : string {
+    if(!goModelId)
+      return environment.noctuaGraphViewUrl;
     return this.getGraphView(goModelId);    
   }
 

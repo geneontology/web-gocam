@@ -93,11 +93,21 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
+        <!--
         <ul>
           <li *ngFor="let bp of userMeta?.bpids; let i = index">
             <a [routerLink]="['/browse', userMeta.bpnames[i] ]" class="a-displacement">{{userMeta.bpnames[i]}}</a>
           </li>
         </ul>
+        -->
+
+        <mat-chip-list>
+          <mat-chip *ngFor="let bp of userMeta?.bpids; let i = index" color="primary" selected="true" 
+            (click)="navigate(userMeta.bpids[i])"
+            style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
+            {{userMeta.bpnames[i]}}
+          </mat-chip>
+        </mat-chip-list>        
 
       </mat-expansion-panel>
     </mat-accordion>
@@ -116,7 +126,8 @@
         </mat-expansion-panel-header>
 
         <mat-chip-list>
-          <mat-chip *ngFor="let bp of userMeta?.gpids; let i = index" color="primary" selected="true" (click)="navigate(userMeta.gpids[i])"
+          <mat-chip *ngFor="let bp of userMeta?.gpids; let i = index" color="primary" selected="true" 
+            (click)="navigate(userMeta.gpids[i])"
             style="margin-bottom:calc(1px + 0.5vw); margin-top:calc(1px + 0.5vw);">
             {{userMeta.gpnames[i]}}
           </mat-chip>

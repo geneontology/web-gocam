@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { UserService } from '../user.service';
 import { UrlHandlerService } from '../../core/url-handler.service';
 import { delay } from 'q';
+import { AbstractDataService } from '../../core/abstract-data.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,17 +27,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   sub: any;
 
   constructor(public urlHandler: UrlHandlerService,
-              private userService: UserService,
+              private dataService : AbstractDataService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
       window.scrollTo(0, 0);
       this.route.params.subscribe(params => {
       this.orcid = params['id'];
-      this.sub = this.userService.getUserMetaData(this.orcid).subscribe(data => {
-        var json = JSON.parse(JSON.stringify(data));
-        json = json._body;
-        this.userMeta = JSON.parse(json);
+      this.sub = this.dataService.getUserMetaData(this.orcid).subscribe(json => {
+        this.userMeta = json;
         this.isLoading = false;
 //        console.log(this.userMeta);
       });

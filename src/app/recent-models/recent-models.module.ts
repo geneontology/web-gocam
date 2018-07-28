@@ -5,12 +5,14 @@ import { ModelComponent } from './model/model.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { ModelsModule } from '../models/models.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    ModelsModule
   ],
   exports: [
     ModelListComponent

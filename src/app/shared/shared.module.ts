@@ -9,6 +9,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { FeedbackComponent } from './feedback/feedback.component';
 import { SocialSharingComponent } from './social-sharing/social-sharing.component';
+import { AuthService } from './auth.service';
 
 
 
@@ -23,7 +24,9 @@ import { SocialSharingComponent } from './social-sharing/social-sharing.componen
     SocialSharingComponent
   ],
 
-  providers: [],
+  providers: [
+    AuthService
+  ],
 
   exports: [
     CommonModule,

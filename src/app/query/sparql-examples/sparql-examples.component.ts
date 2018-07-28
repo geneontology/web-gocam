@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { GoSPARQLService } from '../../core/gosparql.service';
 import { PreferencesService } from '../../core/preferences.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,6 +8,7 @@ import { UtilsService } from '../../core/utils.service';
 
 import * as YASQE from 'yasgui-yasqe';
 import { UrlHandlerService } from '../../core/url-handler.service';
+import { AbstractDataService } from '../../core/abstract-data.service';
 
 var globalVar;
 var globalVarHead;
@@ -49,7 +49,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
   }`;
 
 
-  constructor(private sparql: GoSPARQLService,
+  constructor(private dataService: AbstractDataService,
     private sparqlr: SparqlrService,
     private utils: UtilsService,
     public urlHandler : UrlHandlerService,
@@ -107,10 +107,8 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
     //    this.query = exampleObj.query;
     //    this.yasqe.setValue(exampleObj.query);
 
-    this.sparqlr.get(template.id).subscribe(resp => {
-      var json = JSON.parse(JSON.stringify(resp));
-//      var test = this.utils.parseYAML(json._body);
-      this.template = this.utils.parseYAML(json._body);
+    this.sparqlr.get(template.id).subscribe(data => {
+      this.template = this.utils.parseYAML(data);
       this.yasqe.setValue(this.template.query);
       this.showQuery = true;
     /*
@@ -129,7 +127,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
   }
 
   submitQuery() {
-    this.sparql.submit(this.query)
+    this.dataService.submit(this.query)
       .subscribe(resp => {
         console.log(resp);
         console.log("response status: " + resp.status);

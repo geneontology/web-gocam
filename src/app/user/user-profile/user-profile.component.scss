@@ -17,3 +17,17 @@
 ul {
     padding: 0px calc(10px + 1vw);
 }
+
+mat-chip:hover {
+    cursor: pointer;
+}
+
+mat-chip:not(.mat-basic-chip) {
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, .5);
+    transition: all .3s;
+}
+mat-chip:not(.mat-basic-chip):hover {
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 1);
+    transform: translateY(-3px);
+    background-color: rgba(231, 81, 127, 1);
+}

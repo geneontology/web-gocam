@@ -1,11 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-//import * as jsyaml from "js-yaml";
+import { GOCam } from '../models/gocam';
+import { GOCamGO } from '../models/gocam-go';
+import { GOCamGP } from '../models/gocam-gp';
+import { GOCamPMID } from '../models/gocam-pmid';
+
+import { SparqlModels } from '../queries/sparql-models';
+import { SparqlGO } from '../queries/sparql-go';
+import { SparqlGP } from '../queries/sparql-gp';
+import { SparqlGroups } from '../queries/sparql-groups';
+import { SparqlUsers } from '../queries/sparql-users';
+import { SparqlPMIDs } from '../queries/sparql-pmids';
+import { QueryUtils } from '../queries/query-utils';
 
 import { environment } from '../../environments/environment';
+import { UtilsService } from './utils.service';
 
 
 @Injectable()
@@ -13,152 +25,181 @@ export class GoSPARQLService {
 
   baseUrl = environment.sparqlUrl;
 
-  constructor(private http: Http) { }
+  queryUtils = new QueryUtils();
+
+  sparqlModels = new SparqlModels();
+  sparqlGO = new SparqlGO();
+  sparqlGP = new SparqlGP();
+  sparqlGroups = new SparqlGroups();
+  sparqlUsers = new SparqlUsers();
+  sparqlPMIDs = new SparqlPMIDs();
+
+
+  // These keys are used to transform (denormalize) the SPARQL json response
+  keysArrayModels = ["orcids", "names", "groupids", "groupnames"];
+  keysArrayGOs = ["goclasses", "goids", "gonames", "definitions"]
+  keysArrayGPs = ["gpnames", "gpids"]
+  keysArrayPMIDs = ["sources"]
+  keysArrayUsers = ["organizations", "affiliations"];
+  keysArrayUser = ["organizations", "affiliations", "affiliationsIRI", "gocams", "gocamsDate", "gocamsTitle", "gpnames", "gpids", "bpnames", "bpids"];
+  keysArrayUserModels = ["bpids", "bpnames", "gpids", "gpnames"];
+  keysArrayUserGPs = ["gocams", "dates", "titles"];
+
+
+  constructor(private httpClient: HttpClient,
+              private utils : UtilsService) { }
+
 
   submit(query: string): Observable<any> {
-    //    console.log("sending query: " + query);
-    //    return this.http.get(this.baseUrl, query);
-    return this.http.get(this.baseUrl + "?query=" + encodeURIComponent(query));
-  }
-
-
-  getQuery(path: string) {
-    //    return this.http.get("https://raw.githubusercontent.com/lpalbou/temp-sparqlr/master/" + path)
-    //                    .map((response: Response) => (response));
+    return this.httpClient.get(this.baseUrl + "?query=" + encodeURIComponent(query))
+      .map(res => res);
   }
 
 
 
 
-  getModelGOs(id) {
-    return this.http.get(this.baseUrl + this.ModelGOs(id));
+  //==================================================================================
+  //
+  //                              MODEL-RELATED DATA
+  //
+  //==================================================================================
+
+  getModelList(): Observable<GOCam[]> {
+    let query = this.sparqlModels.ModelList(null, null);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
   }
 
-  getAllModelsGOs() {
-    return this.http.get(this.baseUrl + this.AllModelsGOs());
+  getModelListRange(start: number, size: number): Observable<GOCam[]> {
+    let query = this.sparqlModels.ModelList(start, size);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
   }
 
-  getAllModelsGPs() {
-    return this.http.get(this.baseUrl + this.AllModelsGPs());
+  getMostRecents(nb: number): Observable<GOCam[]> {
+    let query = this.sparqlModels.ModelList(0, nb);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
   }
 
 
-  ModelGOs(id) {
-    var encoded = encodeURIComponent(`
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX metago: <http://model.geneontology.org/>
-    PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX definition: <http://purl.obolibrary.org/obo/IAO_0000115>
-    PREFIX BP: <http://purl.obolibrary.org/obo/GO_0008150>
-    PREFIX MF: <http://purl.obolibrary.org/obo/GO_0003674>
-    PREFIX CC: <http://purl.obolibrary.org/obo/GO_0005575>
 
-    SELECT  ?GO ?GO_classes ?GO_class ?label ?definition
-    WHERE 
-    {
-        VALUES ?GO_classes { BP: MF: CC:  } .
-        {
-            SELECT * WHERE { ?GO_classes rdfs:label ?GO_class . }
-        }
-
-        GRAPH metago:` + id + ` {
-            ?GO rdf:type owl:Class .
-        }
-        ?GO rdfs:subClassOf+ ?GO_classes .
-        ?GO rdfs:label ?label .
-        ?GO definition: ?definition .
-
+  /**
+   * Return meta data on GO-Terms associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
+  getModelsGOs(gocams: string[]): Observable<GOCamGO[]> {
+    if (!gocams) {
+      return this.getAllModelsGOs();
     }
-    `);
-    return "?query=" + encoded;
+    let query = this.sparqlModels.ModelsGOs(gocams);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data =>
+        this.queryUtils.mergeResults(
+          this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayGOs)
+          , "gocam"));
+  }
+
+  getAllModelsGOs(): Observable<GOCamGO[]> {
+    let query = this.sparqlModels.AllModelsGOs();
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data =>
+        this.queryUtils.mergeResults(
+          this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayGOs)
+          , "gocam"));
   }
 
 
-  AllModelsGOs() {
-    // Transform the array in string
-    var encoded = encodeURIComponent(`
-  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX metago: <http://model.geneontology.org/>
-  PREFIX owl: <http://www.w3.org/2002/07/owl#>
-  PREFIX definition: <http://purl.obolibrary.org/obo/IAO_0000115>
-  PREFIX BP: <http://purl.obolibrary.org/obo/GO_0008150>
-  PREFIX MF: <http://purl.obolibrary.org/obo/GO_0003674>
-  PREFIX CC: <http://purl.obolibrary.org/obo/GO_0005575>
 
-  SELECT distinct ?models ?GO_class ?goid ?goname ?definition
-  WHERE 
-  {
+  /**
+   * Return meta data on Gene Products associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
+  getModelsGPs(gocams: string[]): Observable<GOCamGP[]> {
+    if (!gocams) {
+      return this.getAllModelsGPs();
+    }
+    let query = this.sparqlModels.ModelsGPs(gocams);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayGPs));
+  }
 
-    GRAPH ?models {
-    ?models metago:graphType metago:noctuaCam  .
-          ?entity rdf:type owl:NamedIndividual .
-    ?entity rdf:type ?goid
-      }
+  getAllModelsGPs(): Observable<GOCamGP[]> {
+    let query = this.sparqlModels.AllModelsGPs();
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayGPs));
+  }
 
-      VALUES ?GO_class { BP: MF: CC:  } . 
-      # rdf:type faster then subClassOf+ but require filter 			
-      # ?goid rdfs:subClassOf+ ?GO_class .
-  ?entity rdf:type ?GO_class .
+
+  /**
+   * Return meta data on PMIDs associated to a list of gocams
+   * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
+   */
+  getModelsPMIDs(gocams): Observable<GOCamPMID[]> {
+    if (!gocams) {
+      return this.getAllModelsPMIDs();
+    }
+    let query = this.sparqlModels.ModelsPMIDs(gocams);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayPMIDs));
+  }
+
+  getAllModelsPMIDs(): Observable<GOCamPMID[]> {
+    let query = this.sparqlModels.AllModelsPMIDs();
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayPMIDs));
+  }
+
+
+
+
+  //==================================================================================
+  //
+  //                              USER-RELATED DATA
+  //
+  //==================================================================================
+
+  getUserList() : Observable<object> {
+    let query = this.sparqlUsers.UserList();
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayUsers));
+  }
+
+  getUserMetaData(orcid: string): Observable<object> {
+    var checkedOrcid = this.utils.extractORCID(orcid);
+    let query = this.sparqlUsers.UserMeta(orcid);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayUser)[0]);
+  }
+
+  getUserModels(orcid: string): Observable<object> {
+    var checkedOrcid = this.utils.extractORCID(orcid);
+    let query = this.sparqlUsers.UserModels(orcid);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayUserModels));
+  }
+
+  getUserGPs(orcid: string): Observable<object> {
+    var checkedOrcid = this.utils.extractORCID(orcid);
+    let query = this.sparqlUsers.UserGPs(orcid);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayUserGPs));
+  }
+
+
+
   
-  # Filtering out the root BP, MF & CC terms
-  filter(?goid != MF: )
-  filter(?goid != BP: )
-  filter(?goid != CC: )
+  //==================================================================================
+  //
+  //                              GROUP-RELATED DATA
+  //
+  //==================================================================================
 
-  # then getting their definitions
-  ?goid rdfs:label ?goname .
-    ?goid definition: ?definition .
+  getGroupMetaData(shorthand: string) {
+    let query = this.sparqlGroups.GroupMeta(shorthand);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayUserGPs));
   }
-  ORDER BY DESC(?models)
-  `);
-    return "?query=" + encoded;
-  }
+  
 
-
-  AllModelsGPs() {
-    var encoded = encodeURIComponent(`
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#> 
-    PREFIX owl: <http://www.w3.org/2002/07/owl#>
-    PREFIX metago: <http://model.geneontology.org/>
-    
-    PREFIX enabled_by: <http://purl.obolibrary.org/obo/RO_0002333>
-    PREFIX in_taxon: <http://purl.obolibrary.org/obo/RO_0002162>
-    
-    SELECT ?models (GROUP_CONCAT(distinct ?identifier;separator=";") as ?identifiers)
-            (GROUP_CONCAT(distinct ?name;separator=";") as ?names)
-    
-    WHERE 
-    {
-    
-      GRAPH ?models {
-        ?models metago:graphType metago:noctuaCam .
-        ?s enabled_by: ?gpnode .    
-        ?gpnode rdf:type ?identifier .
-        FILTER(?identifier != owl:NamedIndividual) .         
-      }
-      optional {
-        ?identifier rdfs:label ?name
-      }
-    
-    }
-    GROUP BY ?models
-        `);
-    return "?query=" + encoded;    
-  }
-
-
-}
-
-export interface SPARQLQuery {
-  title: string;
-  description: string;
-  endpoint: string;
-  query: string;
-  variables: [{
-    name: string;
-    comment: string;
-  }]
 }

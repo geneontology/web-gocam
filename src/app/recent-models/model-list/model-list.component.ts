@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { GOCam, GoRESTService } from '../../core/gorest.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
+
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import { GOCam } from '../../models/gocam';
+import { AbstractDataService } from '../../core/abstract-data.service';
 
 @Component({
   selector: 'app-model-list',
@@ -38,7 +40,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
   displayedSubjects: Subject<GOCam>[];
   displayedObservables: Observable<GOCam>[];
 
-  constructor(private gorest: GoRESTService) {
+  constructor(private dataService: AbstractDataService) {
 //   this.itemsDisplayed = Array.from({ length: this.nbDisplayed }, (x, i) => i);
    this.displayedSubjects = new Array();
    this.displayedObservables = new Array();
@@ -53,7 +55,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.recentModels$ = this.gorest.getMostRecents(this.nbMostRecents)
+    this.recentModels$ = this.dataService.getMostRecents(this.nbMostRecents)
       .subscribe(data => {
         this.models = data;
         for(let i = 0; i < this.nbDisplayed; i++) {

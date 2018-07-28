@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GOCam } from '../../core/gorest.service';
 import { Observable } from 'rxjs/Observable';
 import { delay } from 'q';
 import { UtilsService } from '../../core/utils.service';
+import { GOCam } from '../../models/gocam';
 
 @Component({
   selector: 'app-model',

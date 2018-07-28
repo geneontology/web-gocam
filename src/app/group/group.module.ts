@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { GroupProfileComponent } from './group-profile/group-profile.component';
 import { GroupListComponent } from './group-list/group-list.component';
-import { GroupService } from './group.service';
 import { SharedMaterialModule } from '../shared-material/shared-material.module';
 
 const routes = [
@@ -23,7 +22,6 @@ const routes = [
     GroupListComponent
   ],
   providers: [
-    GroupService
   ]
 })
 export class GroupModule { }
