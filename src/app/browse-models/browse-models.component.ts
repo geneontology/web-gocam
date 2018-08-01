@@ -523,8 +523,18 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         } else if (Array.isArray(data[field])) {
           let array = "";
           data[field].forEach(elt => {
-            array += elt + ", ";
+            if(this.isObject(elt)) {
+              array += this.stringify(elt);
+            } else {
+              array += elt + "; ";
+            }
           });
+          if(array.endsWith("; ")) {
+            array = "[" + array.substring(0, array.length - 2) + "]";
+          }
+          if(array.length == 0) {
+            array = "[N/A]";
+          }
           str += array + "\t";
 
         // else
@@ -550,8 +560,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     console.log("clipboard: ", row);
 
     const el = document.createElement('textarea');
-//    el.value = this.stringify(row);
-    el.value = JSON.stringify(row);
+    el.value = this.stringify(row);
+//    el.value = JSON.stringify(row);
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
