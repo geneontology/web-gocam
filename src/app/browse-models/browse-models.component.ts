@@ -12,6 +12,16 @@ import { Subject } from 'rxjs/Subject';
 import { AbstractDataService } from '../core/abstract-data.service';
 import { AuthService } from '../shared/auth.service';
 
+// export enum DataColumn {
+//   Date = "date",
+//   Title = "title",
+//   BiologicalProcess = "bps",
+//   MolecularFunction = "mfs",
+//   CellularComponent = "ccs",
+//   GeneProduct = "gps"
+// }
+
+
 @Component({
   selector: 'app-browse-models',
   templateUrl: './browse-models.component.html',
@@ -30,8 +40,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   pageSizes = [10, 25, 100];
 
+
   // can dynamically change the columns displayed
-  displayedColumns = ['date', 'title', 'bps', 'mfs', 'ccs', 'gps', 'contributors', 'groups'];
+  allColumns = ['Title', 'Biological Process', 'Molecular Function', 'Cellular Component', 'Gene Product', 'Contributor', 'Group', 'Date'];
+  displayedColumns = ['Title', 'Biological Process', 'Molecular Function', 'Cellular Component', 'Gene Product', 'Group'];
+  //displayedColumns = ['title', 'bps', 'mfs', 'ccs', 'gps',  'groups'];
   dataSource: MatTableDataSource<ModelData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,6 +60,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
 
+  //  dataColumns: string[] = ["date", "title", "bps", "mfs", "ccs", "gps", "contributors", "groups"];
+
   constructor(private dataService: AbstractDataService,
     public urlHandler: UrlHandlerService,
     public prefs: PreferencesService,
@@ -55,7 +70,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private cache: CacheService,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthService,
+    public auth: AuthService,
     private meta: Meta) {
     this.meta.addTag({ name: 'description', content: 'Browse Gene Ontology Causal Activity Models to discover structured relations between gene products, biological processes and cellular locations.' });
   }
@@ -84,9 +99,9 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         json.map(res => {
           this.models.push(res);
         })
-//        console.log("retrieved: ", json);
+        //        console.log("retrieved: ", json);
 
-//        this.updateTable(true);
+        //        this.updateTable(true);
 
         // Multiple Asynchroneous Calls to fill the Table, follow by a Table Update
         var gocams = this.extractModels(json);
@@ -109,13 +124,13 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     } else {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;  
+      this.dataSource.sort = this.sort;
     }
   }
 
   afterFirstPass() {
     console.log("First page rendered");
-//    this.fillWithGOs(null);
+    //    this.fillWithGOs(null);
   }
 
 
@@ -138,12 +153,12 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGOs(gocams) {
-//    console.log("fillWithGOs(" + gocams + "): start");
+    //    console.log("fillWithGOs(" + gocams + "): start");
     this.gotermsSub = this.dataService.getModelsGOs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
-        if(tabelt) {
+        if (tabelt) {
           tabelt.bp = this.extractGOs(element, BIOLOGICAL_PROCESS);
           tabelt.mf = this.extractGOs(element, MOLECULAR_FUNCTION);
           tabelt.cc = this.extractGOs(element, CELLULAR_COMPONENT);
@@ -151,7 +166,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           console.warn("gocam <" + element.gocam + "> does not seem to have GO-Terms");
         }
       });
-//      console.log("fillWithGOs(" + gocams + "): done");
+      //      console.log("fillWithGOs(" + gocams + "): done");
       this.fillWithGPs(gocams);
     });
   }
@@ -162,18 +177,18 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGPs(gocams) {
-//    console.log("fillWithGPs(" + gocams + "): start");
+    //    console.log("fillWithGPs(" + gocams + "): start");
     this.gpSub = this.dataService.getModelsGPs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
-        if(tabelt) {
+        if (tabelt) {
           tabelt.gp = this.extractGPs(element);
         } else {
           console.warn("gocam <" + element.gocam + "> does not seem to have Gene Products");
         }
       });
-//      console.log("fillWithGPs(" + gocams + "): done");
+      //      console.log("fillWithGPs(" + gocams + "): done");
       this.fillWithPMIDs(gocams);
     });
   }
@@ -184,19 +199,19 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithPMIDs(gocams) {
-//    console.log("fillWithPMIDs(" + gocams + "): start");
+    //    console.log("fillWithPMIDs(" + gocams + "): start");
     this.gpSub = this.dataService.getModelsPMIDs(gocams).subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
-        if(tabelt) {
+        if (tabelt) {
           tabelt.pmid = this.extractPMIDs(element);
         } else {
           console.warn("gocam <" + element.gocam + "> does not seem to have PMIDs");
         }
       });
-      if(gocams == null) {
-          this.cache.setDetailedModels(this.models);
+      if (gocams == null) {
+        this.cache.setDetailedModels(this.models);
       }
       this.createSearchField();
       this.updateTable(gocams != null);
@@ -209,27 +224,27 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   */
   createSearchField() {
     this.models.forEach(tabelt => {
-      tabelt.searchfield = tabelt.gocam + " " + tabelt.state;
+      tabelt.searchfield = tabelt.gocam + " " + tabelt.state ? tabelt.state : "";
       if (tabelt.bp && tabelt.bp.length > 0) {
         tabelt.bp.forEach(elt => {
-          tabelt.searchfield += elt.name + " ";
+          tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
         });
       }
       if (tabelt.mf && tabelt.mf.length > 0) {
         tabelt.mf.forEach(elt => {
-          tabelt.searchfield += elt.name + " ";
+          tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
         });
       }
       if (tabelt.cc && tabelt.cc.length > 0) {
         tabelt.cc.forEach(elt => {
-          tabelt.searchfield += elt.name + " ";
+          tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
         });
       }
       if (tabelt.gp && tabelt.gp.length > 0) {
         tabelt.gp.forEach(elt => {
-          tabelt.searchfield += elt.fullName + " ";
+          tabelt.searchfield += elt.fullName + " " + elt.id;
         });
-      }  
+      }
       if (tabelt.pmid && tabelt.pmid.length > 0) {
         tabelt.pmid.forEach(elt => {
           tabelt.searchfield += elt.pmid + " ";
@@ -240,7 +255,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   updateTable(isBufferLoading: boolean) {
-//    console.log("updateTable(buffer:" + isBufferLoading + ")");
+    //    console.log("updateTable(buffer:" + isBufferLoading + ")");
     this.dataSource = new MatTableDataSource(this.models);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -252,7 +267,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     this.isBufferLoading = isBufferLoading;
     this.applyFilter(this.searchFilter);
 
-    if(isBufferLoading) {
+    if (isBufferLoading) {
       this.afterFirstPass();
     }
   }
@@ -290,7 +305,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     for (var i = 0; i < gocam.goclasses.length; i++) {
       if (gocam.goclasses[i] == RootTerm) {
         // should not be necessary, but I have seen some CCs duplicated
-        if(set.has(gocam.goids[i]))
+        if (set.has(gocam.goids[i]))
           continue;
         set.add(gocam.goids[i]);
         gos.push({
@@ -455,7 +470,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     this.articleTooltip = "Please wait...";
     this.pubmed.getMeta(pmid)
       .subscribe(data => {
-        this.articleTooltip = data.title + " -- " + data.authors[0].name + " (" + data.source + ", " + data.pubdate + ")";
+        let authors = data.authors[0].name;
+        if (data.authors.length > 0)
+          authors = data.authors[0].name + " et al."
+        this.articleTooltip = data.title + " -- " + authors + " (" + data.source + ", " + data.pubdate + ")";
       })
   }
 
@@ -474,20 +492,84 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   }
 
   // for test purposes only
-  onAuthenticated(event) {
-    this.auth.setIsAuthenticated(!this.auth.isAuthenticated());
-  }
-
-  isAuthenticated() {
-    return this.auth.isAuthenticated();
-  }
-
-  // for test purposes only
   onDevModelChange(event) {
     this.showDevModels = !this.showDevModels;
     this.applyFilter(this.searchFilter);
   }
-  
+
+
+  changeSelection(event) {
+    console.log("change: ", event.value);
+    this.displayedColumns = event.value;
+  }
+
+
+  isObject(val) {
+    return val instanceof Object && !Array.isArray(val); 
+  }
+
+  stringify(data) {
+    var str = "";
+    Object.keys(data).forEach(field => {
+
+      // we don't want search field which is already an aggregate
+      if (field != "searchfield") {
+
+        // if one of the field is an object (but not an array)
+        if(this.isObject(data[field])) {
+          str += this.stringify(data[field]);
+
+        // if one of the field is an array
+        } else if (Array.isArray(data[field])) {
+          let array = "";
+          data[field].forEach(elt => {
+            array += elt + ", ";
+          });
+          str += array + "\t";
+
+        // else
+        } else {
+          if (data[field]) {
+            if(this.isObject(data[field])) {
+              str += this.stringify(data[field]);
+            } else {
+              str += data[field] + "\t";
+            }
+          } else {
+            str += "N/A\t";
+          }
+        }
+
+      }
+
+    });
+    return str;
+  }
+
+  clipboard(row) {
+    console.log("clipboard: ", row);
+
+    const el = document.createElement('textarea');
+//    el.value = this.stringify(row);
+    el.value = JSON.stringify(row);
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+
+
+    // let selBox = document.createElement('temp-clipboard');
+    // selBox.style.position = 'fixed';
+    // selBox.style.left = '0';
+    // selBox.style.top = '0';
+    // selBox.style.opacity = '0';
+    // selBox.nodeValue = event;
+    // document.body.appendChild(selBox);
+    // selBox.focus();
+    // document.execCommand('copy');
+    // document.body.removeChild(selBox);
+
+  }
 
 }
 

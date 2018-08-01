@@ -12,18 +12,33 @@
 
       &nbsp; &nbsp;
 
-      <!-- GENE ONTOLOGY TITLE -->
+      <!-- GENE ONTOLOGY TITLE
       <h1 class="heading-primary u-no-text-transform">
         <span class="letter" data-letter="G">G</span>
         <span class="name navbar-brand" class="span-centered">ene</span>
         <span class="letter" data-letter="O">O</span>
         <span class="name navbar-brand" class="span-centered">ntology: Causal Activity Models</span>
       </h1>
+       -->
+       <h1 class="heading-primary u-no-text-transform u-color-white h1-responsive">
+         Gene Ontology: Causal Activity Models
+       </h1>
       
     </div>
 
     <!-- NAVIGATION BUTTONS -->
     <nav style="width:30%; text-align: right; margin-right: 5px; margin-top: 2px">
+
+
+      <!--
+        <div style="display: inline-block">
+            <section>
+                Login: 
+                <mat-slide-toggle (change)="onAuthenticated($event)">
+                </mat-slide-toggle>
+              </section>
+            </div>
+          -->  
 
       <div class="round-button u-background-color-secondary">
         <a (click)="pageDimmed = true" matTooltip="Send Us Feedbacks" [matTooltipShowDelay]="prefs.toolTipDelay">
@@ -37,13 +52,21 @@
         </a>
       </div>
 
+      <!--
+      <div class="round-button u-background-color-secondary">
+          <a (click)="onAuthenticated()" matTooltip="Login / Logout" [matTooltipShowDelay]="prefs.toolTipDelay">
+            <mat-icon class="u-color-white">person</mat-icon>
+          </a>
+        </div>  
+      -->
+
       <div class="round-button u-background-color-secondary">
         <a routerLink="/" matTooltip="Home Page" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">home</mat-icon>
         </a>
       </div>
 
-      <div class="round-button u-background-color-secondary">
+      <div class="round-button u-background-color-secondary toggle-button">
         <a (click)="prefs.toggleSideNav()"   #tooltip="matTooltip" matTooltip="Toggle Menu" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">menu</mat-icon>
         </a>
@@ -54,7 +77,7 @@
     <div class="dimmer" [ngStyle]="{ 'height': pageDimmed? '100%' : '0%', 'opacity': pageDimmed? 1 : 0, 'top': pageDimmed ? 0 : '50%' }">
       
 
-      <mat-card style="width:80%; max-width: 450px; margin:auto;top:50%; transform: translateY(-50%)" *ngIf="pageDimmed">
+      <mat-card style="width:80%; max-width: 600px; margin:auto;top:50%; transform: translateY(-50%)" *ngIf="pageDimmed">
 
           <mat-card-header>
             <div mat-card-avatar>
@@ -67,7 +90,7 @@
           <mat-card-content fxLayout="column" fxLayoutAlign="start stretch">
   
             <mat-form-field style="padding:5px;margin-bottom:5px">
-              <mat-select placeholder="Feedback on ?" required>
+              <mat-select placeholder="Feedback on ?" required #type>
                 <mat-option *ngFor="let fb of fbs" [value]="fb.value">
                   {{ fb.viewValue }}
                 </mat-option>
@@ -83,9 +106,13 @@
               <mat-hint align="end">{{message.value.length}} / 512</mat-hint>
             </mat-form-field>
   
+            <div *ngIf="invalidFeedback" class="feedback__invalid">
+              Please select a category and enter a message to send !
+            </div>
+
           </mat-card-content>
           <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center" style="margin:5px">
-            <button mat-raised-button (click)="pageDimmed = false" color="primary">
+            <button mat-raised-button (click)="send(email, type, message)" color="primary">
               Send
             </button>
             <button mat-button (click)="pageDimmed = false">

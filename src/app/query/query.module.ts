@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedMaterialModule } from '../shared-material/shared-material.module';
 
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
-
 import { SparqlExamplesComponent } from './sparql-examples/sparql-examples.component';
 
 const routes = [
@@ -15,8 +13,7 @@ const routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedMaterialModule,
-    NgxJsonViewerModule
+    SharedMaterialModule
   ],
   declarations: [SparqlExamplesComponent]
 })

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PreferencesService } from '../core/preferences.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -17,19 +18,25 @@ export class NavigationComponent implements OnInit {
       viewValue: "Web Site"
     },
     {
+      value: "model_general",
+      viewValue: "GO-CAM: in general"
+    },
+    {
+      value: "model_specific",
+      viewValue: "GO-CAM: a precise model"
+    },
+    
+    {
       value: "sparql",
       viewValue: "SPARQL endpoint"
     },
     {
-      value: "annotation",
-      viewValue: "GO-CAM: in general"
+      value: "rest",
+      viewValue: "REST endpoint"
     },
-    {
-      value: "annotation",
-      viewValue: "GO-CAM: a precise model"
-    }
   ];
-  constructor(public prefs: PreferencesService) { }
+  constructor(public prefs: PreferencesService,
+              private auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -44,4 +51,21 @@ export class NavigationComponent implements OnInit {
     this.prefs.toggleSideNav();
     tooltip.hide(); 
   }
+
+  // for test purposes only
+  onAuthenticated(event) {
+    this.auth.setIsAuthenticated(!this.auth.isAuthenticated());
+  }
+
+  invalidFeedback = false;
+
+  send(email, type, message) {
+    console.log("email.value: " + email.value + "\ntype.value: " + type.value + "\nmessage.value: " + message.value);
+    if(!type.value || message.value.length == 0) {
+      this.invalidFeedback = true;
+    } else {
+      this.pageDimmed = false;
+    }
+  }
+
 }

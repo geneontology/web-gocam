@@ -1,3 +1,5 @@
+@import "../../sass/abstracts/variables";
+
 *,
 :before,
 :after {
@@ -13,7 +15,6 @@ mat-toolbar {
 
 span {
     color: #fff;
-    font-size: calc(2px + 2vw);
     text-shadow: 1px 1px 6px rgba(0,0,0,0.5) ;
 }
 
@@ -106,3 +107,29 @@ a {
 }
 
   
+
+mat-option, textarea {
+    font-size: $font-size-small !important;
+}
+
+
+.feedback {
+
+    &__invalid {
+        font-weight: 700;
+        color: red;
+    }
+}
+
+.h1-responsive {
+    font-size: $font-size-largest !important;
+    text-shadow: 1px 1px 1px $color-black;
+}
+
+.toggle-button {
+    transition: all 0.3s;
+
+    &:hover {
+        transform: rotate(-90deg);
+    }
+}

@@ -155,7 +155,7 @@
     font-size: $font-size-small !important;
 }
 
-.mat-input-placeholder-wrapper {
+.mat-form-field-labelwrapper {
     font-size: $font-size-small;
 }
 
@@ -181,3 +181,8 @@
 .mat-paginator-container {
     max-height: 56px;
 }
+
+.mat-paginator-range-label {
+    margin: 5px !important;
+}
+

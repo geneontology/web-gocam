@@ -19,12 +19,14 @@ export class UrlHandlerService {
 
 
   getSPARQLDoc() : string {
-    return "query/sparql-examples";
+//    return "query/sparql-examples";
+    return environment.sparqlUrl + "#query";
   }
 
   getSPARQL() : string {
-    return environment.sparqlUrl;
+    return environment.sparqlUrl + "sparql";
   }
+
 
 
 
@@ -119,6 +121,10 @@ export class UrlHandlerService {
 
   downloadCTAB() : string {
     return environment.gocamCTAB;
+  }
+
+  downloadGOAnnotations() : string {
+    return environment.goAnnotationsDL;
   }
 
 

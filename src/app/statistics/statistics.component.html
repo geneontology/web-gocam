@@ -28,13 +28,13 @@
     <div fxLayout="row" fxLayoutAlign="space-evenly center">
 
       <!-- Distribution of Models -->
-      <div fxFlex="35%">
+      <div>
         <h2 align=center style="font-size: 16px">Overall Groups Contribution</h2>
         <canvas baseChart width="300" height="300" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
       </div>
       <!--
-       <div fxFlex="35%">
+       <div>
         <h2 align=center style="font-size: 16px">Overall Groups Contribution</h2>
         <ngx-charts-advanced-pie-chart
         [view]="view"
@@ -47,7 +47,7 @@
        -->
 
       <!-- Evolution of Models -->
-      <mat-tab-group fxFlex="50%">
+      <mat-tab-group>
         <mat-tab label="Models">
           <h2 align=center style="font-size: 16px; margin-top:10px;">Number of GO-CAMs</h2>
           <div class="row">

@@ -19,10 +19,10 @@
 
   <mat-card-content>
 
-    <h2 class="heading-secondary">GO-CAMs: linking standard GO Annotations</h2>
+    <h2 class="heading-secondary">GO-CAMs: linking GO Annotations</h2>
 
     <p>
-      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple <a href="{{ urlHandler.getDocGOAnnotation() }}" target="_blank">standard GO annotations</a> into larger models
+      GO-Causal Activity Models (GO-CAMs) use a defined “grammar” for linking multiple <a href="{{ urlHandler.getDocGOAnnotation() }}" target="_blank">GO annotations</a> into larger models
       of biological function (such as “pathways”) in a semantically structured manner. GO-CAMs are created by expert biocurators
       from the
       <a href="{{ urlHandler.getGOContributors() }}" target="blank">GO Consortium</a>, using the
@@ -67,8 +67,8 @@
         <a href="{{ urlHandler.getAPIDoc() }}" target="blank">REST</a>.
       </li>
       <li>
-        <p>As “reduced” standard pairwise GO annotations, included in the
-          <a href="{{ urlHandler.getDocGOAnnotation() }}" target="blank">standard GO annotation files</a> for backward compatibility with the broader GO communities.</p>
+        <p>As “reduced” pairwise GO annotations, included in the
+          <a href="{{ urlHandler.downloadGOAnnotations() }}" target="blank"> GO annotation files</a> for backward compatibility with the broader GO communities.</p>
       </li>
     </ul>
 
@@ -79,11 +79,6 @@
     <button mat-raised-button color=primary routerLink="/browse">
       Browse Models
       <mat-icon color=white>search</mat-icon>
-    </button>
-
-    <button mat-button (click)="learnMore('NM')">
-      Learn More
-      <mat-icon color=primary>school</mat-icon>
     </button>
 
     <!-- mat-button vs mat-raised-button -->

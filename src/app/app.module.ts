@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { ShareButtonModule } from '@ngx-share/button';
 
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -28,9 +28,10 @@ import { ProcessModule } from './process/process.module';
 
 
 import { ChartsModule } from 'ng2-charts';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedMaterialModule } from './shared-material/shared-material.module';
 import { QueryModule } from './query/query.module';
+
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 import * as config from '../gocam-config.json';
 import { RecentModelsModule } from './recent-models/recent-models.module';
@@ -68,7 +69,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HttpModule,
+    FormsModule,
 
     CoreModule,
     SharedMaterialModule,
@@ -77,10 +78,11 @@ const appRoutes: Routes = [
     ProcessModule,
     QueryModule,
     
-    FlexLayoutModule,
     ChartsModule,
 
     RecentModelsModule,
+
+    FlexLayoutModule,
 
     ShareButtonModule.forRoot(),
     RouterModule.forRoot(appRoutes), // advised to put the router at the end of imports

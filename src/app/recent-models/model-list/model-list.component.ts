@@ -95,6 +95,11 @@ export class ModelListComponent implements OnInit, OnDestroy {
       this.newsPos = 0;
     }
 
+    // data not yet loaded
+    if(!this.displayedSubjects || this.displayedSubjects.length == 0) {
+      return;
+    }
+
     for(let i = 0; i < this.nbDisplayed && this.displayedSubjects; i++) {
       this.displayedSubjects[i].next(this.models[this.pos(i + this.newsPos)]);
     }

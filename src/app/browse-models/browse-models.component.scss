@@ -9,6 +9,7 @@
 
 .mat-header-cell h2 {
   font-size: calc(2px + 1vw) !important;
+  width:100%;
 }
 
 .mat-card-content {
@@ -52,10 +53,6 @@
   padding-right: 0 !important;  
 }
 
-.mat-column-date {
-  max-width: calc(26px + 5vw);
-  margin-right: 3px !important;
-}
 
 
 
@@ -66,18 +63,21 @@
 
 .mat-column-align-right {
   text-align:right !important;
-  margin-right: calc(1px + 1vw);
   max-width: calc(18px + 5vw);
+  padding-right: 2px;
 }
 
 
 
 .mat-row {
+//  min-height: 180px;
   position: relative;
-  margin: calc(10px + 1.55vw) calc(.2vw) !important;
-  padding: calc(4px + 0.5vw)  !important;  
-  border: 1px solid rgba(211, 211, 211, 0.50);
-  border-radius: 10px;
+  margin: 5px 0px;
+  // margin: calc(10px + 1.55vw) calc(.2vw) !important;
+  // padding: calc(4px + 0.5vw)  !important;  
+  // border: 1px solid rgba(211, 211, 211, 0.50);
+  // border-radius: 10px;
+  align-items: stretch;
   transition: all 0.2s;
 }
 
@@ -88,18 +88,35 @@
 }
 
 .mat-cell {
+  display: block;
   font-size: calc(6px + 0.5vw);    
   padding-left: calc(0px + 0.3vw);  
-  /*
-  padding-right: calc(0px + 0.3vw);
-  */
   padding-right: 0px;
-  /*
-  margin: auto calc(1px + 0.5vw);
-  */
   margin: 0px;
+  text-align: center;
+  overflow: inherit;
 }
 
+
+.selectionForm {
+  width: 30%;
+  display: inline-block;
+  margin-left: calc(60px + 5vw);
+}
+
+.filter {
+
+  margin-bottom: 1rem;
+
+  &__paginator {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;    
+    padding-bottom: 2rem;
+  }
+
+}
 
 
 .bp {
@@ -165,18 +182,23 @@ mat-hint {
   cursor: pointer !important;
 }
 
-
-.mat-column-date {
-  margin: 0px !important;
-  padding: 0px !important;
-  max-width: calc(30px + 2.5vw) !important;
-}
-
 .mat-column-title {
-//  position: relative;
-  margin: 0px !important;
-  padding: 10px 0px !important;
+  //  position: relative;
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+  
+.mat-column-date {
+  // margin: 0px !important;
+  // padding: 0px !important;
+  max-width: calc(30px + 2.5vw) !important;
+
+  // max-width: calc(26px + 5vw);
+//  margin-right: 15px !important;
+  margin-left: 15px !important;
 }
+
 
 .mat-column-process {
   margin: 0px !important;
@@ -195,16 +217,19 @@ mat-hint {
 }
 
 .mat-column-group {
-  max-width: calc(40px + 4vw) !important;
+  max-width: calc(10px + 4vw) !important;
   margin: 0px !important;
   padding: 0px !important;
 }
 
 
 .row__articles__container {
-//  background-color: greenyellow;
-  display: inline-block;
-  width: 100%;
+//   display: inline-block;
+// //  position: absolute;
+//   bottom: 5px;
+//   left: 5px;
+  text-align: center;
+  padding: 5px;
 }
 
 .row__article {
@@ -225,15 +250,48 @@ mat-hint {
 
 
 
-.row__title {
-//  position: relative;
-  padding: calc(5px + 0.5vw);
-//  border: 1px solid rgba(0, 0, 0, .3);
-//  border-radius:  calc(.5vw) calc(8px + 1.5vw);
-//  color: white;
-//  text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+.row {
+  
+  &__clipboard {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    transition: all 0.3s;
 
-//  background: linear-gradient(150deg, lightsteelblue, rgba(16, 122, 222, 0.5) 100%);
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-3px);
+      text-shadow: 0px 1px 3px rgba($color-black, .5);
+    }
+  }
+
+  &__title {
+    // border: 1px solid rgba($color-black, .5);
+    // border-radius: 15px;
+    // box-shadow: 0px 3px 6px rgba($color-black, .5);
+    margin: 5px;
+    width: 95%;
+    height: 95%;
+    text-align: left;
+
+    &__content {
+      min-height: 60%;
+    }
+  
+    &__link {
+      padding: calc(5px + 0.5vw);
+  
+      &:hover {
+        font-weight: 700;
+      }
+    }
+
+    &__actions {
+//      background-color: red;
+      padding: 10px;
+    }
+
+  }
 
 
   &__view-edit {
@@ -244,10 +302,12 @@ mat-hint {
     border-radius: 50%;
     background-color: $color-quaternary;
     color: white;
-    padding: 10px;
-    position: absolute;
-    top: 5px;
-    right: 145px;  
+    padding: 7px;
+//    position: absolute;
+//    top: 5px;
+//    right: calc(75px + 2.5vw);
+    transition: all .3s;
+
     &:hover {
       box-shadow: 0px 3px 6px rgba($color-black, 1);
       transform: translateY(-3px);
@@ -263,11 +323,12 @@ mat-hint {
     border-radius: 50%;
     background-color: $color-primary;
     color: white;
-    padding: 10px;
-    position: absolute;
-    top: 5px;
-    right: 75px;
+    padding: 7px;
+    // position: absolute;
+    // top: 5px;
+    // right: calc(35px + 1.5vw);
     transition: all .3s;
+
     &:hover {
       box-shadow: 0px 3px 6px rgba($color-black, 1);
       transform: translateY(-3px);
@@ -283,11 +344,12 @@ mat-hint {
     border-radius: 50%;
     background-color: $color-secondary;
     color: white;
-    padding: 10px;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    padding: 7px;
+    // position: absolute;
+    // top: 5px;
+    // right: 5px;
     transition: all .3s;
+
     &:hover {
       box-shadow: 0px 3px 6px rgba($color-black, 1);
       transform: translateY(-3px);
@@ -309,7 +371,7 @@ mat-hint {
 
 .article-icon {
 //  text-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
-  height: 45px !important;
+  //height: 45px !important;
   transition: all 0.3s;
   color: $color-tertiary;
 
@@ -329,15 +391,17 @@ mat-hint {
   letter-spacing: 0.5px;
 
   background-color: $color-white;
-  padding: 6px 9px;
+  padding: 4px 9px;
   margin: 6px 0px;
 
   border: 1px solid rgba(0, 0, 0, .3);
   border-radius: calc(8px + 1.5vw) calc(.5vw);
 
   color: $color-white;
-  text-shadow: 1px 1px 1px $color-black;
 
+  word-break: break-word;
+
+  text-shadow: 1px 1px 1px $color-black;
   box-shadow: 0px 1px 6px rgba($color-black, .5);
 
   transition: all 0.2s;
@@ -353,11 +417,15 @@ mat-hint {
 
 
 .date-design {
-  position: relative;
+//  position: relative;
   text-align: center;
   display: inline-grid;
   vertical-align: middle;
 
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 
   &__day-month {
     background-color: $color-primary;
@@ -373,7 +441,10 @@ mat-hint {
   }
 
   &__year {
-//    letter-spacing: calc(0.2vw);
+    position: relative;
+    transform: translateY(80%);
+    font-weight: 700;
+    color: $color-primary;
   }
 
 }
@@ -391,3 +462,54 @@ mat-hint {
     padding-bottom: calc(1vw);
   }
 }
+
+
+.toggleDev {
+  position: absolute;
+  color: $color-secondary;
+  font-weight: 700;
+  right: 30px;
+  top: 240px;
+}
+
+.button-gp {
+  display: inline-block !important;
+//  width: auto !important;
+  margin: 3px;
+  padding: 2px 18px;
+  word-break: break-word;
+
+}
+
+.button-open {
+  display: block;  
+  width: 95%;
+
+//  background-color: $color-grey;
+  background: linear-gradient(135deg, $color-grey, $color-white 100%);
+  color: $color-black;
+//  margin: calc(5px + .5vw);
+  border-radius: 15px;
+  border: 1px solid black;
+
+  margin: calc(5px + .25vw) auto;
+  padding: calc(2.5px + .25vw) calc(5px + .5vw) !important;
+
+  box-shadow: 0px 1px 6px rgba($color-black, .5);
+  transition: all 0.3s;
+
+  &__label {
+    font-size: $font-size-small !important;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 3px 6px rgba($color-black, 1);
+    // background-color: black;
+    // color:white;
+  }
+}
+
+// .mat-icon {
+//   font-size: $font-size-small !important;
+// }

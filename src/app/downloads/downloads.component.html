@@ -21,40 +21,45 @@
       GO-CAMs are available in
       <a href="https://www.w3.org/TR/turtle/" target="blank">RDF Turtle (TTL)</a>,
       <a href="https://www.blazegraph.com/" target="blank">BlazeGraph Journal (JNL)</a>,
-      <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format (SIF)</a> and CausalTAB (CTAB) formats.
+      <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format (SIF)</a> 
+      <!--
+      and CausalTAB (CTAB) formats.
+      -->
     </p>
 
   </mat-card-content>
 
   <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center" style="padding-bottom: 10px;">
 
-    <span matTooltip="Download Models as a TTL Archive" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
+    <span matTooltip="Download Models as a TTL Archive" [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-raised-button (click)="download(dtype.ttl)">
         TTL
         <mat-icon>get_app</mat-icon>
       </button>
     </span>
 
-    <span matTooltip="Download Models as a BlazeGraph Journal" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
+    <span matTooltip="Download Models as a BlazeGraph Journal" [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-raised-button (click)="download(dtype.jnl)">
         JNL
         <mat-icon>get_app</mat-icon>
       </button>
     </span>
 
-    <span matTooltip="Download Models as a SIF file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
+    <span matTooltip="Download Models as a SIF file" [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.sif)" disabled>
         SIF
         <mat-icon>get_app</mat-icon>
       </button>
     </span>
 
-    <span matTooltip="Download Models as a PSI CausalTAB file" fxFlex=20% [matTooltipShowDelay]="prefs.toolTipDelay">
+    <!--
+    <span matTooltip="Download Models as a PSI CausalTAB file" [matTooltipShowDelay]="prefs.toolTipDelay">
       <button mat-button (click)="download(dtype.ctab)" disabled>
         CTA
         <mat-icon>get_app</mat-icon>
       </button>
     </span>
+    -->
 
   </mat-card-actions>
 </mat-card>
