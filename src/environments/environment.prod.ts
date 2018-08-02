@@ -5,8 +5,8 @@ export const environment = {
   useApi : true,
 
   // Change these two lines if you want to point to another Triple Store & API
-  sparqlUrl : "http://rdf.geneontology.org/blazegraph/sparql",
-//  sparqlUrl : "http://localhost:8080/blazegraph/sparql",
+  sparqlUrl : "http://rdf.geneontology.org/blazegraph/",
+//  sparqlUrl : "http://localhost:8080/blazegraph/",
   apiUrl : "https://api.geneontology.cloud/",
   separator : "@@",
 
@@ -39,7 +39,8 @@ export const environment = {
   gocamCTAB : "#",
 
   // Pages of Interest
-  goAnnotations : "http://geneontology.org/page/download-go-annotations",
+  goAnnotations : "http://geneontology.org/page/go-annotations",
+  goAnnotationsDL : "http://geneontology.org/page/download-go-annotations",
   goContributors : "http://geneontology.org/page/go-consortium-contributors-list",
   contactUs : "http://geneontology.org/form/contact-go",
   licence : "http://geneontology.org/page/use-and-license",
