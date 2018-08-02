@@ -26,7 +26,8 @@ export class CurieUtilService {
             this.goContext = data;
             let map = CurieUtil.parseContext(this.goContext);
             this.curie = new CurieUtil.CurieUtil(map);
-            console.log("curie: " + this.curie.getIri("ZFIN:ZDB-GENE-031112-7"));
+            // for test purpose:
+            // console.log("curie: " + this.curie.getIri("ZFIN:ZDB-GENE-031112-7"));
         })
     }
 
@@ -35,7 +36,7 @@ export class CurieUtilService {
      * @param Iri an IRI (e.g. http://identifiers.org/zfin/ZDB-GENE-031112-7, http://identifiers.org/mgi/MGI:34340, etc)
      */
     getCurie(Iri: string) : string {
-        return this.curie.getCURIE(Iri);
+        return this.curie.getCurie(Iri);
     }
 
     /**

@@ -104,9 +104,6 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
         json.map(res => {
           this.models.push(res);
         })
-        //        console.log("retrieved: ", json);
-
-        //        this.updateTable(true);
 
         // Multiple Asynchroneous Calls to fill the Table, follow by a Table Update
         var gocams = this.extractModels(json);
@@ -130,13 +127,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(this.models);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.setFilterPredicates();
     }
   }
 
-  afterFirstPass() {
-    console.log("First page rendered");
-    //    this.fillWithGOs(null);
-  }
 
 
   /** 
@@ -229,7 +223,13 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   */
   createSearchField() {
     this.models.forEach(tabelt => {
-      tabelt.searchfield = tabelt.gocam + " " + tabelt.state ? tabelt.state : "";
+      // there is no CURIE for a GOCAM at the moment, so can not use the CurieUtilService
+      // console.log(tabelt.gocam + "\t" + this.curieService.getCurie(tabelt.gocam));
+      let gocamid = "gomodel:" + tabelt.gocam.substring(tabelt.gocam.lastIndexOf("/") + 1);
+      let state = tabelt.state ? tabelt.state : "";
+
+      tabelt.searchfield = tabelt.gocam + " " + gocamid + " " + state;
+
       if (tabelt.bp && tabelt.bp.length > 0) {
         tabelt.bp.forEach(elt => {
           tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
@@ -255,7 +255,13 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           tabelt.searchfield += elt.pmid + " ";
         });
       }
+
+      tabelt.searchfield = tabelt.searchfield.toLowerCase();
     })
+
+    // this.models.forEach(elt => {
+    //   console.log(elt.searchfield);
+    // })
   }
 
 
@@ -264,6 +270,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource(this.models);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.setFilterPredicates();
+    
     let search = this.route.snapshot.paramMap.get('search');
     if (search) {
       this.searchFilter = search;
@@ -272,9 +280,25 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     this.isBufferLoading = isBufferLoading;
     this.applyFilter(this.searchFilter);
 
-    if (isBufferLoading) {
-      this.afterFirstPass();
-    }
+  }
+
+  /** 
+  * Enable multi columns and multi cell search (since a given cell can have multiple values)
+  */
+  setFilterPredicates() {
+    this.dataSource.filterPredicate =
+      (data, filters: string) => {
+        const matchFilter = [];
+        const filterArray = filters.toLowerCase().split(" ");
+        const columns = data.searchfield.split(" ");
+
+        filterArray.forEach(filter => {
+          const customFilter = [];
+          columns.forEach(column => customFilter.push(column.includes(filter)));
+          matchFilter.push(customFilter.some(Boolean)); // OR
+        });
+        return matchFilter.every(Boolean); // AND
+      }    
   }
 
 
