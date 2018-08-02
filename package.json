@@ -30,6 +30,7 @@
     "@ngx-share/button": "^5.3.1",
     "@ngx-share/core": "^5.3.1",
     "core-js": "^2.4.1",
+    "curie-util-es5": "^1.2.0",
     "d3": "^4.13.0",
     "js-yaml": "^3.11.0",
     "mustache": "^2.3.0",

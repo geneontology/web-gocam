@@ -12,6 +12,10 @@ import { Subject } from 'rxjs/Subject';
 import { AbstractDataService } from '../core/abstract-data.service';
 import { AuthService } from '../shared/auth.service';
 
+import { CurieUtilService } from '../core/curie-util.service';
+
+
+
 // export enum DataColumn {
 //   Date = "date",
 //   Title = "title",
@@ -71,6 +75,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public auth: AuthService,
+    private curieService : CurieUtilService,
     private meta: Meta) {
     this.meta.addTag({ name: 'description', content: 'Browse Gene Ontology Causal Activity Models to discover structured relations between gene products, biological processes and cellular locations.' });
   }
@@ -556,11 +561,37 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     return str;
   }
 
+  customStringify(row) {
+    var str = row.date + "\t" + row.gocam + "\t" + row.title;
+    if(row.bp && row.bp.length > 0) {
+      str += "\t" + row.bp.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
+    } else {
+      str += "\tN/A";
+    }
+    if(row.mf && row.mf.length > 0) {
+      str += "\t" + row.mf.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
+    } else {
+      str += "\tN/A";
+    }
+    if(row.cc && row.cc.length > 0) {
+      str += "\t" + row.cc.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
+    } else {
+      str += "\tN/A";
+    }
+    if(row.gp && row.gp.length > 0) {
+      str += "\t" + row.gp.map(elt => { return elt.fullName + " (" + elt.id + ")" }).join("; ")
+    } else {
+      str += "\tN/A";
+    }
+    return str;
+  }
+
   clipboard(row) {
     console.log("clipboard: ", row);
 
     const el = document.createElement('textarea');
-    el.value = this.stringify(row);
+    el.value = this.customStringify(row);
+//    el.value = this.stringify(row);
 //    el.value = JSON.stringify(row);
     document.body.appendChild(el);
     el.select();

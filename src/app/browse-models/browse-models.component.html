@@ -84,9 +84,11 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let row" class="cell-block mat-column-title">
 
+            <!-- CLIPBOARD TEST 
             <div class="row__clipboard" (click)="clipboard(row)">
               <mat-icon>assignment</mat-icon>
             </div>
+            -->
 
             <div class="row__title">
 
@@ -134,7 +136,7 @@
                 <span matTooltip="Open Graph View" matTooltipPosition="after" [matTooltipShowDelay]="0.2">
                   <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank">
                     <button mat-button class="button-open">
-                      <span>Graph &nbsp;
+                      <span>View &nbsp;
                         <mat-icon>open_in_new</mat-icon>
                       </span>
                     </button>

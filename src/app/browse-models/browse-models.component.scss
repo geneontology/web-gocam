@@ -79,6 +79,7 @@
   // border-radius: 10px;
   align-items: stretch;
   transition: all 0.2s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5)
 }
 
 .mat-row:hover {
@@ -186,6 +187,7 @@ mat-hint {
   //  position: relative;
     margin: 0px !important;
     padding: 0px !important;
+    font-size: calc(6px + 0.6vw);
   }
 
   

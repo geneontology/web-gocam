@@ -15,6 +15,7 @@ import { PubmedRestService } from './pubmed-rest.service';
 
 import { ModelsModule } from '../models/models.module';
 import { QueriesModule } from '../queries/queries.module';
+import { CurieUtilService } from './curie-util.service';
 
 @NgModule({
   
@@ -38,7 +39,8 @@ import { QueriesModule } from '../queries/queries.module';
     PreferencesService,
     UrlHandlerService,
     UtilsService,
-    CacheService
+    CacheService,
+    CurieUtilService
   ],
 
   exports: [
