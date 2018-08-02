@@ -223,6 +223,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   */
   createSearchField() {
     this.models.forEach(tabelt => {
+//      console.log("TAB ELT: " , tabelt);
+      
       // there is no CURIE for a GOCAM at the moment, so can not use the CurieUtilService
       // console.log(tabelt.gocam + "\t" + this.curieService.getCurie(tabelt.gocam));
       let gocamid = "gomodel:" + tabelt.gocam.substring(tabelt.gocam.lastIndexOf("/") + 1);
@@ -230,6 +232,24 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
       tabelt.searchfield = tabelt.gocam + " " + gocamid + " " + state;
 
+      if (tabelt.title && tabelt.title.length > 0) {
+        tabelt.searchfield += tabelt.title + " ";
+      }
+      if (tabelt.date && tabelt.date.length > 0) {
+        tabelt.searchfield += tabelt.date + " ";
+      }
+
+      if (tabelt.names && tabelt.names.length > 0) {
+        tabelt.names.forEach(elt => {
+          tabelt.searchfield += elt + " ";
+        });
+      }
+      if (tabelt.groupnames && tabelt.groupnames.length > 0) {
+        tabelt.groupnames.forEach(elt => {
+          tabelt.searchfield += elt + " ";
+        });
+      }
+      
       if (tabelt.bp && tabelt.bp.length > 0) {
         tabelt.bp.forEach(elt => {
           tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
