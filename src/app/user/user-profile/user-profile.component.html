@@ -77,7 +77,7 @@
           </li>
         </ul>
       -->
-      <a *ngFor="let model of userMeta?.gocams; let i = index" href="{{ urlHandler.getPathwayView(model) }}" target="_blank" class="badge-grey">{{userMeta.gocamsTitle[i]}}
+      <a *ngFor="let model of userMeta?.gocams; let i = index" href="{{ urlHandler.getDefaultView(model) }}" target="_blank" class="badge-grey">{{userMeta.gocamsTitle[i]}}
 
       </a>
 

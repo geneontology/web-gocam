@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
-  
+ 
   // Use the SPARQL endpoint or the API endpoint to fetch the data
   useApi : true,
 
   // Change these two lines if you want to point to another Triple Store & API
   sparqlUrl : "http://rdf.geneontology.org/blazegraph/",
-//  sparqlUrl : "http://localhost:8080/blazegraph/",
+  // sparqlUrl : "http://localhost:8080/blazegraph/",
   apiUrl : "https://api.geneontology.cloud/",
   separator : "@@",
 
@@ -14,9 +14,9 @@ export const environment = {
   swaggerUrl : "https://app.swaggerhub.com/apis/geneontology/gosparql",
 
   // External URL to explore a GO-Term or GO-CAM
-  noctuaUrl :  "http://noctua.berkeleybop.org/",
-  noctuaGraphViewUrl : "http://noctua.berkeleybop.org/editor/graph/",
-  noctuaPathwayViewUrl : "http://noctua.berkeleybop.org/workbench/pathwayview/?model_id=",
+  noctuaUrl :  "http://noctua.geneontology.org/",
+  noctuaGraphViewUrl : "http://noctua.geneontology.org/editor/graph/",
+  noctuaPathwayViewUrl : "http://noctua.geneontology.org/workbench/pathwayview/?model_id=",
   amigoUrl : "http://amigo.geneontology.org/",
   amigoTermUrl : "http://amigo.geneontology.org/amigo/term/",
   pubmedUrl : "https://www.ncbi.nlm.nih.gov/pubmed/",

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
 
 import { environment } from '../../environments/environment';
+import { CurieUtilService } from './curie-util.service';
 
 @Injectable()
 export class UrlHandlerService {
 
-  constructor(private utilsService: UtilsService) { }
+  constructor(private curieService : CurieUtilService) { }
 
   
   getAPIDoc() : string {
@@ -28,15 +29,13 @@ export class UrlHandlerService {
   }
 
 
-
-
   getNoctuaPlatform() : string {
     return environment.noctuaUrl;
   }
 
   getAmigoTerm(goterm: string) : string {
-    goterm = this.utilsService.curieGOTerm(goterm);
-    return environment.amigoTermUrl + goterm;
+    let curieGOTerm = this.curieService.getCurie(goterm);
+    return environment.amigoTermUrl + curieGOTerm;
   }
 
 
@@ -66,19 +65,19 @@ export class UrlHandlerService {
   }
 
   getGraphView(goModelId: string) : string {
-    var model = this.utilsService.curieGOCam(goModelId);
+    let model = this.curieService.getCurie(goModelId);
     return environment.noctuaGraphViewUrl + model;
   }
 
   getPathwayView(goModelId: string) : string {
-    var model = this.utilsService.curieGOCam(goModelId);
+    let model = this.curieService.getCurie(goModelId);
     return environment.noctuaPathwayViewUrl + model;
   }
 
 
   getPubMedAbstract(pmid: string) : string {
-    pmid = pmid.replace("PMID:", "");
-    return environment.pubmedUrl + pmid;
+    let modpmid = pmid.replace("PMID:", "");
+    return environment.pubmedUrl + modpmid;
   }
 
 

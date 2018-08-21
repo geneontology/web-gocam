@@ -46,6 +46,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   // can dynamically change the columns displayed
+  //  allColumns = ['Title', 'Molecular Function', 'Gene Product', 'Biological Process', 'Cellular Component', 'Contributor', 'Group', 'Date'];
+  //  displayedColumns = ['Title', 'Molecular Function', 'Gene Product', 'Biological Process', 'Cellular Component', 'Group'];
   allColumns = ['Title', 'Biological Process', 'Molecular Function', 'Cellular Component', 'Gene Product', 'Contributor', 'Group', 'Date'];
   displayedColumns = ['Title', 'Biological Process', 'Molecular Function', 'Cellular Component', 'Gene Product', 'Group'];
   //displayedColumns = ['title', 'bps', 'mfs', 'ccs', 'gps',  'groups'];
@@ -75,7 +77,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     public auth: AuthService,
-    private curieService : CurieUtilService,
+    private curieService: CurieUtilService,
     private meta: Meta) {
     this.meta.addTag({ name: 'description', content: 'Browse Gene Ontology Causal Activity Models to discover structured relations between gene products, biological processes and cellular locations.' });
   }
@@ -87,8 +89,6 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     window.scrollTo(0, 0);
-    //    document.querySelector('[cdk-scrollable]').scrollTop = 0;
-    //    document.querySelector('.mat-layout__content').scrollTop = 0;
 
     if (this.cache.hasDetailedModels()) {
       this.models = this.cache.getDetailedModels();
@@ -223,11 +223,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   */
   createSearchField() {
     this.models.forEach(tabelt => {
-//      console.log("TAB ELT: " , tabelt);
-      
-      // there is no CURIE for a GOCAM at the moment, so can not use the CurieUtilService
-      // console.log(tabelt.gocam + "\t" + this.curieService.getCurie(tabelt.gocam));
-      let gocamid = "gomodel:" + tabelt.gocam.substring(tabelt.gocam.lastIndexOf("/") + 1);
+
+      let gocamid = "gomodel:" + this.curieService.getCurie(tabelt.gocam);
       let state = tabelt.state ? tabelt.state : "";
 
       tabelt.searchfield = tabelt.gocam + " " + gocamid + " " + state;
@@ -249,7 +246,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
           tabelt.searchfield += elt + " ";
         });
       }
-      
+
       if (tabelt.bp && tabelt.bp.length > 0) {
         tabelt.bp.forEach(elt => {
           tabelt.searchfield += elt.name + " " + elt.id + " " + elt.id.replace("_", ":");
@@ -279,19 +276,21 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       tabelt.searchfield = tabelt.searchfield.toLowerCase();
     })
 
-    // this.models.forEach(elt => {
-    //   console.log(elt.searchfield);
-    // })
   }
 
 
+
+  /**
+   * Update the Data Table
+   * @param isBufferLoading is true, the UI should display that some buffers are still loading
+   */
   updateTable(isBufferLoading: boolean) {
     //    console.log("updateTable(buffer:" + isBufferLoading + ")");
     this.dataSource = new MatTableDataSource(this.models);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.setFilterPredicates();
-    
+
     let search = this.route.snapshot.paramMap.get('search');
     if (search) {
       this.searchFilter = search;
@@ -302,49 +301,90 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   }
 
+
   /** 
-  * Enable multi columns and multi cell search (since a given cell can have multiple values)
+  * Change how the filter is applied
   */
   setFilterPredicates() {
     this.dataSource.filterPredicate =
       (data, filters: string) => {
-        const matchFilter = [];
-        const filterArray = filters.toLowerCase().split(" ");
-        const columns = data.searchfield.split(" ");
+        //        let devprod = this.showDevModels ? "development" : "production";
 
-        filterArray.forEach(filter => {
-          const customFilter = [];
-          columns.forEach(column => customFilter.push(column.includes(filter)));
-          matchFilter.push(customFilter.some(Boolean)); // OR
-        });
-        return matchFilter.every(Boolean); // AND
-      }    
+        const columns = data.searchfield.split(" ");
+        const matchFilter = [];
+
+        if (filters.includes(" or ")) {
+          const filterArray = filters.toLowerCase().split(" or ");
+          filterArray.forEach(filter => {
+            const customFilter = [];
+            columns.forEach(column => customFilter.push(column.includes(filter)));
+            matchFilter.push(customFilter.some(Boolean)); // OR
+          });
+          return matchFilter.some(Boolean); // AND
+
+        } else {
+          const filterArray = filters.toLowerCase().split(" ");
+          filterArray.forEach(filter => {
+            const customFilter = [];
+            columns.forEach(column => customFilter.push(column.includes(filter)));
+            matchFilter.push(customFilter.some(Boolean)); // OR
+          });
+          return matchFilter.every(Boolean); // AND
+        }
+
+      }
   }
 
+
+  oldIndex = 0;
+  // applyFilter(filterValue: string) {
+  //   if (!filterValue) {
+  //     this.dataSource.filter = undefined;
+
+  //     // go back to original page
+  //     this.paginator.pageIndex = this.oldIndex;
+  //     this.paginator.page.next({
+  //       pageIndex: this.oldIndex,
+  //       pageSize: this.paginator.pageSize,
+  //       length: this.paginator.length
+  //     });
+  //     return;
+  //   }
+
+  //   filterValue = filterValue.trim(); // Remove whitespace
+  //   filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  //   this.dataSource.filter = filterValue;
+  //   this.oldIndex = this.paginator.pageIndex;
+  //   this.paginator.firstPage();
+  // }
 
   applyFilter(filterValue: string) {
     if (!filterValue) {
       this.dataSource.filter = undefined;
+      // if(this.showDevModels) {
+      //   this.dataSource.filter = undefined;
+      // } else {
+      //   this.dataSource.filter = "production";
+      // }
+
+      // go back to original page
+      this.paginator.pageIndex = this.oldIndex;
+      this.paginator.page.next({
+        pageIndex: this.oldIndex,
+        pageSize: this.paginator.pageSize,
+        length: this.paginator.length
+      });
       return;
     }
 
-    // if(this.showDevModels) {
-    //   this.dataSource.filter = undefined;
-    //   return;
-    // } else {
-    //   this.dataSource.filter = "production";
-    //   return;
-    // }
-
-    // must rewrite the filterPredicate if I want to filter with OR and not AND
-    // this.dataSource.filterPredicate =
-    // (data, filter: string) => data || filter === 'all';
-
+    // let devprod = this.showDevModels ? "development" : "production";
+    // filterValue = filterValue.trim() + " " + devprod; // Remove whitespace
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+    this.oldIndex = this.paginator.pageIndex;
+    this.paginator.firstPage();
   }
-
 
 
 
@@ -371,7 +411,9 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     var gps = [];
     for (var i = 0; i < gocam.gpnames.length; i++) {
       if (!gocam.gpids[i]) {
-        console.error("warning, gocam gp without id !", gocam);
+        // I have made that a silent warning, since this is a problem with NEO:
+        // https://github.com/geneontology/neo/issues/32
+        // console.error("warning, gocam gp without id !", gocam);
         continue;
       }
       gps.push({
@@ -554,7 +596,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   isObject(val) {
-    return val instanceof Object && !Array.isArray(val); 
+    return val instanceof Object && !Array.isArray(val);
   }
 
   stringify(data) {
@@ -565,31 +607,31 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       if (field != "searchfield") {
 
         // if one of the field is an object (but not an array)
-        if(this.isObject(data[field])) {
+        if (this.isObject(data[field])) {
           str += this.stringify(data[field]);
 
-        // if one of the field is an array
+          // if one of the field is an array
         } else if (Array.isArray(data[field])) {
           let array = "";
           data[field].forEach(elt => {
-            if(this.isObject(elt)) {
+            if (this.isObject(elt)) {
               array += this.stringify(elt);
             } else {
               array += elt + "; ";
             }
           });
-          if(array.endsWith("; ")) {
-            array = "[" + array.substring(0, array.length - 2) + "]";
+          if (array.endsWith("; ")) {
+            array = "[" + array.substring(0, array.length - 3) + "]";
           }
-          if(array.length == 0) {
+          if (array.length == 0) {
             array = "[N/A]";
           }
           str += array + "\t";
 
-        // else
+          // else
         } else {
           if (data[field]) {
-            if(this.isObject(data[field])) {
+            if (this.isObject(data[field])) {
               str += this.stringify(data[field]);
             } else {
               str += data[field] + "\t";
@@ -607,22 +649,22 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
   customStringify(row) {
     var str = row.date + "\t" + row.gocam + "\t" + row.title;
-    if(row.bp && row.bp.length > 0) {
+    if (row.bp && row.bp.length > 0) {
       str += "\t" + row.bp.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
     } else {
       str += "\tN/A";
     }
-    if(row.mf && row.mf.length > 0) {
+    if (row.mf && row.mf.length > 0) {
       str += "\t" + row.mf.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
     } else {
       str += "\tN/A";
     }
-    if(row.cc && row.cc.length > 0) {
+    if (row.cc && row.cc.length > 0) {
       str += "\t" + row.cc.map(elt => { return elt.name + " (" + elt.id + ")" }).join("; ")
     } else {
       str += "\tN/A";
     }
-    if(row.gp && row.gp.length > 0) {
+    if (row.gp && row.gp.length > 0) {
       str += "\t" + row.gp.map(elt => { return elt.fullName + " (" + elt.id + ")" }).join("; ")
     } else {
       str += "\tN/A";
@@ -635,8 +677,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
     const el = document.createElement('textarea');
     el.value = this.customStringify(row);
-//    el.value = this.stringify(row);
-//    el.value = JSON.stringify(row);
+    //    el.value = this.stringify(row);
+    //    el.value = JSON.stringify(row);
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
@@ -655,6 +697,100 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     // document.body.removeChild(selBox);
 
   }
+
+  findSimilar(queryModel, max: number = 10) {
+    console.log("ask to search for models similar to ", queryModel);
+
+    let results = [];
+    let scoreA, scoreB, score;
+    this.models.forEach(model => {
+      scoreA = this.scoreModel(queryModel, model);
+      scoreB = this.scoreModel(model, queryModel);
+      score = (scoreA + scoreB) / 2.0;
+      // score = this.scoreModel(model, queryModel);
+
+      if (score >= 0.5) {
+        if (results.length < max) {
+          results.push({ "score": score, "gocam": model.gocam });
+        } else {
+          for (let i = 0; i < results.length; i++) {
+            if (results[i].score < score) {
+              results[i] = { "score": score, "gocam": model.gocam };
+              break;
+            }
+          }
+        }
+      }
+    });
+
+    console.log("RESULTS:");
+    let list = "";
+    results.forEach(elt => {
+      console.log(elt);
+      list += elt.gocam.substring(elt.gocam.lastIndexOf("/") + 1) + " OR ";
+    })
+
+    if (list.length > 0) {
+      list = list.substring(0, list.length - 3).trim();
+    }
+    this.searchFilter = list;
+
+    this.applyFilter(list);
+
+    window.scrollTo(0, 0);
+
+    return results;
+  }
+
+  scoreModel(model1, model2) {
+    var score = 0;
+    let divider = 0;
+
+    if ((model1["bp"] && model1["bp"].length > 0) || (model2["bp"] && model2["bp"].length > 0)) {
+      score += this.scoreGO(model1, model2, "bp");
+      divider++;
+    }
+
+    if ((model1["mf"] && model1["mf"].length > 0) || (model2["mf"] && model2["mf"].length > 0)) {
+      score += this.scoreGO(model1, model2, "mf");
+      divider++;
+    }
+
+    if ((model1["cc"] && model1["cc"].length > 0) || (model2["cc"] && model2["cc"].length > 0)) {
+      score += this.scoreGO(model1, model2, "cc");
+      divider++;
+    }
+
+    if (divider == 0)
+      return 0;
+    return score / divider;
+  }
+
+  scoreGO(model1, model2, type) {
+    var scorego = 0.0;
+    if (model1[type] && model1[type].length > 0
+      && model2[type] && model2[type].length > 0) {
+      for (let m1 = 0; m1 < model1[type].length; m1++) {
+        for (let m2 = 0; m2 < model2[type].length; m2++) {
+          if (model1[type][m1].id == model2[type][m2].id) {
+            scorego++;
+            break;
+          }
+        }
+      }
+      scorego /= model1[type].length;
+    }
+    return scorego;
+  }
+
+  extractGPid(gpuri) {
+    var id = gpuri;
+    if (id.indexOf("/") != -1) {
+      id = id.substring(id.lastIndexOf("/") + 1);
+    }
+    return id.trim();
+  }
+
 
 }
 

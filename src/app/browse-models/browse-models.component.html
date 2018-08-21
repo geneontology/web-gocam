@@ -43,7 +43,7 @@
         <mat-form-field style="display:inline-block;width:50%;min-width:20%;">
           <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keyup)="applyFilter($event.target.value)" placeholder="Filter"
             [(ngModel)]="searchFilter" style="margin:0;padding:0">
-          <mat-hint>Title, GO-Term (BP, MF, CC), Gene Product, PMID, Curator, Group</mat-hint>
+          <mat-hint>Title, GO-Term (BP, MF, CC), Gene Product, Species, PMID, Curator, Group</mat-hint>
         </mat-form-field>
 
         <!-- SELECT DISPLAYED COLUMNS -->
@@ -55,13 +55,18 @@
 
       </div>
 
-      <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" class="filter__paginator"></mat-paginator>
+      <button mat-raised-button *ngIf="searchFilter && searchFilter.length > 0" (click)="searchFilter = undefined; applyFilter(undefined);">
+        Reset
+      </button>
 
       <section class="toggleDev" *ngIf="auth.isAuthenticated()">
         Include Dev Models:
         <mat-slide-toggle (change)="onDevModelChange($event)">
         </mat-slide-toggle>
       </section>
+
+      <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" class="filter__paginator"></mat-paginator>
+
 
 
 
@@ -143,6 +148,16 @@
                   </a>
                 </span>
 
+                <!--
+                <span matTooltip="Find Similar Models" matTooltipPosition="after" [matTooltipShowDelay]="0.2">
+                    <button mat-button class="button-open" (click)="findSimilar(row)">
+                      <span>Similars &nbsp;
+                        <mat-icon>search</mat-icon>
+                      </span>
+                    </button>
+                </span>
+              -->
+                
                 <!-- workbench not suitable for production
                 <span matTooltip="Pathway Graph View" matTooltipPosition="after" [matTooltipShowDelay]="0.2">
                   <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">
@@ -238,6 +253,9 @@
               <span *ngFor="let gp of row.gp">
                 <a href="{{ gp.id }}" target="_blank" class="table-button color-gp button-gp">
                   {{ gp.fullName }}
+                  <!--
+                  {{ extractGPid(gp.id) }}
+                  -->
                   <!--
                   <img src="{{ '../assets/' + getSpeciesIcon(gp.species) + '.png' }}" class="gp-chip__logo">
                   -->

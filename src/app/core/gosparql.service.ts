@@ -16,14 +16,14 @@ import { SparqlUsers } from '../queries/sparql-users';
 import { SparqlPMIDs } from '../queries/sparql-pmids';
 import { QueryUtils } from '../queries/query-utils';
 
-import { environment } from '../../environments/environment';
 import { UtilsService } from './utils.service';
+import { UrlHandlerService } from './url-handler.service';
 
 
 @Injectable()
 export class GoSPARQLService {
 
-  baseUrl = environment.sparqlUrl;
+  baseUrl = this.urlHandler.getSPARQL();
 
   queryUtils = new QueryUtils();
 
@@ -47,7 +47,8 @@ export class GoSPARQLService {
 
 
   constructor(private httpClient: HttpClient,
-              private utils : UtilsService) { }
+              private utils : UtilsService,
+              private urlHandler : UrlHandlerService) { }
 
 
   submit(query: string): Observable<any> {

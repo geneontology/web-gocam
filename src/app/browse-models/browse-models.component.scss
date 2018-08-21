@@ -230,7 +230,7 @@ mat-hint {
 // //  position: absolute;
 //   bottom: 5px;
 //   left: 5px;
-  text-align: center;
+  text-align: left;
   padding: 5px;
 }
 
@@ -277,7 +277,7 @@ mat-hint {
     text-align: left;
 
     &__content {
-      min-height: 60%;
+//      min-height: 60%;
     }
   
     &__link {
@@ -289,8 +289,8 @@ mat-hint {
     }
 
     &__actions {
-//      background-color: red;
       padding: 10px;
+      padding-top: 0px;
     }
 
   }

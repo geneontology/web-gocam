@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { delay } from 'q';
-import { UtilsService } from '../../core/utils.service';
 import { GOCam } from '../../models/gocam';
+import { CurieUtilService } from '../../core/curie-util.service';
+
 
 @Component({
   selector: 'app-model',
@@ -24,8 +25,7 @@ export class ModelComponent implements OnInit {
 
   displayed: GOCam;
 
-  constructor(private utilsService : UtilsService) { 
-  }
+  constructor(private curieService: CurieUtilService) { }
 
   ngOnInit() {
     if(!this.animate)
@@ -57,7 +57,9 @@ export class ModelComponent implements OnInit {
 
 
   getViewUrl(gocam: string) {
-    return this.baseURL + this.utilsService.curieGOCam(gocam);
+    if(!gocam)
+      return "#";
+    return this.baseURL + this.curieService.getCurie(gocam);
   }
 
 }

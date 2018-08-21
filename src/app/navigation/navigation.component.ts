@@ -60,10 +60,11 @@ export class NavigationComponent implements OnInit {
   invalidFeedback = false;
 
   send(email, type, message) {
-    console.log("email.value: " + email.value + "\ntype.value: " + type.value + "\nmessage.value: " + message.value);
+    // console.log("email.value: " + email.value + "\ntype.value: " + type.value + "\nmessage.value: " + message.value);
     if(!type.value || message.value.length == 0) {
       this.invalidFeedback = true;
     } else {
+      this.auth.sendFeedback(this.fbs.find(elt => { return elt.value == type.value }).viewValue, email.value, message.value);
       this.pageDimmed = false;
     }
   }

@@ -26,23 +26,23 @@ export class UtilsService {
 
   
   
-  curieGOTerm(goterm: string) {
-    if(goterm.indexOf("/")) {
-      goterm = goterm.substring(goterm.lastIndexOf("/") + 1).trim();
-    }
-    goterm = goterm.replace("_", ":");
-    return goterm;
-  }  
+  // curieGOTerm(goterm: string) {
+  //   if(goterm.indexOf("/")) {
+  //     goterm = goterm.substring(goterm.lastIndexOf("/") + 1).trim();
+  //   }
+  //   goterm = goterm.replace("_", ":");
+  //   return goterm;
+  // }  
   
-  curieGOCam(model: string) {
-    if(model.indexOf("/")) {
-      model = model.substring(model.lastIndexOf("/") + 1).trim();
-    }
-    if(!model.startsWith("gomodel:")) {
-      model = "gomodel:" + model;
-    }
-    return model;
-  }  
+  // curieGOCam(model: string) {
+  //   if(model.indexOf("/")) {
+  //     model = model.substring(model.lastIndexOf("/") + 1).trim();
+  //   }
+  //   if(!model.startsWith("gomodel:")) {
+  //     model = "gomodel:" + model;
+  //   }
+  //   return model;
+  // }  
 
 
   concat(a, b) {

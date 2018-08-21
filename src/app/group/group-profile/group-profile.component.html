@@ -52,7 +52,7 @@
           <ng-container matColumnDef="gocams">
             <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; margin:auto;">NB GO-CAMs</mat-header-cell>
             <mat-cell *matCellDef="let row" style="text-align: center">
-              <a [routerLink]="['/browse', row.orcid]">{{ row.gocams }}</a>
+              <a [routerLink]="['/browse', row.name]">{{ row.gocams }}</a>
             </mat-cell>
           </ng-container>
 

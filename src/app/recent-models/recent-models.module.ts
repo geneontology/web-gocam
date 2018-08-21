@@ -17,6 +17,9 @@ import { ModelsModule } from '../models/models.module';
   exports: [
     ModelListComponent
   ],
+  providers: [
+
+  ],
   declarations: [ModelListComponent, ModelComponent]
 })
 export class RecentModelsModule { }

@@ -96,7 +96,7 @@ export class ModelListComponent implements OnInit, OnDestroy {
     }
 
     // data not yet loaded
-    if(!this.displayedSubjects || this.displayedSubjects.length == 0) {
+    if(!this.displayedSubjects || this.displayedSubjects.length == 0 || !this.models || this.models.length == 0) {
       return;
     }
 
