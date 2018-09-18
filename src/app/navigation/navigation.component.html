@@ -41,7 +41,12 @@
           -->  
 
       <div class="round-button u-background-color-secondary">
-        <a (click)="pageDimmed = true" matTooltip="Send Us Feedbacks" [matTooltipShowDelay]="prefs.toolTipDelay">
+        <!-- Removing the feedback widget 
+        <a (click)="pageDimmed = true" matTooltip="Send Us Feedback" [matTooltipShowDelay]="prefs.toolTipDelay">
+          <mat-icon class="u-color-white">comment</mat-icon>
+        </a>
+        -->
+        <a href="http://help.geneontology.org" target="blank" matTooltip="Send Us Feedback" [matTooltipShowDelay]="prefs.toolTipDelay">
           <mat-icon class="u-color-white">comment</mat-icon>
         </a>
       </div>
@@ -52,12 +57,13 @@
         </a>
       </div>
 
-      <!--
+      
+      <!-- Hiding Login/Logout mockup feature
       <div class="round-button u-background-color-secondary">
           <a (click)="onAuthenticated()" matTooltip="Login / Logout" [matTooltipShowDelay]="prefs.toolTipDelay">
             <mat-icon class="u-color-white">person</mat-icon>
           </a>
-        </div>  
+      </div>  
       -->
 
       <div class="round-button u-background-color-secondary">
@@ -74,8 +80,8 @@
 
     </nav>
 
-    <div class="dimmer" [ngStyle]="{ 'height': pageDimmed? '100%' : '0%', 'opacity': pageDimmed? 1 : 0, 'top': pageDimmed ? 0 : '50%' }">
-      
+    <!-- Removing the feedback widget 
+    <div class="dimmer" [ngStyle]="{ 'height': pageDimmed? '100%' : '0%', 'opacity': pageDimmed? 1 : 0, 'top': pageDimmed ? 0 : '50%' }">      
 
       <mat-card style="width:80%; max-width: 600px; margin:auto;top:50%; transform: translateY(-50%)" *ngIf="pageDimmed">
 
@@ -124,6 +130,7 @@
         </mat-card>      
 
     </div>
+    -->
 
 
 

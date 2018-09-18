@@ -52,7 +52,7 @@ export class PreferencesService {
     }
 
     this.minHeight = "calc(300px + 70vw)";
-    console.log("=> new height: " + this.minHeight);
+//    console.log("=> new height: " + this.minHeight);
   }
 
   getValue(): number {

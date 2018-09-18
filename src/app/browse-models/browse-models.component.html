@@ -1,12 +1,19 @@
 <mat-card class="mat-elevation-z5">
 
+  <div class="top-right">
+      <button mat-raised-button color=primary routerLink="/">
+        Home Page
+        <mat-icon color=white>home</mat-icon>
+    </button>
+  </div>
+
   <mat-card-header>
     <mat-card-title>
       <h1 class="heading-primary">
         {{ dataSource?.filteredData?.length }} Available GO-CAMs
       </h1>
     </mat-card-title>
-    <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ utils.lastUpdate() | date: 'MMMM, yyyy' }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -29,11 +36,16 @@
       -->
       </div>
     </div>
+    
+
+    <p class="u-margin-vertical-xsmall" [hidden]="!isLoading">
+      <span>
+      <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the content of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association between these entities, explore each model graph by clicking the View button</i>
+    </span>
+    </p>
 
 
-    <!-- can not use the *ngIf directive with table !
-
-    -->
+    <!-- TABLE SECTION -->
     <div [hidden]="isLoading">
 
       <!-- FILTER SECTION -->
@@ -54,20 +66,28 @@
         </mat-form-field>
 
       </div>
+  
 
       <button mat-raised-button *ngIf="searchFilter && searchFilter.length > 0" (click)="searchFilter = undefined; applyFilter(undefined);">
         Reset
       </button>
 
+      <!-- INCLUDE DEV MODEL MOCKUP
       <section class="toggleDev" *ngIf="auth.isAuthenticated()">
         Include Dev Models:
         <mat-slide-toggle (change)="onDevModelChange($event)">
         </mat-slide-toggle>
       </section>
+      -->
 
       <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" class="filter__paginator"></mat-paginator>
 
-
+      <p class="u-margin-vertical-xsmall">
+          <span>
+          <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the content of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association between these entities, explore each model graph by clicking the View button</i>
+        </span>
+        </p>
+    
 
 
       <!-- TABLE SECTION -->
@@ -104,11 +124,6 @@
                 </a>
 
 
-                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" *ngIf="auth.isAuthenticated()">
-                  <span class="row__view-edit" matTooltip="Edit Model" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
-                    <mat-icon class="row__open">edit</mat-icon>
-                  </span>
-                </a>
 
 
                 <div class="row__articles__container">
@@ -120,6 +135,13 @@
                     </span>
                   </span>
                 </div>
+
+                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" *ngIf="auth.isAuthenticated()">
+                  <span class="row__view-edit" matTooltip="Edit Model" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
+                    <mat-icon class="row__open">edit</mat-icon>
+                  </span>
+                </a>
+                
               </div>
 
               <!--

@@ -311,3 +311,16 @@
     background-color: $color-quaternary;
     background: $color-quaternary;
 }
+
+
+.padding-left-small {
+    padding-left: $value-small !important;
+}
+
+.padding-left-xsmall {
+    padding-left: $value-xsmall !important;
+}
+
+.text-centered {
+    text-align: center !important;
+}

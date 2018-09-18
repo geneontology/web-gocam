@@ -14,7 +14,7 @@
     <mat-card-title>
       <h1 class="heading-primary">Causal Activity Models (CAMs)</h1>
     </mat-card-title>
-    <mat-card-subtitle>{{ utils.lastUpdate() }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ utils.lastUpdate() | date: 'MMMM, yyyy' }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -37,17 +37,25 @@
           <img src="./assets/GO-CAM Principle.jpg" class="small-border" style="width:100%;" alt="GO-CAM Principle">
         </mat-tab>
 
-        <mat-tab label="NEDD4 Example">
+        <mat-tab label="NEDD4 Illustration">
           <a href="{{ urlHandler.getDefaultView('gomodel:5323da1800000002') }}" target="_blank" alt="GO-CAM Example: NEDD4">
             <img src="./assets/NEDD4 Example.jpg" class="small-border" style="width:100%;">
           </a>
         </mat-tab>
 
+        <mat-tab label="NEDD4 GO-CAM">
+          <a href="{{ urlHandler.getDefaultView('gomodel:5323da1800000002') }}" target="_blank" alt="GO-CAM Example: NEDD4">
+            <img src="./assets/NEDD4-noctua.png" class="small-border" style="width:100%;">
+          </a>
+        </mat-tab>
+  
+        <!--
         <mat-tab label="DLK-1 Example">
           <a href="{{ urlHandler.getDefaultView('gomodel:57c82fad00000847') }}" target="_blank" alt="GO-CAM Example: DLK-1">
             <img src="./assets/DLK1-model.jpg" class="small-border" style="width:100%;">
           </a>
         </mat-tab>
+        -->
 
       </mat-tab-group>
 
@@ -81,12 +89,19 @@
       <mat-icon color=white>search</mat-icon>
     </button>
 
+    &nbsp;
+    <button mat-button routerLink="/docs">
+      Documentation
+      <mat-icon color=primary>school</mat-icon>
+    </button>
+
     <!-- mat-button vs mat-raised-button -->
     <button mat-button [matMenuTriggerFor]="shareMenu">
       Share
       <mat-icon color=primary>share</mat-icon>
     </button>
 
+  
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>
       <share-button button="twitter" text="Tweet" [showText]="true" tags="GO" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>

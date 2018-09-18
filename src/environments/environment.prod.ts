@@ -51,6 +51,8 @@ export const environment = {
   docGOCAM : "http://wiki.geneontology.org/index.php/GO-CAM",
   docResearch : "http://wiki.geneontology.org/index.php/cam/docs/research",
   docCuration : "http://wiki.geneontology.org/index.php/cam/docs/curation",
-  docDevelopment : "http://wiki.geneontology.org/index.php/cam/docs/development"
+  docDevelopment : "http://wiki.geneontology.org/index.php/cam/docs/development",
+
+  zenodoRelease: "https://zenodo.org/api/records/1410625"
 
 };

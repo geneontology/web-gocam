@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '../../../node_modules/@angular/common/http';
+
+import { environment } from '../../environments/environment';
 
 import * as jsyaml from "js-yaml";
 
 
 @Injectable()
-export class UtilsService {
+export class UtilsService {  
+  
+  releaseMetaData: any;
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { 
+      this.httpClient.get(environment.zenodoRelease)
+      .subscribe(data => {
+        this.releaseMetaData = data;
+      })      
+  }
 
 
   extractORCID(orcid: string) {
@@ -24,26 +34,6 @@ export class UtilsService {
     return url.substring(url.lastIndexOf("/") + 1);
   }
 
-  
-  
-  // curieGOTerm(goterm: string) {
-  //   if(goterm.indexOf("/")) {
-  //     goterm = goterm.substring(goterm.lastIndexOf("/") + 1).trim();
-  //   }
-  //   goterm = goterm.replace("_", ":");
-  //   return goterm;
-  // }  
-  
-  // curieGOCam(model: string) {
-  //   if(model.indexOf("/")) {
-  //     model = model.substring(model.lastIndexOf("/") + 1).trim();
-  //   }
-  //   if(!model.startsWith("gomodel:")) {
-  //     model = "gomodel:" + model;
-  //   }
-  //   return model;
-  // }  
-
 
   concat(a, b) {
     return a + "," + b;
@@ -53,8 +43,14 @@ export class UtilsService {
     return jsyaml.load(text);
   }
 
+  /*
+  TODO: I am fetching the last date from zenodo, but we should have a better strategy just in case zenodo is not chosen or used
+  Another strategy: http://current.geneontology.org/notes.txt
+  */
   lastUpdate(): string {
-    return "July, 2018";
+    if(!this.releaseMetaData)
+      return "";
+    return this.releaseMetaData.metadata.version;
   }
 
   genericSPARQLJSON(json) {

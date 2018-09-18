@@ -25,13 +25,10 @@ export class CurieUtilService {
         this.httpClient.get("https://raw.githubusercontent.com/prefixcommons/biocontext/master/registry/go_context.jsonld")
         .map(data => data)
         .subscribe(data => {
-//            let date = new Date();
             this.goContext = data;
             let map = CurieUtil.parseContext(this.goContext);
             this.curie = new CurieUtil.CurieUtil(map);
             this.ready = true;
-            // let end = new Date();
-            // console.log("Time to create Curie Util: " , end.getTime() - date.getTime());
         })
     }
 

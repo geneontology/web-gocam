@@ -515,3 +515,20 @@ mat-hint {
 // .mat-icon {
 //   font-size: $font-size-small !important;
 // }
+
+
+mat-raised-button {
+  position: relative;
+  transform: translateY(15px);
+
+  &:hover {
+    transform: translateY(1px);
+  }
+}
+
+
+.top-right {
+  position:absolute;
+  top: calc(3px + 1vw);
+  right: calc(3px + 1vw);
+}

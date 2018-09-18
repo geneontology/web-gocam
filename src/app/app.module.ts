@@ -25,6 +25,8 @@ import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { GroupModule } from './group/group.module';
 import { ProcessModule } from './process/process.module';
+import { RecentModelsModule } from './recent-models/recent-models.module';
+import { DocumentationModule } from './documentation/documentation.module';
 
 
 import { ChartsModule } from 'ng2-charts';
@@ -34,7 +36,6 @@ import { QueryModule } from './query/query.module';
 import {FlexLayoutModule} from "@angular/flex-layout";
 
 import * as config from '../gocam-config.json';
-import { RecentModelsModule } from './recent-models/recent-models.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     SharedMaterialModule,
     UserModule,
     GroupModule,
+    DocumentationModule,
     ProcessModule,
     QueryModule,
     

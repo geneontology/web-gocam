@@ -1,0 +1,16 @@
+p {
+    text-align: justify;
+}
+
+ol {
+    font-size: calc(4px + 0.9vw);
+    margin-bottom: calc(5px + .6vw);
+}
+
+
+
+.top-right {
+    position:absolute;
+    top: calc(3px + 1vw);
+    right: calc(3px + 1vw);
+}
