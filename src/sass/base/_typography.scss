@@ -32,6 +32,34 @@ a:hover {
     font-weight: 700;
 }
 
+
+.link-underline-animated {
+    color: $color-primary;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+
+.link-underline-animated:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 1px;
+    left: 50%;
+    position: absolute;
+    background: $color-primary;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.link-underline-animated:hover:after { 
+    width: 100%; 
+    left: 0; 
+}
+  
+
+
 li {
     list-style-type: square;
     margin-left: 1.5rem;
