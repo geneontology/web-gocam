@@ -124,10 +124,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
     if (!this.cache.hasDetailedModels()) {
       this.fillWithGOs(null);
     } else {
-      this.dataSource = new MatTableDataSource(this.models);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.setFilterPredicates();
+      // this.dataSource = new MatTableDataSource(this.models);
+      // this.dataSource.paginator = this.paginator;
+      // this.dataSource.sort = this.sort;
+      // this.setFilterPredicates();
     }
   }
 
@@ -364,6 +364,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   // }
 
   applyFilter(filterValue: string) {
+    // console.log("applyFilter(" +  filterValue + ") : current filter was <" + this.dataSource.filter + ">");
     if (!filterValue) {
       this.dataSource.filter = undefined;
       // if(this.showDevModels) {
