@@ -5,7 +5,9 @@
     </div>
     <mat-card-title>Profile: {{group}}</mat-card-title>
     <mat-card-subtitle>Site:
-      <a href={{groupMeta[0].url}} *ngIf="groupMeta" target="_blank">{{groupMeta[0].url}}</a>
+      &nbsp;
+      <a href={{groupMeta[0].url}} *ngIf="groupMeta" target="_blank" class="a-displacement u-font-size-small">{{groupMeta[0].url}}</a>
+    
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -17,6 +19,24 @@
       Loading &nbsp;
       <mat-spinner color=accent [diameter]="20" style="display: inline-block; vertical-align:middle"></mat-spinner>
     </div>
+
+
+    <p class="u-margin-bottom-small">
+      <span class="u-vertical-bar-left"></span>
+      <a [routerLink]="['/browse', group]" class="a-displacement a-font-weight">
+        <span style="display: inline-block">See all GO-CAMs produced by {{ group }}
+          <mat-icon class="model__link__icon" style="vertical-align: bottom;">open_in_new</mat-icon>
+        </span>
+      </a>
+    </p>
+
+
+    <p>
+      <mat-icon color=primary>info</mat-icon> &nbsp;
+      <i style="vertical-align:super">
+        access user profile by clicking their names and access their models by clicking their associated number of GO-CAMs
+      </i>
+    </p>
 
 
     <mat-accordion *ngIf="groupMeta" class="my-headers-align">
@@ -68,10 +88,10 @@
       </mat-expansion-panel>
     </mat-accordion>
 
+
+    <br>
   </mat-card-content>
 </mat-card>
-
-
 
 
 

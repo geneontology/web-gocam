@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { CytoscapeService } from '../../core/cytoscape-service';
 
 @Component({
   selector: 'app-introduction',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntroductionComponent implements OnInit {
 
-  constructor() { }
+  cytoscape;
 
-  ngOnInit() {
+  zoomEnabled = true;
+
+  constructor(private cytoService: CytoscapeService) {
+    this.cytoscape = cytoService.getCytoscape();
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.cytoscape.resize();
+  }
+
+
+  ngOnInit() {
+
+  }
+
+
+
 }
+

@@ -16,6 +16,7 @@ import { PubmedRestService } from './pubmed-rest.service';
 import { ModelsModule } from '../models/models.module';
 import { QueriesModule } from '../queries/queries.module';
 import { CurieUtilService } from './curie-util.service';
+import { CytoscapeService } from './cytoscape-service';
 
 @NgModule({
   
@@ -40,7 +41,8 @@ import { CurieUtilService } from './curie-util.service';
     UrlHandlerService,
     UtilsService,
     CacheService,
-    CurieUtilService
+    CurieUtilService,
+    CytoscapeService
   ],
 
   exports: [
