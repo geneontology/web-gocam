@@ -15,7 +15,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
 
   dataSource: MatTableDataSource<{}>;
-  jsHeader = ["name", "gocams", "bps"];
+  jsHeader = ["name", "gocams"];
 
   group;
   groupMeta;
