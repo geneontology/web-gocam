@@ -23,7 +23,7 @@
 
     <p class="u-margin-bottom-small">
       <span class="u-vertical-bar-left"></span>
-      <a [routerLink]="['/browse', group]" class="a-displacement a-font-weight">
+      <a [routerLink]="['/browse', 'g:' + group]" class="a-displacement a-font-weight">
         <span style="display: inline-block">See all GO-CAMs produced by {{ group }}
           <mat-icon class="model__link__icon" style="vertical-align: bottom;">open_in_new</mat-icon>
         </span>
@@ -72,7 +72,7 @@
           <ng-container matColumnDef="gocams">
             <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center; margin:auto;">NB GO-CAMs</mat-header-cell>
             <mat-cell *matCellDef="let row" style="text-align: center">
-              <a [routerLink]="['/browse', row.name]">{{ row.gocams }}</a>
+              <a [routerLink]="['/browse', 'u:' + row.name + ' g:' + group]">{{ row.gocams }}</a>
             </mat-cell>
           </ng-container>
 

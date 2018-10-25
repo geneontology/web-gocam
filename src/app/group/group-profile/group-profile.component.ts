@@ -16,15 +16,19 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<{}>;
   jsHeader = ["name", "gocams", "bps"];
-  
+
   group;
   groupMeta;
 
+  newGroupMeta;
+
+  mapCuratorGOCams;
+
   constructor(private dataService: AbstractDataService,
-              private urlHandler: UrlHandlerService,
-              public utils: UtilsService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+    private urlHandler: UrlHandlerService,
+    public utils: UtilsService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -33,35 +37,74 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
 
       this.dataService.getGroupMetaData(this.group).subscribe(json => {
         this.groupMeta = json;
+        // this.dataSource = new MatTableDataSource(this.groupMeta);
+        // this.isLoading = false;
+              //  console.log("groupmeta: ", this.groupMeta);
+      });
+
+      this.dataService.getGroupModelList(this.group).subscribe(json => {
+        this.newGroupMeta = json;
+        console.log("ori: ", this.newGroupMeta);
+
+        this.mapCuratorGOCams = new Map();
+        var mapOrcids = new Map();
+        for (let row of this.newGroupMeta) {
+          for (var i = 0; i < row.names.length; i++) {
+            var name = row.names[i];
+            var set;
+            if (this.mapCuratorGOCams.has(name)) {
+              set = this.mapCuratorGOCams.get(name);
+            } else {
+              set = new Set();
+              this.mapCuratorGOCams.set(name, set);
+            }
+            set.add(row.gocam);
+
+            if(!mapOrcids.has(name)) {
+              mapOrcids.set(name, row.orcids[i]);
+            }
+          }
+        }
+
+        console.log("map: ", this.mapCuratorGOCams);
+
+        var newJson = [];
+
+        Array.from(this.mapCuratorGOCams.entries()).forEach(([key, value])=> {
+          newJson.push({ name: key, orcid: mapOrcids.get(key), gocams: value.size, bps: "N/A" } );
+        })
+                        
+        console.log("json: ", newJson);
+        this.groupMeta = newJson;
         this.dataSource = new MatTableDataSource(this.groupMeta);
         this.isLoading = false;
-//        console.log(this.groupMeta);
-      });
-      /*
-      this.sparqlService.getGroupMetaData(this.group).subscribe(data => {
-        var json = JSON.parse(JSON.stringify(data));
-        json = json._body;
-        this.groupMeta = JSON.parse(json);
-        console.log(this.groupMeta);
-      });
-      */
+
+      })
     });
   }
 
   ngOnDestroy(): void {
-//    this.sub.unsubscribe();
-  }  
+    //    this.sub.unsubscribe();
+  }
 
   nbGOCAMs() {
-    var nb = 0;
-    this.groupMeta.forEach(element => {
-      nb += +element.gocams;      
-    });
-    return nb;
+    return this.newGroupMeta.length;
+    // var nb = 0;
+    // this.groupMeta.forEach(element => {
+    //   nb += +element.gocams;      
+    // });
+    // return nb;
   }
 
   nbContributors() {
-    return this.groupMeta.length;
+    var set = new Set();
+    this.newGroupMeta.forEach(element => {
+      element.names.forEach(name => {
+        set.add(name);
+      });
+    });
+    return set.size;
+    //    return this.groupMeta.length;
   }
 
 }

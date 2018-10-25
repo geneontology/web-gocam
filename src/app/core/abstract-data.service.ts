@@ -58,6 +58,29 @@ export class AbstractDataService {
         return this.gosparql.getMostRecents(nb);
     }
 
+
+    getGroupModelList(group: string): Observable<GOCam[]> {
+        if (this.useApi) {
+            return this.gorest.getGroupModelList(group);
+        }
+        return this.gosparql.getGroupModelList(group);
+    }
+
+    getUserModelList(user: string): Observable<GOCam[]> {
+        if (this.useApi) {
+            return this.gorest.getUserModelList(user);
+        }
+        return this.gosparql.getUserModelList(user);
+    }
+
+    getPMIDModelList(pmid: string): Observable<GOCam[]> {
+        if (this.useApi) {
+            return this.gorest.getPMIDModelList(pmid);
+        }
+        return this.gosparql.getPMIDModelList(pmid);
+    }
+
+
     /**
      * Return meta data on GO-Terms associated to a list of gocams
      * @param gocams a list of gocams . If null, send the GO-Terms to all GO-CAMs
@@ -164,6 +187,6 @@ export class AbstractDataService {
         }
         return this.gosparql.getGroupMetaData(shorthand);
     }
-    
+
 
 }

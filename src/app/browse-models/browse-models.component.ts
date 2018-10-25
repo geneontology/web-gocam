@@ -238,17 +238,17 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
       if (tabelt.names && tabelt.names.length > 0) {
         tabelt.names.forEach(elt => {
-          tabelt.searchfield += elt + " ";
+          tabelt.searchfield += "u:" + elt + " ";
         });
       }
       if (tabelt.orcids && tabelt.orcids.length > 0) {
         tabelt.orcids.forEach(elt => {
-          tabelt.searchfield += elt + " ";
+          tabelt.searchfield += "o:" + elt + " ";
         });
       }
       if (tabelt.groupnames && tabelt.groupnames.length > 0) {
         tabelt.groupnames.forEach(elt => {
-          tabelt.searchfield += elt + " ";
+          tabelt.searchfield += "g:" + elt + " ";
         });
       }
 

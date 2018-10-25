@@ -77,6 +77,24 @@ export class GoSPARQLService {
       .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
   }
 
+  getGroupModelList(group: string): Observable<GOCam[]> {
+    let query = this.sparqlGroups.GroupModelList(group);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
+  }
+
+  getUserModelList(user: string): Observable<GOCam[]> {
+    let query = this.sparqlUsers.UserModelList(user);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
+  }
+
+  getPMIDModelList(pmid: string): Observable<GOCam[]> {
+    let query = this.sparqlPMIDs.PMIDModelList(pmid);
+    return this.httpClient.get(this.baseUrl + query)
+      .map(data => this.queryUtils.transformArray(data['results']['bindings'], this.keysArrayModels));
+  }
+
   getMostRecents(nb: number): Observable<GOCam[]> {
     let query = this.sparqlModels.ModelList(0, nb);
     return this.httpClient.get(this.baseUrl + query)

@@ -45,6 +45,20 @@ export class GoRESTService {
       .map(res => res);
   }
 
+  getGroupModelList(group: string): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models?group=' + group)
+      .map(res => res);
+  }
+
+  getUserModelList(user: string): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models?user=' + user)
+      .map(res => res);
+  }
+
+  getPMIDModelList(pmid: string): Observable<GOCam[]> {
+    return this.httpClient.get<[GOCam]>(this.baseUrl + 'models?pmid=' + pmid)
+      .map(res => res);
+  }
 
 
   models = [];
