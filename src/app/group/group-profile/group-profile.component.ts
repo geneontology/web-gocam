@@ -105,14 +105,15 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   }
 
   nbContributors() {
-    if(!this.newGroupMeta) return 'N/A';
-    var set = new Set();
-    this.newGroupMeta.forEach(element => {
-      element.names.forEach(name => {
-        set.add(name);
-      });
-    });
-    return set.size;
+    if(!this.mapCuratorGOCams) return 'N/A';
+    return this.mapCuratorGOCams.size;
+    // var set = new Set();
+    // this.newGroupMeta.forEach(element => {
+    //   element.names.forEach(name => {
+    //     set.add(name);
+    //   });
+    // });
+    // return set.size;
     //    return this.groupMeta.length;
   }
 
