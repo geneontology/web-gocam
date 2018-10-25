@@ -37,49 +37,56 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
 
       this.dataService.getGroupMetaData(this.group).subscribe(json => {
         this.groupMeta = json;
-        // this.dataSource = new MatTableDataSource(this.groupMeta);
-        // this.isLoading = false;
-              //  console.log("groupmeta: ", this.groupMeta);
-      });
 
-      this.dataService.getGroupModelList(this.group).subscribe(json => {
-        this.newGroupMeta = json;
-        console.log("ori: ", this.newGroupMeta);
+        // console.log("groupmeta: ", this.groupMeta);
 
-        this.mapCuratorGOCams = new Map();
-        var mapOrcids = new Map();
-        for (let row of this.newGroupMeta) {
-          for (var i = 0; i < row.names.length; i++) {
-            var name = row.names[i];
-            var set;
-            if (this.mapCuratorGOCams.has(name)) {
-              set = this.mapCuratorGOCams.get(name);
-            } else {
-              set = new Set();
-              this.mapCuratorGOCams.set(name, set);
-            }
-            set.add(row.gocam);
+        this.dataService.getGroupModelList(this.group).subscribe(json => {
+          this.newGroupMeta = json;
+          // console.log("ori: ", this.newGroupMeta);
+  
+          this.mapCuratorGOCams = new Map();
+          var mapOrcids = new Map();
+          for (let row of this.newGroupMeta) {
+            for (var i = 0; i < row.names.length; i++) {
+              var name = row.names[i];
 
-            if(!mapOrcids.has(name)) {
-              mapOrcids.set(name, row.orcids[i]);
+              if(!this.groupMeta.find(elt => {
+                return elt.name == name;
+              })) continue;
+
+              var set;
+              if (this.mapCuratorGOCams.has(name)) {
+                set = this.mapCuratorGOCams.get(name);
+              } else {
+                set = new Set();
+                this.mapCuratorGOCams.set(name, set);
+              }
+              set.add(row.gocam);
+  
+              if(!mapOrcids.has(name)) {
+                mapOrcids.set(name, row.orcids[i]);
+              }
             }
           }
-        }
-
-        console.log("map: ", this.mapCuratorGOCams);
-
-        var newJson = [];
-
-        Array.from(this.mapCuratorGOCams.entries()).forEach(([key, value])=> {
-          newJson.push({ name: key, orcid: mapOrcids.get(key), gocams: value.size, bps: "N/A" } );
+  
+          // console.log("map: ", this.mapCuratorGOCams);
+  
+          var newJson = [];
+  
+          Array.from(this.mapCuratorGOCams.entries()).forEach(([key, value])=> {
+            newJson.push({ name: key, orcid: mapOrcids.get(key), gocams: value.size, bps: "N/A" } );
+          })
+                          
+          // console.log("json: ", newJson);
+          this.groupMeta = newJson;
+          this.dataSource = new MatTableDataSource(this.groupMeta);
+          this.isLoading = false;
+  
         })
-                        
-        console.log("json: ", newJson);
-        this.groupMeta = newJson;
-        this.dataSource = new MatTableDataSource(this.groupMeta);
-        this.isLoading = false;
 
-      })
+      });
+
+
     });
   }
 
@@ -88,6 +95,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   }
 
   nbGOCAMs() {
+    if(!this.newGroupMeta) return 'N/A';
     return this.newGroupMeta.length;
     // var nb = 0;
     // this.groupMeta.forEach(element => {
@@ -97,6 +105,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   }
 
   nbContributors() {
+    if(!this.newGroupMeta) return 'N/A';
     var set = new Set();
     this.newGroupMeta.forEach(element => {
       element.names.forEach(name => {
