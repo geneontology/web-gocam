@@ -61,7 +61,7 @@
 
     <p class="u-margin-bottom-small">
         <span class="u-vertical-bar-left"></span>
-        <a [routerLink]="['/browse', userMeta?.name]" class="a-displacement a-font-weight">
+        <a [routerLink]="['/browse', 'u:' + userMeta?.name]" class="a-displacement a-font-weight">
           <span style="display: inline-block">See all GO-CAMs produced by {{ userMeta?.name }}
             <mat-icon class="model__link__icon" style="vertical-align: bottom;">open_in_new</mat-icon>
           </span>
