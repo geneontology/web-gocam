@@ -53,6 +53,6 @@ export const environment = {
   docCuration : "http://wiki.geneontology.org/index.php/cam/docs/curation",
   docDevelopment : "http://wiki.geneontology.org/index.php/cam/docs/development",
 
-  zenodoRelease: "https://zenodo.org/api/records/1410625"
+  zenodoRelease: "https://zenodo.org/api/records/1205166"
 
 };
