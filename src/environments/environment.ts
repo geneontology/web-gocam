@@ -38,8 +38,8 @@ export const environment = {
   goContext : "https://github.com/prefixcommons/biocontext/blob/master/registry/go_context.jsonld",
 
   // Download URL
-  gocamTTL : "https://s3.us-east-2.amazonaws.com/noctua.dev/GO-CAMs.ttl.gz",
-  gocamJNL : "https://s3.us-east-2.amazonaws.com/noctua.dev/GO-CAMs-blazegraph.jnl.gz",
+  gocamTTL : "https://s3-us-west-1.amazonaws.com/www.geneontology.cloud/GO-CAMs.ttl.zip",
+  gocamJNL : "https://s3-us-west-1.amazonaws.com/www.geneontology.cloud/GO-CAMs-blazegraph.jnl.zip",
   gocamSIF : "#",
   gocamCTAB : "#",
 
