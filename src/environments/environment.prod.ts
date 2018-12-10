@@ -11,7 +11,7 @@ export const environment = {
   separator : "@@",
 
   // API Documentation
-  swaggerUrl : "https://app.swaggerhub.com/apis/geneontology/gosparql",
+  swaggerUrl : "https://app.swaggerhub.com/apis-docs/geneontology/gosparql",
 
   // External URL to explore a GO-Term or GO-CAM
   noctuaUrl :  "http://noctua.geneontology.org/",
