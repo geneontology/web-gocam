@@ -46,7 +46,7 @@
     </span>
 
     <span matTooltip="Download Models as a SIF file" [matTooltipShowDelay]="prefs.toolTipDelay">
-      <button mat-button (click)="download(dtype.sif)" disabled>
+      <button mat-raised-button (click)="download(dtype.sif)">
         SIF
         <mat-icon>get_app</mat-icon>
       </button>

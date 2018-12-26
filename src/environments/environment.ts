@@ -40,7 +40,7 @@ export const environment = {
   // Download URL
   gocamTTL : "https://s3-us-west-1.amazonaws.com/www.geneontology.cloud/GO-CAMs.ttl.zip",
   gocamJNL : "https://s3-us-west-1.amazonaws.com/www.geneontology.cloud/GO-CAMs-blazegraph.jnl.zip",
-  gocamSIF : "#",
+  gocamSIF : "https://s3-us-west-1.amazonaws.com/www.geneontology.cloud/GO-CAMs.sif.zip",
   gocamCTAB : "#",
 
   // Pages of Interest
