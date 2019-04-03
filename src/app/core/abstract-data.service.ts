@@ -37,11 +37,13 @@ export class AbstractDataService {
         return this.gosparql.submit(query);
     }
 
-    getModelList(): Observable<GOCam[]> {
-        if (this.useApi) {
-            return this.gorest.getModelList();
-        }
-        return this.gosparql.getModelList();
+    getModelList(): Observable<GOCam[]> {    
+        return this.gorest.TEMPLIST();
+        // initial version fetching from the API
+        // if (this.useApi) {
+        //     return this.gorest.getModelList();
+        // }
+        // return this.gosparql.getModelList();
     }
 
     getModelListRange(start: number, size: number): Observable<GOCam[]> {
@@ -93,10 +95,12 @@ export class AbstractDataService {
     }
 
     getAllModelsGOs(): Observable<GOCamGO[]> {
-        if (this.useApi) {
-            return this.gorest.getAllModelsGOs();
-        }
-        return this.gosparql.getAllModelsGOs();
+        return this.gorest.TEMPLISTGO();
+        // initial version fetching from the API
+        // if (this.useApi) {
+        //     return this.gorest.getAllModelsGOs();
+        // }
+        // return this.gosparql.getAllModelsGOs();
     }
 
     /**
@@ -111,10 +115,12 @@ export class AbstractDataService {
     }
 
     getAllModelsGPs(): Observable<GOCamGP[]> {
-        if (this.useApi) {
-            return this.gorest.getAllModelsGPs();
-        }
-        return this.gosparql.getAllModelsGPs();
+        return this.gorest.TEMPLISTGP();
+        // initial version fetching from the API
+        // if (this.useApi) {
+        //     return this.gorest.getAllModelsGPs();
+        // }
+        // return this.gosparql.getAllModelsGPs();
     }
 
     /**
@@ -129,10 +135,12 @@ export class AbstractDataService {
     }
 
     getAllModelsPMIDs(): Observable<GOCamPMID[]> {
-        if (this.useApi) {
-            return this.gorest.getAllModelsPMIDs();
-        }
-        return this.gosparql.getAllModelsPMIDs();
+        return this.gorest.TEMPLISTPMID();
+        // initial version fetching from the API
+        // if (this.useApi) {
+        //     return this.gorest.getAllModelsPMIDs();
+        // }
+        // return this.gosparql.getAllModelsPMIDs();
     }
 
 

@@ -61,11 +61,13 @@ export class UrlHandlerService {
   getDefaultView(goModelId?: string) : string {
     if(!goModelId)
       return environment.noctuaGraphViewUrl;
-    return this.getGraphView(goModelId);    
+    return this.getGraphView(goModelId);
   }
 
   getGraphView(goModelId: string) : string {
-    let model = this.curieService.getCurie(goModelId);
+    let model = goModelId;
+    if(model.includes("http"))
+      model = this.curieService.getCurie(goModelId);
     return environment.noctuaGraphViewUrl + model;
   }
 

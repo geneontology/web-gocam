@@ -231,7 +231,11 @@ mat-hint {
 //   bottom: 5px;
 //   left: 5px;
   text-align: left;
-  padding: 5px;
+  padding: calc(5px + 0.5vw);
+
+  &__citation {
+    color: green
+  }
 }
 
 .row__article {

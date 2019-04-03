@@ -30,6 +30,39 @@ export class GoRESTService {
   //
   //==================================================================================
 
+  /** 
+   * TO BE DELETED: temporary version loading a json file without API call
+  */
+  TEMPLIST(): Observable<GOCam[]>  {
+    let url = "https://s3.amazonaws.com/geneontology-public/gocam/gocam-models.json"
+    return this.httpClient.get<[GOCam]>(url)
+      .map(res => res);
+  }
+  /** 
+   * TO BE DELETED: temporary version loading a json file without API call
+  */
+ TEMPLISTGO(): Observable<GOCamGO[]> {
+    let url = "https://s3.amazonaws.com/geneontology-public/gocam/gocam-goterms.json"
+    return this.httpClient.get<[GOCamGO]>(url)
+      .map(res => res);
+  }
+  /** 
+   * TO BE DELETED: temporary version loading a json file without API call
+  */
+ TEMPLISTGP(): Observable<GOCamGP[]> {
+    let url = "https://s3.amazonaws.com/geneontology-public/gocam/gocam-gps.json"
+    return this.httpClient.get<[GOCamGP]>(url)
+      .map(res => res);
+  }
+  /** 
+   * TO BE DELETED: temporary version loading a json file without API call
+  */
+ TEMPLISTPMID(): Observable<GOCamPMID[]> {
+    let url = "https://s3.amazonaws.com/geneontology-public/gocam/gocam-pmids.json"    
+   return this.httpClient.get<[GOCamPMID]>(url)
+      .map(res => res);
+  }
+
   getModelList(): Observable<GOCam[]> {
     return this.httpClient.get<[GOCam]>(this.baseUrl + 'models')
       .map(res => res);

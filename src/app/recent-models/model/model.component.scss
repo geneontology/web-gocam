@@ -26,7 +26,7 @@
         }
 
         &__title {
-            font-size: $font-size-xxsmall !important;
+            font-size: calc(8px + .3vw) !important;
             font-style: italic;
             display: inline-block;
             vertical-align: middle;

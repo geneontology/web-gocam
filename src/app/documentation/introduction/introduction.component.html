@@ -19,9 +19,9 @@
   <mat-card-content>
 
     <section class="u-margin-bottom-small">
-      <h2 class="heading-secondary">What is a simple GO annotation ?</h2>
+      <h2 class="heading-secondary">What is a standard GO annotation ?</h2>
       <p>
-        A simple GO annotation is a gene product associated to a GO term, using an
+        A standard GO annotation is a gene product associated to a GO term, using an
         <a href="http://wiki.geneontology.org/index.php/Guide_to_GO_Evidence_Codes" target="blank">evidence code</a> and a supporting reference (a primary research article, for example). The GO term may come from
         any of the three aspects of the GO:
         <a href="http://geneontology.org/page/molecular-function-ontology-guidelines" target="blank">Molecular Function</a> (MF),
@@ -35,7 +35,7 @@
       <div style="width:100%; text-align: center;">
         <!-- GP SECTION -->
         <span matTooltip="A Gene Product" matTooltipPosition="below" matTooltipShowDelay="500">
-          <a href="http://amigo.geneontology.org/amigo/gene_product/UniProtKB:F6ST62" target="blank" class="round-button u-background-color-primary text-centered"
+          <a href="http://amigo.geneontology.org/amigo/gene_product/Xenbase:XB-GENE-478443" target="blank" class="round-button u-background-color-primary text-centered"
             style="width:80px">
             <span style="color:white;vertical-align: sub; font-size:14px">NEDD4</span>
           </a>
@@ -52,10 +52,10 @@
           <a href="http://amigo.geneontology.org/amigo/term/GO:0004842" target="blank" class="round-button u-background-color-primary text-centered"
             style="width:120px; height:85px; border-radius: 12px; padding: 3px">
             <span style="color:white; position: absolute;
-          width: 100%;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%); font-size:14px">Ubiquitin-protein ligase activity</span>
+                          width: 100%;
+                          left: 0;
+                          top: 50%;
+                          transform: translateY(-50%); font-size:14px">Ubiquitin-protein ligase activity</span>
             <span style="position:absolute; bottom: 3px; color:white; font-size:10px; right: 6px">GO:0004842</span>
           </a>
         </span>
@@ -66,63 +66,34 @@
     <section class="u-margin-bottom-small">
       <h2 class="heading-secondary">What is a GO-CAM model ?</h2>
       <p>
-        A GO-CAM model is a combination of simple GO annotations to produce a network of annotations ("model"). Minimally, a model
-        must connect at least two simple annotations. The primary unit of biological modeling, or annotation, in GO-CAM is
-        a molecular activity, e.g. protein kinase activity, of a specific gene product or complex. A molecular activity is
-        an activity carried out at the molecular level by a gene product; this is specified by a term from the GO MF ontology.
-        GO-CAM models are thus connections of GO MF annotations enriched by providing the appropriate context in which that
-        function occurs. All connections in a GO-CAM model, e.g. between a gene product and activity, two activities, or
-        an activity and additional contextual information, are made using clearly defined semantic relations from the Relations
-        Ontology.
+        A GO-CAM model is a combination of standard GO annotations to produce a network of annotations ("model"), that is a more complete model of biological function than the separate annotations. For example, a GO-CAM can represent how the activities of different gene products work together in a pathway or “biological program.” GO-CAM models can connect different pieces of information about the function of a gene product (joining together different annotations for the same gene product), and/or can connect functions of different gene products together by specifying how the activity of one gene product can affect the activity of another gene product. All connections in a GO-CAM model are made using clearly defined semantic relations from the <a href="http://www.obofoundry.org/ontology/ro.html" target="blank">Relations Ontology</a>.
+
       </p>
     </section>
 
 
     <section class="u-margin-bottom-small">
-      <h2 class="heading-secondary">Providing context for molecular activities</h2>
+      <h2 class="heading-secondary">Relating annotations for the same gene product, from different aspects of GO</h2>
       <p>
-        One major difference between simple annotations and GO-CAM models is that the former does not have explicit relations between
+        One major difference between standard annotations and GO-CAM models is that the former does not have explicit relations between
         the gene product being annotated and the GO term. In GO-CAM models, using defined, semantic relations allows us to
-        capture how a gene product’s molecular function relates to other aspects of GO. GO-CAM explicitly defines the relationships
-        between:
-      </p>
-      <ol>
-        <li style="list-style-type: decimal;"> different aspects (MF, BP, CC) of each gene product as defined in GO</li>
-        <li style="list-style-type: decimal;"> the combined functions of different gene products (“pathways”), and </li>
-        <li style="list-style-type: decimal;"> different systems of interacting functions (“modules”).</li>
-      </ol>
-      <p>
-        A molecular activity may act upon another “target” molecule, this can be specified using a gene product identifier (for a
-        protein or a gene) or a term from the ChEBI ontology (for a small molecule). In this case the MF is qualified with
-        "has input [target_id]". A molecular activity occurs in a location: this includes cellular structures (described
-        by a GO CC class (i.e. term), excluding the “macromolecular complex” branch), which can be further nested within
-        larger structures using the appropriate cell and anatomy ontologies. a molecular activity is part of (i.e. helps
-        to accomplish) a biological process, i.e. a biological program that also includes other molecular activities, which
-        is described by a GO BP class (i.e. term). In turn, a biological process can be nested inside an even larger biological
-        process. if the molecular activity occurs during a particular biological phase (e.g. a particular stage in organism
-        development), this can be specified using a term from an appropriate ontology; i.e. any descendant of the term “GO:0044848
-        biological phase”. a molecular activity may also have upstream, causal roles with respect to a process, "acts upstream
-        of" or its precise relationship to a process may not yet be known, in which case the relation would be "acts upstream
-        of or within". Each of these relations may further be qualified by indicating a positive or negative effect, e.g.
-        "acts upstream of, positive effect".
-      </p>
-      <p>
-        <span class="u-vertical-bar-left"></span>
-        To learn more on the relationships used in GO-GAMs, please visit the
-        <a href="http://wiki.geneontology.org/index.php/Noctua#Choosing_the_right_causal_relation_between_activities_.28MFs.29"
-          target="blank">Noctua Curation Platform</a>
+        capture how a gene product’s molecular function relates to other aspects of GO. Specifically, in GO-CAM a gene product’s
+        activity <a href="http://www.ontobee.org/ontology/RO?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FBFO_0000066" target="blank">occurs_in</a> a specific cellular component, meaning that gene product is active in that cellular component
+        (the meaning of a standard GO cellular component annotation). In GO-CAM a gene product’s activity is executed as
+        <a href="http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/BFO_0000050" target="blank">part_of</a> a larger biological process (biological program) which is the meaning of a standard GO biological process
+        annotation. In turn, a biological process can be nested inside an even larger biological process.
       </p>
     </section>
 
     <section class="u-margin-bottom-small">
       <h2 class="heading-secondary">Linking different molecular activities</h2>
       <p>
-        Once the GO-CAM unit has been created (MF + BP + CC), these different units can be linked to each other to represent a Causal
-        Activity Model. The most common relations are directly (positively/negatively) regulates and provides input for,
-        but there are other relations of greater and lesser specificity, depending on what is known. Regulates should be
-        used to denote biological control of a downstream activity. Provides input for should be used when there is no control,
-        but an upstream function creates a molecular entity that is the target of the downstream function, such as in a metabolic
-        pathway.
+        Once the GO-CAM unit has been created (MF + BP + CC), these different units can be linked to each other (via the molecular
+        activity) to represent a Causal Activity Model. The most common relations are directly (<a href="http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002629" target="blank">positively</a> / <a href="http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002630" target="blank">negatively</a>) regulates
+        and <a href="http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002413" target="blank">directly provides input for</a>, but there are other relations of greater and lesser specificity, depending on what
+        is known. Regulates should be used to denote biological control of a downstream activity. Provides input for should
+        be used when there is no control, but an upstream function creates a molecular entity that is the target of the downstream
+        function, such as in a metabolic pathway.
       </p>
 
       <!-- for future cytoscape implementation
@@ -143,11 +114,80 @@
     <section class="u-margin-bottom-small">
       <h2 class="heading-secondary">Noctual Platform to Curate GO-CAMs</h2>
       <p>
-          <span class="u-vertical-bar-left"></span>
-          To learn more about our curation process, please visit the documentation of the
+        <span class="u-vertical-bar-left"></span>
+        To learn more about our curation process, please visit the documentation of the
         <a href="http://wiki.geneontology.org/index.php/Noctua" target="blank">Noctua Curation Platform</a>.
       </p>
     </section>
+
+    <section class="u-margin-bottom-small">
+      <h2 class="heading-secondary">Converting GO-CAMs to standard GO annotations</h2>
+      <p>
+        GO-CAMs can be “decomposed” into the standard GO annotations (connecting a gene product to a single GO term) that they are
+        constructed from. This is accomplished in two ways. The first way is to simply take the GO terms that are connected
+        to a gene product via a defined chain of relations. Specifically, for molecular function annotations, the decomposition
+        starts with the MF (the activity, which is central), and follows the enabled_by edge to the gene product (or complex).
+        For cellular component, it starts with the MF and then traces through enabled_by to get the gene product, and from
+        MF through occurs_in to get the cellular component; biological process is similar except that it traces from MF through
+        part_of to get the biological process (and more than one part_of if the process is nested inside a larger process).
+        The second way is to apply logical reasoning to infer additional GO terms that are not explicitly in the model, but
+        can be inferred from logical definitions (“equivalence axioms”) in the ontology. For instance, if a protein binding
+        activity is enabled by a gene product, and that activity has a directly_regulates relationship to a protein kinase
+        activity, the reasoner can infer that the protein binding activity also meets the definition of the GO term protein
+        kinase activator activity, and that standard annotation will also be made.
+      </p>
+      <h3 class="heading-tertiary">Software</h3>
+      <p>
+        Code handling the export of standard GO annotations from a GO-CAM model is provided by the
+        <a href="https://github.com/geneontology/minerva/" target="blank">Minerva software</a>, which is the data handling backend for Noctua. This code extracts an initial set of proposed
+        standard GO annotations from a model, and then applies filters ensuring that appropriate metadata, such as an ECO
+        evidence code, is obtained for each annotation.
+      </p>
+    </section>
+
+    <section class="u-margin-bottom-small">
+      <h2 class="heading-secondary">Converting GO-CAMs to Simple Interaction Format (SIF)</h2>
+      <p>
+        The GO-CAM format allows representation of details that may be of little interest for certain applications. To enable the
+        simple reuse and visualization of GO-CAMs, we provide two SIF exports that can easily be loaded for instance in
+        <a href="https://cytoscape.org" target="blank">Cytoscape</a>.
+      </p>
+
+      <h3 class="heading-tertiary">go-cam-complete-sif</h3>
+      <p>
+        All molecular functions, biological processes and cellular components as well as their relationships are included in this
+        export. This version essentially contains all the biological facts described in the GO-CAM but does not include any
+        meta-data (e.g. describing evidence, xrefs, contributors, etc.).
+      </p>
+
+      <h3 class="heading-tertiary">go-cam-activity-sif</h3>
+      <p>
+        This export highlights the causal relationships between molecular functions (activities) and the genes carrying out these
+        functions. In essence, they represent a protein-protein interaction network highlighting the positive and negative
+        regulation relationships between activities.
+      </p>
+
+      <h3 class="heading-tertiary">Visualization in Cytoscape</h3>
+      <p>
+        We provide a Cytoscape styling to visualize GO-CAMs:
+        <a href="https://s3.amazonaws.com/geneontology-public/gocam/gocam-styles.xml" target="blank">gocam-styles.xml</a>. 
+        To import this style in Cytoscape: File > Import > Styles from File and select the gocam-styles.xml
+        you downloaded. In the left Control Panel, select the “Style” tab and in the list, select the “GO-CAMs” style. From
+        now on, any GO-CAM imported from a SIF file will be displayed using our recommended styling. To load a GO-CAM SIF
+        export, select in the menu: File > Import > Network from File
+      </p>
+
+      <h3 class="heading-tertiary">Software</h3>
+      <p>
+        The GitHub repository to create the SIF exports is
+        <a href="https://github.com/geneontology/gocam-sif-pyexport" target="blank">https://github.com/geneontology/gocam-sif-pyexport</a>
+
+        You can use this SIF export program with alternate parameters to create other SIF exports from the Turtle files of GO-CAMs
+        available on
+        <a href="https://github.com/geneontology/noctua-models/tree/master/models" target="blank">GitHub</a>.
+      </p>
+    </section>
+
     <br>
 
   </mat-card-content>

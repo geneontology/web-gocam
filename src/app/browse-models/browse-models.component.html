@@ -127,9 +127,10 @@
 
 
                 <div class="row__articles__container">
+                  <div class="row__articles__container__citation">Citations:</div>
                   <span class="row__article" *ngFor="let source of row.pmid">
                     <span matTooltip="{{ articleTooltip }}" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
-                      <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank" (mouseover)=overpmid(source.pmid)>
+                      <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank" (mouseenter)=overpmid(source.pmid)>
                         <mat-icon class="article-icon">library_books</mat-icon>
                       </a>
                     </span>
