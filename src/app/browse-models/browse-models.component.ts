@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, PageEvent, MatTooltip } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UrlHandlerService } from '../core/url-handler.service';
@@ -152,8 +152,10 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGOs(gocams) {
-    //    console.log("fillWithGOs(" + gocams + "): start");
-    this.gotermsSub = this.dataService.getModelsGOs(gocams).subscribe(json => {
+    if(gocams != null) {
+      return;
+    }
+    this.dataService.getAllModelsGOs().subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -167,7 +169,25 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       });
       //      console.log("fillWithGOs(" + gocams + "): done");
       this.fillWithGPs(gocams);
-    });
+  });
+
+    // initial version to load only the GOs needed for the selected gocams
+    // //    console.log("fillWithGOs(" + gocams + "): start");
+    // this.gotermsSub = this.dataService.getModelsGOs(gocams).subscribe(json => {
+    //   var tabelt;
+    //   json.forEach(element => {
+    //     tabelt = this.models.find(item => { return item.gocam == element.gocam });
+    //     if (tabelt) {
+    //       tabelt.bp = this.extractGOs(element, BIOLOGICAL_PROCESS);
+    //       tabelt.mf = this.extractGOs(element, MOLECULAR_FUNCTION);
+    //       tabelt.cc = this.extractGOs(element, CELLULAR_COMPONENT);
+    //     } else {
+    //       console.warn("gocam <" + element.gocam + "> does not seem to have GO-Terms");
+    //     }
+    //   });
+    //   //      console.log("fillWithGOs(" + gocams + "): done");
+    //   this.fillWithGPs(gocams);
+    // });
   }
 
   /**
@@ -176,8 +196,12 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGPs(gocams) {
+    if(gocams != null) {
+      return;
+    }
+
     //    console.log("fillWithGPs(" + gocams + "): start");
-    this.gpSub = this.dataService.getModelsGPs(gocams).subscribe(json => {
+    this.gpSub = this.dataService.getAllModelsGPs().subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -190,6 +214,22 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       //      console.log("fillWithGPs(" + gocams + "): done");
       this.fillWithPMIDs(gocams);
     });
+
+    // initial version to load only the GPs needed for the selected gocams
+    // //    console.log("fillWithGPs(" + gocams + "): start");
+    // this.gpSub = this.dataService.getModelsGPs(gocams).subscribe(json => {
+    //   var tabelt;
+    //   json.forEach(element => {
+    //     tabelt = this.models.find(item => { return item.gocam == element.gocam });
+    //     if (tabelt) {
+    //       tabelt.gp = this.extractGPs(element);
+    //     } else {
+    //       console.warn("gocam <" + element.gocam + "> does not seem to have Gene Products");
+    //     }
+    //   });
+    //   //      console.log("fillWithGPs(" + gocams + "): done");
+    //   this.fillWithPMIDs(gocams);
+    // });
   }
 
   /**
@@ -198,8 +238,11 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithPMIDs(gocams) {
-    //    console.log("fillWithPMIDs(" + gocams + "): start");
-    this.gpSub = this.dataService.getModelsPMIDs(gocams).subscribe(json => {
+    if(gocams != null) {
+      return null;      
+    }
+
+    this.gpSub = this.dataService.getAllModelsPMIDs().subscribe(json => {
       var tabelt;
       json.forEach(element => {
         tabelt = this.models.find(item => { return item.gocam == element.gocam });
@@ -215,6 +258,24 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       this.createSearchField();
       this.updateTable(gocams != null);
     });
+
+    // initial version to load only the PMIDs needed for the selected gocams
+    // this.gpSub = this.dataService.getModelsPMIDs(gocams).subscribe(json => {
+    //   var tabelt;
+    //   json.forEach(element => {
+    //     tabelt = this.models.find(item => { return item.gocam == element.gocam });
+    //     if (tabelt) {
+    //       tabelt.pmid = this.extractPMIDs(element);
+    //     } else {
+    //       console.warn("gocam <" + element.gocam + "> does not seem to have PMIDs");
+    //     }
+    //   });
+    //   if (gocams == null) {
+    //     this.cache.setDetailedModels(this.models);
+    //   }
+    //   this.createSearchField();
+    //   this.updateTable(gocams != null);
+    // });
   }
 
   /** 
@@ -563,14 +624,32 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
 
 
   articleTooltip = "Please wait...";
+  alreadyFetching = false;
   overpmid(pmid) {
+    if(this.alreadyFetching)
+      return;
+
+    this.alreadyFetching = true;
     this.articleTooltip = "Please wait...";
+
+    // console.log("asked to fetch (" + pmid +  ")" )
+    setTimeout(() => {
+      // this.articleTooltip = pmid;
+      this.alreadyFetching = false;
+    }, 1000)
+
     this.pubmed.getMeta(pmid)
       .subscribe(data => {
+        // console.log("PUBMED RETRIEVED: ", data)
         let authors = data.authors[0].name;
         if (data.authors.length > 0)
           authors = data.authors[0].name + " et al."
         this.articleTooltip = data.title + " -- " + authors + " (" + data.source + ", " + data.pubdate + ")";
+        this.alreadyFetching = false;
+        // console.log("AND TOOLTIP: ", this.articleTooltip);
+      }, error => {
+        console.log("Could not retrieve data from PubMed ! ", error);
+        this.articleTooltip = pmid + " (PubMed API Currently Unavailable)";
       })
   }
 
