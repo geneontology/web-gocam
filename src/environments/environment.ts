@@ -36,10 +36,10 @@ export const environment = {
 
   // Use for CURIE <-> IRI
   goContext : "https://github.com/prefixcommons/biocontext/blob/master/registry/go_context.jsonld",
-
+ 
   // Download URL
   gocamTTL : "https://s3.amazonaws.com/geneontology-public/gocam/GO-CAMs.ttl.zip",
-  gocamJNL : "https://s3.amazonaws.com/geneontology-public/gocam/GO-CAMs-blazegraph.jnl.zip",
+  gocamJNL : "https://s3.amazonaws.com/geneontology-public/gocam/blazegraph-production.jnl.gz",
   gocamSIF : "https://s3.amazonaws.com/geneontology-public/gocam/GO-CAMs.sif.zip",
   gocamsCytoscapeStyles : "https://s3.amazonaws.com/geneontology-public/gocam/gocam-styles.xml",
   gocamCTAB : "#",
