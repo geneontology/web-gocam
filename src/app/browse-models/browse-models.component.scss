@@ -389,11 +389,11 @@ mat-hint {
 
 
 .table-button {
-  display: block;
-  width:100%;
+  // display: block;
+  // width:100%;
 
   font-size: $font-size-xxxsmall !important;
-  text-align: center;
+  // text-align: center;
   letter-spacing: 0.5px;
 
   background-color: $color-white;
@@ -480,11 +480,10 @@ mat-hint {
 
 .button-gp {
   display: inline-block !important;
-//  width: auto !important;
+  min-width: 100px;
   margin: 3px;
   padding: 2px 18px;
   word-break: break-word;
-
 }
 
 .button-open {
