@@ -1,9 +1,9 @@
 <mat-card class="mat-elevation-z5">
 
   <div class="top-right">
-      <button mat-raised-button color=primary routerLink="/">
-        Home Page
-        <mat-icon color=white>home</mat-icon>
+    <button mat-raised-button color=primary routerLink="/">
+      Home Page
+      <mat-icon color=white>home</mat-icon>
     </button>
   </div>
 
@@ -36,12 +36,14 @@
       -->
       </div>
     </div>
-    
+
 
     <p class="u-margin-vertical-xsmall" [hidden]="!isLoading">
       <span>
-      <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the content of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association between these entities, explore each model graph by clicking the View button</i>
-    </span>
+        <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the content
+          of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association between
+          these entities, explore each model graph by clicking the View button</i>
+      </span>
     </p>
 
 
@@ -53,22 +55,24 @@
 
         <!-- KEYWORD FILTER -->
         <mat-form-field style="display:inline-block;width:50%;min-width:20%;">
-          <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keyup)="applyFilter($event.target.value)" placeholder="Filter"
-            [(ngModel)]="searchFilter" style="margin:0;padding:0">
+          <input matInput (mouseover)="filterFocus()" (click)="filterFocus()" (keyup)="applyFilter($event.target.value)"
+            placeholder="Filter" [(ngModel)]="searchFilter" style="margin:0;padding:0">
           <mat-hint>Title, GO-Term (BP, MF, CC), Gene Product, Species, PMID, Curator, Group</mat-hint>
         </mat-form-field>
 
         <!-- SELECT DISPLAYED COLUMNS -->
         <mat-form-field class="selectionForm">
-          <mat-select placeholder="Displayed Columns" multiple (selectionChange)="changeSelection($event)" [(ngModel)]="displayedColumns">
+          <mat-select placeholder="Displayed Columns" multiple (selectionChange)="changeSelection($event)"
+            [(ngModel)]="displayedColumns">
             <mat-option *ngFor="let column of allColumns" [value]="column" selected>{{column}}</mat-option>
           </mat-select>
         </mat-form-field>
 
       </div>
-  
 
-      <button mat-raised-button *ngIf="searchFilter && searchFilter.length > 0" (click)="searchFilter = undefined; applyFilter(undefined);" style="margin-top:10px">
+
+      <button mat-raised-button *ngIf="searchFilter && searchFilter.length > 0"
+        (click)="searchFilter = undefined; applyFilter(undefined);" style="margin-top:10px">
         Reset
       </button>
 
@@ -80,14 +84,17 @@
       </section>
       -->
 
-      <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" class="filter__paginator"></mat-paginator>
+      <mat-paginator [pageSizeOptions]="pageSizes" (page)="changeTablePage($event)" class="filter__paginator">
+      </mat-paginator>
 
       <p class="u-margin-vertical-xsmall">
-          <span>
-          <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the content of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association between these entities, explore each model graph by clicking the View button</i>
+        <span>
+          <mat-icon color=primary>info</mat-icon> &nbsp; <i style="vertical-align:super">this table summarizes the
+            content of GO-CAMs in terms of GO-Terms and Gene Products. To get a more detailed view of the association
+            between these entities, explore each model graph by clicking the View button</i>
         </span>
-        </p>
-    
+      </p>
+
 
 
       <!-- TABLE SECTION -->
@@ -98,10 +105,6 @@
 
         <mat-row *matRowDef="let row; columns: displayedColumns;" style="padding:3px;">
         </mat-row>
-
-
-
-
         <!-- TITLE SECTION -->
         <ng-container matColumnDef="Title">
           <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column-title">
@@ -118,7 +121,8 @@
             <div class="row__title">
 
               <div class="row__title__content">
-                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" class="row__title__link">{{row.title}} &nbsp;
+                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" class="row__title__link">{{row.title}}
+                  &nbsp;
                   <br>
                   <hr>
                 </a>
@@ -130,7 +134,8 @@
                   <div class="row__articles__container__citation">Citations:</div>
                   <span class="row__article" *ngFor="let source of row.pmid">
                     <span matTooltip="{{ articleTooltip }}" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
-                      <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank" (mouseenter)=overpmid(source.pmid)>
+                      <a href="{{ urlHandler.getPubMedAbstract(source.pmid) }}" target="_blank"
+                        (mouseenter)=overpmid(source.pmid)>
                         <mat-icon class="article-icon">library_books</mat-icon>
                       </a>
                     </span>
@@ -138,11 +143,12 @@
                 </div>
 
                 <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" *ngIf="auth.isAuthenticated()">
-                  <span class="row__view-edit" matTooltip="Edit Model" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
+                  <span class="row__view-edit" matTooltip="Edit Model" matTooltipPosition="below"
+                    [matTooltipShowDelay]="0.2">
                     <mat-icon class="row__open">edit</mat-icon>
                   </span>
                 </a>
-                
+
               </div>
 
               <!--
@@ -180,7 +186,7 @@
                     </button>
                 </span>
               -->
-                
+
                 <!-- workbench not suitable for production
                 <span matTooltip="Pathway Graph View" matTooltipPosition="after" [matTooltipShowDelay]="0.2">
                   <a href="{{ urlHandler.getPathwayView(row.gocam) }}" target="blank">
@@ -209,7 +215,8 @@
           <mat-cell *matCellDef="let row" class="cell-block">
 
             <div *ngIf="row?.bp" class="u-width-full">
-              <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" matTooltipPosition="before" [matTooltipShowDelay]="prefs.toolTipDelay">
+              <span matTooltip="{{ bp.definition}}" *ngFor="let bp of row.bp;" matTooltipPosition="before"
+                [matTooltipShowDelay]="prefs.toolTipDelay">
                 <a href="{{ urlHandler.getAmigoTerm(bp.id) }}" target="_blank" class="table-button color-bp">
                   {{ bp.name }}
                 </a>
@@ -229,7 +236,8 @@
           <mat-cell *matCellDef="let row" class="cell-block">
 
             <div *ngIf="row?.mf" class="u-width-full">
-              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay">
+              <span matTooltip="{{ mf.definition }}" *ngFor="let mf of row.mf;" matTooltipPosition="after"
+                [matTooltipShowDelay]="prefs.toolTipDelay">
                 <a href="{{ urlHandler.getAmigoTerm(mf.id) }}" target="_blank" class="table-button color-mf">
                   {{ mf.name }}
                 </a>
@@ -249,8 +257,8 @@
           <mat-cell *matCellDef="let row" class="cell-block">
 
             <div *ngIf="row?.cc" class="u-width-full">
-              <span matTooltip="{{ cc.definition }}" *ngFor="let cc of row.cc;" matTooltipPosition="after" [matTooltipShowDelay]="prefs.toolTipDelay"
-                style="text-align:center">
+              <span matTooltip="{{ cc.definition }}" *ngFor="let cc of row.cc;" matTooltipPosition="after"
+                [matTooltipShowDelay]="prefs.toolTipDelay" style="text-align:center">
                 <a href="{{ urlHandler.getAmigoTerm(cc.id) }}" target="_blank" class="table-button color-cc">
                   {{ cc.name }}
                 </a>
@@ -299,7 +307,8 @@
           <mat-cell *matCellDef="let row" [style.color]="row.color" class="mat-column-align-right">
 
             <div *ngFor="let name of row.names; let i = index" [attr.data-index]="i" style="width:100%">
-              <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1" class="a-vertical-displacement a-font-weight">{{simplifyName(name)}}</a>
+              <a routerLink="/users/{{utils.extractORCID(row.orcids[i])}}" *ngIf="row.orcids[i].indexOf('GOC:') == -1"
+                class="a-vertical-displacement a-font-weight">{{simplifyName(name)}}</a>
               <span *ngIf="row.orcids[i].indexOf('GOC:') != -1">{{name}}</span>
             </div>
 
@@ -317,7 +326,8 @@
 
             <!-- 161204 -->
             <span *ngFor="let name of row.groupnames; let i = index" [attr.data-index]="i" style="width:100%">
-              <a routerLink="/groups/{{name}}" *ngIf="row.groupids[i]" class="a-vertical-displacement a-font-weight">{{name}}</a>
+              <a routerLink="/groups/{{name}}" *ngIf="row.groupids[i]"
+                class="a-vertical-displacement a-font-weight">{{name}}</a>
               <span *ngIf="!row.groupids[i]">{{name}}</span>
             </span>
 

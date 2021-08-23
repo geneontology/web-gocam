@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UrlHandlerService } from '../../core/url-handler.service';
 import { UtilsService } from '../../core/utils.service';
-import { MatTableDataSource } from '@angular/material';
 import { AbstractDataService } from '../../core/abstract-data.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-group-profile',
@@ -43,14 +43,14 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
         this.dataService.getGroupModelList(this.group).subscribe(json => {
           this.newGroupMeta = json;
           // console.log("ori: ", this.newGroupMeta);
-  
+
           this.mapCuratorGOCams = new Map();
           var mapOrcids = new Map();
           for (let row of this.newGroupMeta) {
             for (var i = 0; i < row.names.length; i++) {
               var name = row.names[i];
 
-              if(!this.groupMeta.find(elt => {
+              if (!this.groupMeta.find(elt => {
                 return elt.name == name;
               })) continue;
 
@@ -62,26 +62,26 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
                 this.mapCuratorGOCams.set(name, set);
               }
               set.add(row.gocam);
-  
-              if(!mapOrcids.has(name)) {
+
+              if (!mapOrcids.has(name)) {
                 mapOrcids.set(name, row.orcids[i]);
               }
             }
           }
-  
+
           // console.log("map: ", this.mapCuratorGOCams);
-  
+
           var newJson = [];
-  
-          Array.from(this.mapCuratorGOCams.entries()).forEach(([key, value])=> {
-            newJson.push({ name: key, orcid: mapOrcids.get(key), gocams: value.size, bps: "N/A" } );
+
+          Array.from(this.mapCuratorGOCams.entries()).forEach(([key, value]) => {
+            newJson.push({ name: key, orcid: mapOrcids.get(key), gocams: value.size, bps: "N/A" });
           })
-                          
+
           // console.log("json: ", newJson);
           this.groupMeta = newJson;
           this.dataSource = new MatTableDataSource(this.groupMeta);
           this.isLoading = false;
-  
+
         })
 
       });
@@ -95,7 +95,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   }
 
   nbGOCAMs() {
-    if(!this.newGroupMeta) return 'N/A';
+    if (!this.newGroupMeta) return 'N/A';
     return this.newGroupMeta.length;
     // var nb = 0;
     // this.groupMeta.forEach(element => {
@@ -105,7 +105,7 @@ export class GroupProfileComponent implements OnInit, OnDestroy {
   }
 
   nbContributors() {
-    if(!this.mapCuratorGOCams) return 'N/A';
+    if (!this.mapCuratorGOCams) return 'N/A';
     return this.mapCuratorGOCams.size;
     // var set = new Set();
     // this.newGroupMeta.forEach(element => {

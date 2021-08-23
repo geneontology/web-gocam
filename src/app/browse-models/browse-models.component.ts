@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent, MatTooltip } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
+import { CurieUtilService } from '../core/curie-util.service';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
+import { Router, ActivatedRoute } from '@angular/router';
 import { UrlHandlerService } from '../core/url-handler.service';
 import { PreferencesService } from '../core/preferences.service';
 import { UtilsService } from '../core/utils.service';
@@ -12,7 +15,7 @@ import { Subject } from 'rxjs/Subject';
 import { AbstractDataService } from '../core/abstract-data.service';
 import { AuthService } from '../shared/auth.service';
 
-import { CurieUtilService } from '../core/curie-util.service';
+
 
 
 
@@ -152,7 +155,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGOs(gocams) {
-    if(gocams != null) {
+    if (gocams != null) {
       return;
     }
     this.dataService.getAllModelsGOs().subscribe(json => {
@@ -169,7 +172,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
       });
       //      console.log("fillWithGOs(" + gocams + "): done");
       this.fillWithGPs(gocams);
-  });
+    });
 
     // initial version to load only the GOs needed for the selected gocams
     // //    console.log("fillWithGOs(" + gocams + "): start");
@@ -196,7 +199,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithGPs(gocams) {
-    if(gocams != null) {
+    if (gocams != null) {
       return;
     }
 
@@ -238,8 +241,8 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
    * @param callback callback function to launch when this task is done. Can be null
    */
   fillWithPMIDs(gocams) {
-    if(gocams != null) {
-      return null;      
+    if (gocams != null) {
+      return null;
     }
 
     this.gpSub = this.dataService.getAllModelsPMIDs().subscribe(json => {
@@ -626,7 +629,7 @@ export class BrowseModelsComponent implements OnInit, OnDestroy {
   articleTooltip = "Please wait...";
   alreadyFetching = false;
   overpmid(pmid) {
-    if(this.alreadyFetching)
+    if (this.alreadyFetching)
       return;
 
     this.alreadyFetching = true;

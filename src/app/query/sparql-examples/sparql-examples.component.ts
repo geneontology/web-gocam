@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PreferencesService } from '../../core/preferences.service';
 import { Observable } from 'rxjs/Observable';
 
-import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SparqlrService } from '../../core/sparqlr.service';
 import { UtilsService } from '../../core/utils.service';
 
 import * as YASQE from 'yasgui-yasqe';
 import { UrlHandlerService } from '../../core/url-handler.service';
 import { AbstractDataService } from '../../core/abstract-data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 var globalVar;
 var globalVarHead;
@@ -52,7 +53,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
   constructor(private dataService: AbstractDataService,
     private sparqlr: SparqlrService,
     private utils: UtilsService,
-    public urlHandler : UrlHandlerService,
+    public urlHandler: UrlHandlerService,
     public prefs: PreferencesService) { }
 
   ngOnInit() {
@@ -81,19 +82,19 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
     this.yasqe.setValue(this.defaultQuery);
 
     this.sub = Observable.interval(1000).subscribe((val) => {
-        //        console.log("timer: ", globalVar);
-        this.jsResponse = globalVar;
-        this.jsHeader = globalVarHead;
-        this.dataSource = new MatTableDataSource(this.jsResponse);
-        this.dataSource.paginator = this.paginator;
-      });
+      //        console.log("timer: ", globalVar);
+      this.jsResponse = globalVar;
+      this.jsHeader = globalVarHead;
+      this.dataSource = new MatTableDataSource(this.jsResponse);
+      this.dataSource.paginator = this.paginator;
+    });
 
   }
 
   ngOnDestroy(): void {
-    if(this.sub)
+    if (this.sub)
       this.sub.unsubscribe();
-    if(this.sparqlrSub)
+    if (this.sparqlrSub)
       this.sparqlrSub.unsubscribe();
     this.query = undefined;
     this.jsResponse = undefined;
@@ -111,14 +112,14 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
       this.template = this.utils.parseYAML(data);
       this.yasqe.setValue(this.template.query);
       this.showQuery = true;
-    /*
-      if(!this.template.variables) {
-        this.yasqe.setValue(this.template.query);
-        this.showQuery = true;
-      } else {
-        this.yasqe.setValue("");
-      }
-      */
+      /*
+        if(!this.template.variables) {
+          this.yasqe.setValue(this.template.query);
+          this.showQuery = true;
+        } else {
+          this.yasqe.setValue("");
+        }
+        */
     })
   }
 
@@ -152,7 +153,7 @@ export class SparqlExamplesComponent implements OnInit, OnDestroy {
       });
 
       globalVarHead = data.responseJSON.head.vars;
-//      console.log(globalVar);
+      //      console.log(globalVar);
     } else {
       globalVar = undefined;
       globalVarHead = undefined;
