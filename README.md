@@ -1,6 +1,6 @@
 # GO-CAMs Site
 
-This is the angular application serving the [geneontology.org/gocam](http://geneontology.org/gocam) site for [GO-CAMs](https://github.com/geneontology/noctua-models)
+This is the angular application serving the [geneontology.org/go-cam](http://geneontology.org/go-cam) site for [GO-CAMs](https://github.com/geneontology/noctua-models)
 
 ## Development server
 
