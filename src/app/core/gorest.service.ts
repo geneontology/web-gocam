@@ -19,7 +19,7 @@ export class GoRESTService {
   baseUrl = environment.apiUrl;
 
   constructor(private httpClient: HttpClient,
-              private utils: UtilsService) {
+    private utils: UtilsService) {
   }
 
 
@@ -33,33 +33,33 @@ export class GoRESTService {
   /** 
    * TO BE DELETED: temporary version loading a json file without API call
   */
-  TEMPLIST(): Observable<GOCam[]>  {
-    let url = "https://go-public.s3.amazonaws.com/files/gocam-models.json"
+  TEMPLIST(): Observable<GOCam[]> {
+    let url = `${environment.cacheBaseUrl}gocam-models.json`
     return this.httpClient.get<[GOCam]>(url)
       .map(res => res);
   }
   /** 
    * TO BE DELETED: temporary version loading a json file without API call
   */
- TEMPLISTGO(): Observable<GOCamGO[]> {
-    let url = "https://go-public.s3.amazonaws.com/files/gocam-goterms.json"
+  TEMPLISTGO(): Observable<GOCamGO[]> {
+    let url = `${environment.cacheBaseUrl}gocam-goterms.json`
     return this.httpClient.get<[GOCamGO]>(url)
       .map(res => res);
   }
   /** 
    * TO BE DELETED: temporary version loading a json file without API call
   */
- TEMPLISTGP(): Observable<GOCamGP[]> {
-    let url = "https://go-public.s3.amazonaws.com/files/gocam-gps.json"
+  TEMPLISTGP(): Observable<GOCamGP[]> {
+    let url = `${environment.cacheBaseUrl}gocam-gps.json`
     return this.httpClient.get<[GOCamGP]>(url)
       .map(res => res);
   }
   /** 
    * TO BE DELETED: temporary version loading a json file without API call
   */
- TEMPLISTPMID(): Observable<GOCamPMID[]> {
-    let url = "https://go-public.s3.amazonaws.com/files/gocam-pmids.json"
-   return this.httpClient.get<[GOCamPMID]>(url)
+  TEMPLISTPMID(): Observable<GOCamPMID[]> {
+    let url = `${environment.cacheBaseUrl}gocam-pmids.json`
+    return this.httpClient.get<[GOCamPMID]>(url)
       .map(res => res);
   }
 
