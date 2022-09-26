@@ -7,40 +7,40 @@ import { CurieUtilService } from './curie-util.service';
 @Injectable()
 export class UrlHandlerService {
 
-  constructor(private curieService : CurieUtilService) { }
+  constructor(private curieService: CurieUtilService) { }
 
-  
-  getAPIDoc() : string {
+
+  getAPIDoc(): string {
     return environment.swaggerUrl;
   }
 
-  getAPI() : string {
+  getAPI(): string {
     return environment.apiUrl;
   }
 
 
-  getSPARQLDoc() : string {
-//    return "query/sparql-examples";
+  getSPARQLDoc(): string {
+    //    return "query/sparql-examples";
     return environment.sparqlUrl + "#query";
   }
 
-  getSPARQL() : string {
+  getSPARQL(): string {
     return environment.sparqlUrl + "sparql";
   }
 
 
-  getNoctuaPlatform() : string {
+  getNoctuaPlatform(): string {
     return environment.noctuaUrl;
   }
 
-  getAmigoTerm(goterm: string) : string {
+  getAmigoTerm(goterm: string): string {
     let curieGOTerm = this.curieService.getCurie(goterm);
     return environment.amigoTermUrl + curieGOTerm;
   }
 
 
 
-  getGOContext() : string {
+  getGOContext(): string {
     return environment.goContext;
   }
 
@@ -58,104 +58,112 @@ export class UrlHandlerService {
 
 
 
-  getDefaultView(goModelId?: string) : string {
-    if(!goModelId)
+  getDefaultView(goModelId?: string): string {
+    if (!goModelId)
       return environment.noctuaGraphViewUrl;
     return this.getGraphView(goModelId);
   }
 
-  getGraphView(goModelId: string) : string {
+  getGraphView(goModelId: string): string {
     let model = goModelId;
-    if(model.includes("http"))
+    if (model.includes("http"))
       model = this.curieService.getCurie(goModelId);
     return environment.noctuaGraphViewUrl + model;
   }
 
-  getPathwayView(goModelId: string) : string {
+  getPathwayView(goModelId: string): string {
     let model = this.curieService.getCurie(goModelId);
     return environment.noctuaPathwayViewUrl + model;
   }
 
+  getAlliancePathwayView(goModelId: string): string {
+    let model = goModelId;
+    if (model.includes("http")) {
+      model = this.curieService.getCurie(goModelId);
+    }
+    return environment.noctuaAlliancePathwayViewUrl + model;
+  }
 
-  getPubMedAbstract(pmid: string) : string {
+
+  getPubMedAbstract(pmid: string): string {
     let modpmid = pmid.replace("PMID:", "");
     return environment.pubmedUrl + modpmid;
   }
 
 
-  getDocGOCAM() : string {
+  getDocGOCAM(): string {
     return environment.docGOCAM;
   }
 
-  getDocResearch() : string {
+  getDocResearch(): string {
     return environment.docResearch;
   }
 
-  getDocCuration() : string {
+  getDocCuration(): string {
     return environment.docCuration;
   }
 
-  getDocDevelopment() : string {
+  getDocDevelopment(): string {
     return environment.docDevelopment;
   }
 
-  getDocGOAnnotation() : string {
-    return environment.goAnnotations;    
+  getDocGOAnnotation(): string {
+    return environment.goAnnotations;
   }
 
-  getGOContributors() : string {
+  getGOContributors(): string {
     return environment.goContributors;
   }
 
 
-  downloadTTL() : string {
+  downloadTTL(): string {
     return environment.gocamTTL;
   }
 
-  downloadJNL() : string {
+  downloadJNL(): string {
     return environment.gocamJNL;
   }
 
-  downloadSIF() : string {
+  downloadSIF(): string {
     return environment.gocamSIF;
   }
 
-  downloadCTAB() : string {
+  downloadCTAB(): string {
     return environment.gocamCTAB;
   }
 
-  downloadGOAnnotations() : string {
+  downloadGOAnnotations(): string {
     return environment.goAnnotationsDL;
   }
 
 
-  getGO() : string {
+  getGO(): string {
     return environment.goUrl;
   }
 
-  getOBOFoundry() : string {
+  getOBOFoundry(): string {
     return environment.oboFoundryUrl;
   }
 
 
-  getLicence() : string {
+  getLicence(): string {
     return environment.licence;
   }
 
-  getTermsOfUse() : string {
+  getTermsOfUse(): string {
     return environment.termsOfUse;
   }
 
-  getCiteUs() : string {
+  getCiteUs(): string {
     return environment.citeUs;
   }
 
-  getContactUs() : string {
+  getContactUs(): string {
     return environment.contactUs;
   }
 
 
-  getORCID(orcid: string) : string {
+  getORCID(orcid: string): string {
     return environment.orcidUrl + orcid;
   }
 
