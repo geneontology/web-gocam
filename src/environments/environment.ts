@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  cacheBaseUrl: 'https://go-public.s3.amazonaws.com/files/',
+  cacheBaseUrl: 'https://s3.amazonaws.com/geneontology-public/gocam-test/',
   production: false,
 
   // Use the SPARQL endpoint or the API endpoint to fetch the data
