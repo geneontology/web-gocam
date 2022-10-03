@@ -118,7 +118,7 @@
             <div class="row__title">
 
               <div class="row__title__content">
-                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" class="row__title__link">{{row.title}} &nbsp;
+                <a href="{{ urlHandler.getAlliancePathwayView(row.gocam) }}" target="blank" class="row__title__link">{{row.title}} &nbsp;
                   <br>
                   <hr>
                 </a>
@@ -137,7 +137,7 @@
                   </span>
                 </div>
 
-                <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" *ngIf="auth.isAuthenticated()">
+                <a href="{{ urlHandler.getAlliancePathwayView(row.gocam) }}" target="blank" *ngIf="auth.isAuthenticated()">
                   <span class="row__view-edit" matTooltip="Edit Model" matTooltipPosition="below" [matTooltipShowDelay]="0.2">
                     <mat-icon class="row__open">edit</mat-icon>
                   </span>
@@ -146,7 +146,7 @@
               </div>
 
               <!--
-            <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank" class="row__title">
+            <a href="{{ urlHandler.getAlliancePathwayView(row.gocam) }}" target="blank" class="row__title">
               <span class="row__view-primary" matTooltip="Open Graph View" matTooltipPosition="below" [matTooltipShowDelay]="0.2">G
                 <mat-icon class="row__open">open_in_new</mat-icon>
               </span>
@@ -162,7 +162,7 @@
               <div class="row__title__actions">
 
                 <span matTooltip="Open Graph View" matTooltipPosition="after" [matTooltipShowDelay]="0.2">
-                  <a href="{{ urlHandler.getGraphView(row.gocam) }}" target="blank">
+                  <a href="{{ urlHandler.getAlliancePathwayView(row.gocam) }}" target="blank">
                     <button mat-button class="button-open">
                       <span>View &nbsp;
                         <mat-icon>open_in_new</mat-icon>

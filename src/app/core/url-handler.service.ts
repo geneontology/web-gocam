@@ -76,6 +76,13 @@ export class UrlHandlerService {
     return environment.noctuaPathwayViewUrl + model;
   }
 
+  getAlliancePathwayView(goModelId: string): string {
+    let model = goModelId;
+    if (model.includes("http")) {
+      model = this.curieService.getCurie(goModelId);
+    }
+    return environment.noctuaAlliancePathwayViewUrl + model;
+  }
 
   getPubMedAbstract(pmid: string) : string {
     let modpmid = pmid.replace("PMID:", "");
