@@ -16,6 +16,7 @@ export const environment = {
   // External URL to explore a GO-Term or GO-CAM
   noctuaUrl :  "http://noctua.geneontology.org/",
   noctuaGraphViewUrl : "http://noctua.geneontology.org/editor/graph/",
+  noctuaAlliancePathwayViewUrl: 'http://noctua.geneontology.org/workbench/noctua-alliance-pathway-preview/?model_id=',
   noctuaPathwayViewUrl : "http://noctua.geneontology.org/workbench/pathwayview/?model_id=",
   amigoUrl : "http://amigo.geneontology.org/",
   amigoTermUrl : "http://amigo.geneontology.org/amigo/term/",
