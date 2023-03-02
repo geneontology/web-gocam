@@ -48,7 +48,7 @@
             <img src="./assets/NEDD4-noctua.png" class="small-border" style="width:100%;">
           </a>
         </mat-tab>
-  
+
         <!--
         <mat-tab label="DLK-1 Example">
           <a href="{{ urlHandler.getDefaultView('gomodel:57c82fad00000847') }}" target="_blank" alt="GO-CAM Example: DLK-1">
@@ -66,13 +66,8 @@
       <li>As “pathway diagrams” that can be
         <a routerLink="/browse">browsed and visualized</a>.
       </li>
-      <li>As networks representing the causal interactions between the activities of different gene products (we provide Cytoscape
-        <a href="http://manual.cytoscape.org/en/stable/Supported_Network_File_Formats.html#sif-format" target="blank">Simple Interaction Format</a>).
-      </li>
       <li>As full GO-CAM graphs that can be
-        <a href="https://www.w3.org/TeamSubmission/turtle/" target="blank">downloaded (as RDF Turtle)</a> and queried via
-        <a href="{{ urlHandler.getSPARQLDoc() }}" target="blank">SPARQL</a> and 
-        <a href="{{ urlHandler.getAPIDoc() }}" target="blank">REST</a>.
+        <a href="https://www.w3.org/TeamSubmission/turtle/" target="blank">downloaded (as RDF Turtle)</a> and downloaded at our <a href="https://github.com/geneontology/noctua-models" target="blank">GitHub repository</a>.
       </li>
       <li>
         <p>As “reduced” pairwise GO annotations, included in the
@@ -101,7 +96,6 @@
       <mat-icon color=primary>share</mat-icon>
     </button>
 
-  
     <mat-menu #shareMenu="matMenu">
       <share-button button="email" text="EMail" [showText]="true" title="Check GO-CAM Website !" description="I want to share with you the new Gene Ontology Causal Activity Models website"></share-button>
       <share-button button="twitter" text="Tweet" [showText]="true" tags="GO" description="Check the new Gene Ontology Causal Activity Models website: "></share-button>
